@@ -1,4 +1,3 @@
-
 package models;
 
 import java.io.Serializable;
@@ -18,6 +17,7 @@ import javax.persistence.OneToMany;
  */
 @Entity
 public class Inmueble implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -25,12 +25,18 @@ public class Inmueble implements Serializable {
     @Column(nullable = false)
     private String direccion;
 
- 
+    @Column(nullable = false)
+    private boolean alta;
 
     @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contrato> contratos = new ArrayList<>();
 
     public Inmueble() {
+    }
+
+    public Inmueble(String direccion, boolean alta) {
+        this.direccion = direccion;
+        this.alta = alta;
     }
 
     public Long getId() {
@@ -61,6 +67,5 @@ public class Inmueble implements Serializable {
     public String toString() {
         return "Inmueble{" + "id=" + id + ", direccion=" + direccion + ", contratos=" + contratos + '}';
     }
-    
-    
+
 }

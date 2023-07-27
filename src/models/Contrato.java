@@ -44,6 +44,9 @@ public class Contrato implements Serializable {
     
     @Column(nullable = false)
     private int indexacionMeses;
+    
+    @Column(nullable = false)
+    private boolean alta;
 
     public Contrato() {
     }
@@ -102,6 +105,14 @@ public class Contrato implements Serializable {
 
     public void setIndexacionMeses(int indexacionMeses) {
         this.indexacionMeses = indexacionMeses;
+    }
+
+    public boolean isAlta() {
+        return alta;
+    }
+
+    public void setAlta(boolean alta) {
+        this.alta = alta;
     }
 
     @Override
