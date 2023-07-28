@@ -28,14 +28,17 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jTextField3 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JSeparator();
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jButton5 = new javax.swing.JButton();
@@ -49,6 +52,8 @@ public class Principal extends javax.swing.JFrame {
         jButton9 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
+        setUndecorated(true);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
@@ -57,6 +62,27 @@ public class Principal extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0, 102, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator3.setPreferredSize(new java.awt.Dimension(100, 10));
+        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 200, -1));
+
+        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator2.setPreferredSize(new java.awt.Dimension(100, 10));
+        jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 200, -1));
+
+        jTextField3.setBackground(new java.awt.Color(0, 102, 255));
+        jTextField3.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        jTextField3.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        jTextField3.setText("CUIT INQULINO");
+        jTextField3.setBorder(null);
+        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField3ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 220, 40));
+
         jLabel1.setBackground(new java.awt.Color(0, 102, 255));
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 42)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -64,12 +90,12 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setText("HA INMUEBLES");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 360, 77));
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
+        jTextField2.setBackground(new java.awt.Color(0, 102, 255));
         jTextField2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(102, 102, 102));
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
+        jTextField2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         jTextField2.setText("DIRECCION INMUEBLE");
-        jTextField2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jTextField2.setBorder(null);
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField2ActionPerformed(evt);
@@ -83,19 +109,6 @@ public class Principal extends javax.swing.JFrame {
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("LISTAR:");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 360, 20));
-
-        jTextField3.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField3.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(102, 102, 102));
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        jTextField3.setText("CUIT INQULINO");
-        jTextField3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 220, 40));
 
         jButton1.setBackground(new java.awt.Color(0, 51, 153));
         jButton1.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
@@ -139,13 +152,17 @@ public class Principal extends javax.swing.JFrame {
         jButton4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 220, 40));
 
+        jSeparator4.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator4.setPreferredSize(new java.awt.Dimension(100, 10));
+        jPanel2.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 190, 200, -1));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 480));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Agregar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(102, 102, 102))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Agregar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
 
         jButton5.setBackground(new java.awt.Color(0, 51, 153));
         jButton5.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
@@ -190,7 +207,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel3.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 450, 100));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Modificar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(102, 102, 102))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Modificar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
 
         jButton6.setBackground(new java.awt.Color(0, 51, 153));
         jButton6.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
@@ -230,7 +247,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel3.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 100));
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dar de baja", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(102, 102, 102))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Dar de baja", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
 
         jButton10.setBackground(new java.awt.Color(0, 51, 153));
         jButton10.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
@@ -348,6 +365,9 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables

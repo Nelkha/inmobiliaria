@@ -32,6 +32,7 @@ public class InmbuebleForm extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jButton9 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
@@ -42,6 +43,8 @@ public class InmbuebleForm extends javax.swing.JFrame {
         lblMensaje = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
+        setUndecorated(true);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
@@ -54,8 +57,15 @@ public class InmbuebleForm extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 42)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("NUEVO INMUEBLE");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 360, 77));
+        jLabel1.setText("INMUEBLE");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, 360, 77));
+
+        jLabel2.setBackground(new java.awt.Color(0, 102, 255));
+        jLabel2.setFont(new java.awt.Font("Roboto", 1, 42)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("NUEVO");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 160, 360, 77));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 480));
 
@@ -76,8 +86,9 @@ public class InmbuebleForm extends javax.swing.JFrame {
         jPanel3.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 160, 40));
 
         jLabel4.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("ADVERTENCIA: CERRAR EL FORMULARIO NO GUARDA NINGUN CAMBIO");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 470, -1));
 
         txtAltura.setBackground(new java.awt.Color(255, 255, 255));
         txtAltura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -186,6 +197,7 @@ txtAltura.setText("");
     private javax.swing.JButton guardarBoton;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
