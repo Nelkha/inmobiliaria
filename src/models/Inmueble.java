@@ -28,6 +28,16 @@ public class Inmueble implements Serializable {
     @Column(nullable = false)
     private boolean alta;
 
+    public boolean isAlta() {
+        
+        
+        return alta;
+    }
+
+    public void setAlta(boolean alta) {
+        this.alta = alta;
+    }
+
     @OneToMany(mappedBy = "inmueble", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Contrato> contratos = new ArrayList<>();
 

@@ -21,6 +21,20 @@ public class InmuebleServicio {
         return inmuebleJpa.findInmuebleEntities();
     }
 
+    public String getAlta(Inmueble inm) {
+        String alta;
+        if (inm.isAlta()) {
+            alta = "ALTA";
+            return alta;
+
+        } else {
+            alta
+                    = "BAJA";
+            return alta;
+        }
+
+    }
+
     public String guardar(Inmueble inmueble) {
         inmuebles = inmuebleJpa.findInmuebleEntities();
         String mensaje;

@@ -6,7 +6,6 @@ package views;
 
 import java.awt.BorderLayout;
 
-
 public class Principal extends javax.swing.JFrame {
 
     /**
@@ -14,12 +13,12 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
-        CrudForm crud=new CrudForm();
-        crud.setSize(490,480);
-        crud.setLocation(0,0);
-        
+        CrudForm crud = new CrudForm();
+        crud.setSize(490, 480);
+        crud.setLocation(0, 0);
+
         contentP.removeAll();
-        contentP.add(crud, new org.netbeans.lib.awtextra.AbsoluteConstraints(0,0,-1,-1));
+        contentP.add(crud, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         contentP.revalidate();
         contentP.repaint();
     }
@@ -41,7 +40,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnListInm = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
@@ -108,18 +107,18 @@ public class Principal extends javax.swing.JFrame {
         jLabel2.setText("LISTAR:");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 270, 360, 20));
 
-        jButton1.setBackground(new java.awt.Color(0, 51, 153));
-        jButton1.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("LISTAR TODOS LOS INMUEBLES");
-        jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jButton1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnListInm.setBackground(new java.awt.Color(0, 51, 153));
+        btnListInm.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
+        btnListInm.setForeground(new java.awt.Color(255, 255, 255));
+        btnListInm.setText("LISTAR TODOS LOS INMUEBLES");
+        btnListInm.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnListInm.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnListInm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnListInmActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 220, 40));
+        jPanel2.add(btnListInm, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 410, 220, 40));
 
         jButton3.setBackground(new java.awt.Color(0, 51, 153));
         jButton3.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
@@ -204,9 +203,16 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnListInmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListInmActionPerformed
+        InmList inmList = new InmList();
+        inmList.setSize(490, 480);
+        inmList.setLocation(0, 0);
+
+        contentP.removeAll();
+        contentP.add(inmList, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        contentP.revalidate();
+        contentP.repaint();
+    }//GEN-LAST:event_btnListInmActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
@@ -217,12 +223,12 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        CrudForm crud=new CrudForm();
-        crud.setSize(490,480);
-        crud.setLocation(0,0);
-        
+        CrudForm crud = new CrudForm();
+        crud.setSize(490, 480);
+        crud.setLocation(0, 0);
+
         contentP.removeAll();
-        contentP.add(crud, new org.netbeans.lib.awtextra.AbsoluteConstraints(0,0,-1,-1));
+        contentP.add(crud, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         contentP.revalidate();
         contentP.repaint();
     }//GEN-LAST:event_jButton4ActionPerformed
@@ -230,11 +236,10 @@ public class Principal extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnListInm;
     private javax.swing.JPanel contentP;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
