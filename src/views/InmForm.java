@@ -55,6 +55,16 @@ public class InmForm extends javax.swing.JPanel {
         txtCalle.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtCalle.setText("CALLE DEL INMUEBLE");
         txtCalle.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        txtCalle.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtCalleFocusLost(evt);
+            }
+        });
+        txtCalle.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtCalleMouseClicked(evt);
+            }
+        });
         txtCalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtCalleActionPerformed(evt);
@@ -68,6 +78,16 @@ public class InmForm extends javax.swing.JPanel {
         txtAltura.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         txtAltura.setText("ALTURA");
         txtAltura.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        txtAltura.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtAlturaFocusLost(evt);
+            }
+        });
+        txtAltura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtAlturaMouseClicked(evt);
+            }
+        });
         txtAltura.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtAlturaActionPerformed(evt);
@@ -127,6 +147,28 @@ public class InmForm extends javax.swing.JPanel {
         mensajeFinal=inmServ.guardar(inm);
         lblMensaje.setText(mensajeFinal);
     }//GEN-LAST:event_guardarBotonActionPerformed
+
+    private void txtCalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCalleMouseClicked
+       if (txtCalle.getText().equals("CALLE DEL INMUEBLE")) {
+                    txtCalle.setText("");}
+    }//GEN-LAST:event_txtCalleMouseClicked
+
+    private void txtCalleFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCalleFocusLost
+        if (txtCalle.getText().isEmpty()) {
+                    txtCalle.setText("CALLE DEL INMUEBLE");
+                }
+    }//GEN-LAST:event_txtCalleFocusLost
+
+    private void txtAlturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAlturaMouseClicked
+        if (txtAltura.getText().equals("ALTURA")) {
+                    txtAltura.setText("");}
+    }//GEN-LAST:event_txtAlturaMouseClicked
+
+    private void txtAlturaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAlturaFocusLost
+        if (txtAltura.getText().isEmpty()) {
+                    txtAltura.setText("ALTURA");
+                }
+    }//GEN-LAST:event_txtAlturaFocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
