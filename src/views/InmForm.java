@@ -30,6 +30,8 @@ public class InmForm extends javax.swing.JPanel {
     private void initComponents() {
 
         contentIF = new javax.swing.JPanel();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
         lblMensaje = new javax.swing.JLabel();
         txtCalle = new javax.swing.JTextField();
         txtAltura = new javax.swing.JTextField();
@@ -45,16 +47,25 @@ public class InmForm extends javax.swing.JPanel {
         setRequestFocusEnabled(false);
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator3.setPreferredSize(new java.awt.Dimension(100, 10));
+        add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 220, 10));
+
+        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
+        jSeparator2.setPreferredSize(new java.awt.Dimension(100, 10));
+        add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 220, 10));
+
+        lblMensaje.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         lblMensaje.setForeground(new java.awt.Color(255, 0, 0));
-        lblMensaje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 440, 0));
+        lblMensaje.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 440, 20));
 
         txtCalle.setBackground(new java.awt.Color(255, 255, 255));
         txtCalle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtCalle.setForeground(new java.awt.Color(102, 102, 102));
-        txtCalle.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtCalle.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtCalle.setText("CALLE DEL INMUEBLE");
-        txtCalle.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        txtCalle.setBorder(null);
         txtCalle.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtCalleFocusLost(evt);
@@ -75,9 +86,9 @@ public class InmForm extends javax.swing.JPanel {
         txtAltura.setBackground(new java.awt.Color(255, 255, 255));
         txtAltura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtAltura.setForeground(new java.awt.Color(102, 102, 102));
-        txtAltura.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        txtAltura.setHorizontalAlignment(javax.swing.JTextField.LEFT);
         txtAltura.setText("ALTURA");
-        txtAltura.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        txtAltura.setBorder(null);
         txtAltura.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
                 txtAlturaFocusLost(evt);
@@ -123,7 +134,7 @@ public class InmForm extends javax.swing.JPanel {
 
         jLabel5.setForeground(new java.awt.Color(255, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("ADVERTENCIA: VOLVER ATRAS NO GUARDA NINGUN CAMBIO");
+        jLabel5.setText("ADVERTENCIA: TODOS LOS CAMPOS SON REQUERIDOS");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 470, -1));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -141,34 +152,50 @@ public class InmForm extends javax.swing.JPanel {
     }//GEN-LAST:event_limpiarBtn1ActionPerformed
 
     private void guardarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarBotonActionPerformed
-        InmuebleServicio inmServ= new InmuebleServicio();
+        InmuebleServicio inmServ = new InmuebleServicio();
         String mensajeFinal;
-        String direccion=(txtCalle.getText().trim()+" "+txtAltura.getText().trim()).toUpperCase();
-        Inmueble inm= new Inmueble(direccion,true);
-        mensajeFinal=inmServ.guardar(inm);
-        lblMensaje.setText(mensajeFinal);
+        String calle = txtCalle.getText().trim();
+        String alturaStr = txtAltura.getText().trim();
+
+        if (calle.isEmpty() || calle.equals("CALLE DEL INMUEBLE") || alturaStr.isEmpty() || alturaStr.equals("ALTURA")) {
+            lblMensaje.setText("Los campos Calle y Altura son requeridos.");
+        } else {
+
+            try {
+                int altura = Integer.parseInt(alturaStr);
+
+                String direccion = (calle + " " + altura).toUpperCase();
+                Inmueble inm = new Inmueble(direccion, true);
+                mensajeFinal = inmServ.guardar(inm);
+                lblMensaje.setText(mensajeFinal);
+            } catch (NumberFormatException e) {
+                lblMensaje.setText("La altura debe ser un número válido.");
+            }
+        }
     }//GEN-LAST:event_guardarBotonActionPerformed
 
     private void txtCalleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtCalleMouseClicked
-       if (txtCalle.getText().equals("CALLE DEL INMUEBLE")) {
-                    txtCalle.setText("");}
+        if (txtCalle.getText().equals("CALLE DEL INMUEBLE")) {
+            txtCalle.setText("");
+        }
     }//GEN-LAST:event_txtCalleMouseClicked
 
     private void txtCalleFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCalleFocusLost
         if (txtCalle.getText().isEmpty()) {
-                    txtCalle.setText("CALLE DEL INMUEBLE");
-                }
+            txtCalle.setText("CALLE DEL INMUEBLE");
+        }
     }//GEN-LAST:event_txtCalleFocusLost
 
     private void txtAlturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAlturaMouseClicked
         if (txtAltura.getText().equals("ALTURA")) {
-                    txtAltura.setText("");}
+            txtAltura.setText("");
+        }
     }//GEN-LAST:event_txtAlturaMouseClicked
 
     private void txtAlturaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtAlturaFocusLost
         if (txtAltura.getText().isEmpty()) {
-                    txtAltura.setText("ALTURA");
-                }
+            txtAltura.setText("ALTURA");
+        }
     }//GEN-LAST:event_txtAlturaFocusLost
 
 
@@ -176,6 +203,8 @@ public class InmForm extends javax.swing.JPanel {
     private javax.swing.JPanel contentIF;
     private javax.swing.JButton guardarBoton;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JLabel lblMensaje;
     private javax.swing.JButton limpiarBtn1;
     private javax.swing.JTextField txtAltura;

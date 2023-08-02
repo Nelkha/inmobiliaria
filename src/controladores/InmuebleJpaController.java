@@ -60,6 +60,7 @@ public class InmuebleJpaController implements Serializable {
                     oldInmuebleOfContratosContrato = em.merge(oldInmuebleOfContratosContrato);
                 }
             }
+           
             em.getTransaction().commit();
         } finally {
             if (em != null) {
