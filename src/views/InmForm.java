@@ -47,7 +47,7 @@ public class InmForm extends javax.swing.JPanel {
 
         lblMensaje.setForeground(new java.awt.Color(255, 0, 0));
         lblMensaje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 370, -1));
+        add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 440, 0));
 
         txtCalle.setBackground(new java.awt.Color(255, 255, 255));
         txtCalle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -136,13 +136,14 @@ public class InmForm extends javax.swing.JPanel {
     }//GEN-LAST:event_txtAlturaActionPerformed
 
     private void limpiarBtn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_limpiarBtn1ActionPerformed
-        // TODO add your handling code here:
+        txtCalle.setText("CALLE DEL INMUEBLE");
+        txtAltura.setText("ALTURA");
     }//GEN-LAST:event_limpiarBtn1ActionPerformed
 
     private void guardarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarBotonActionPerformed
         InmuebleServicio inmServ= new InmuebleServicio();
         String mensajeFinal;
-        String direccion=txtCalle.getText().trim()+" "+txtAltura.getText().trim();
+        String direccion=(txtCalle.getText().trim()+" "+txtAltura.getText().trim()).toUpperCase();
         Inmueble inm= new Inmueble(direccion,true);
         mensajeFinal=inmServ.guardar(inm);
         lblMensaje.setText(mensajeFinal);
