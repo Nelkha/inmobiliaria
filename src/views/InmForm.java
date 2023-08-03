@@ -47,11 +47,11 @@ public class InmForm extends javax.swing.JPanel {
         setRequestFocusEnabled(false);
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jSeparator10.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator10.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator10.setForeground(new java.awt.Color(0, 0, 0));
         add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 130, 10));
 
-        jSeparator8.setBackground(new java.awt.Color(0, 0, 0));
+        jSeparator8.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator8.setForeground(new java.awt.Color(0, 0, 0));
         add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 130, 20));
 
