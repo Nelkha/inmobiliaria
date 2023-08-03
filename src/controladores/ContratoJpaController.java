@@ -28,6 +28,7 @@ public class ContratoJpaController implements Serializable {
         this.emf = emf;
     }
     private EntityManagerFactory emf = null;
+
     public ContratoJpaController() {
         this.emf = Persistence.createEntityManagerFactory("InmobiliariaPU");
     }
@@ -36,7 +37,15 @@ public class ContratoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void create(Contrato contrato) {
+    public void agregarImportesAlquiler(Contrato contrato, List<Double> importesAlquiler) {
+        contrato.setImportesAlquiler(importesAlquiler);
+    }
+
+    public List<Double> obtenerImportesAlquiler(Contrato contrato) {
+        return contrato.getImportesAlquiler();
+    }
+
+    public void create(Contrato contrato, List<Double> importesAlquiler) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -61,6 +70,14 @@ public class ContratoJpaController implements Serializable {
                 inmueble = em.merge(inmueble);
             }
             em.getTransaction().commit();
+
+            
+            agregarImportesAlquiler(contrato, importesAlquiler);
+
+            
+            em.getTransaction().begin();
+            contrato = em.merge(contrato);
+            em.getTransaction().commit();
         } finally {
             if (em != null) {
                 em.close();
@@ -68,7 +85,7 @@ public class ContratoJpaController implements Serializable {
         }
     }
 
-    public void edit(Contrato contrato) throws NonexistentEntityException, Exception {
+    public void edit(Contrato contrato, List<Double> importesAlquiler) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -103,6 +120,14 @@ public class ContratoJpaController implements Serializable {
                 inmuebleNew.getContratos().add(contrato);
                 inmuebleNew = em.merge(inmuebleNew);
             }
+            em.getTransaction().commit();
+
+            
+            contrato.setImportesAlquiler(importesAlquiler);
+
+            
+            em.getTransaction().begin();
+            contrato = em.merge(contrato);
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -196,5 +221,5 @@ public class ContratoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

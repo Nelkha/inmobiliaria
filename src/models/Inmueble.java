@@ -27,6 +27,8 @@ public class Inmueble implements Serializable {
 
     @Column(nullable = false)
     private boolean alta;
+    
+    
 
     public boolean isAlta() {
         

@@ -35,6 +35,13 @@ public class Inquilino implements Serializable {
     public Inquilino() {
     }
 
+    public Inquilino(String cuit, String nombre, String apellido, String telefono) {
+        this.cuit = cuit;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+    }
+
     public Long getId() {
         return id;
     }

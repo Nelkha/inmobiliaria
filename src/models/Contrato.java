@@ -6,7 +6,11 @@ package models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -41,14 +45,31 @@ public class Contrato implements Serializable {
 
     @Column(nullable = false)
     private double montoAlquiler;
-    
+
     @Column(nullable = false)
     private int indexacionMeses;
-    
+
     @Column(nullable = false)
     private boolean alta;
 
+    @ElementCollection
+    @CollectionTable(name = "importes_alquiler", joinColumns = @JoinColumn(name = "contrato_id"))
+    @Column(name = "importe")
+    private List<Double> importesAlquiler;
+
     public Contrato() {
+    }
+
+    public Contrato(Long id, Inquilino inquilino, Inmueble inmueble, LocalDate fechaInicio, LocalDate fechaFin, double montoAlquiler, int indexacionMeses, boolean alta, List<Double> importesAlquiler) {
+        this.id = id;
+        this.inquilino = inquilino;
+        this.inmueble = inmueble;
+        this.fechaInicio = fechaInicio;
+        this.fechaFin = fechaFin;
+        this.montoAlquiler = montoAlquiler;
+        this.indexacionMeses = indexacionMeses;
+        this.alta = alta;
+        this.importesAlquiler = new ArrayList<>();
     }
 
     public Long getId() {
@@ -115,10 +136,17 @@ public class Contrato implements Serializable {
         this.alta = alta;
     }
 
+    public List<Double> getImportesAlquiler() {
+        return importesAlquiler;
+    }
+
+    public void setImportesAlquiler(List<Double> importesAlquiler) {
+        this.importesAlquiler = importesAlquiler;
+    }
+
     @Override
     public String toString() {
         return "Contrato{" + "id=" + id + ", inquilino=" + inquilino + ", inmueble=" + inmueble + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", montoAlquiler=" + montoAlquiler + ", indexacionMeses=" + indexacionMeses + '}';
     }
 
-    
 }
