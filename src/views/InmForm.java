@@ -30,13 +30,13 @@ public class InmForm extends javax.swing.JPanel {
     private void initComponents() {
 
         contentIF = new javax.swing.JPanel();
-        jSeparator3 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
         lblMensaje = new javax.swing.JLabel();
         txtCalle = new javax.swing.JTextField();
         txtAltura = new javax.swing.JTextField();
         limpiarBtn1 = new javax.swing.JButton();
         guardarBoton = new javax.swing.JButton();
+        jSeparator4 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
 
         contentIF.setBackground(new java.awt.Color(255, 255, 255));
@@ -46,14 +46,6 @@ public class InmForm extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(490, 480));
         setRequestFocusEnabled(false);
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
-        jSeparator3.setPreferredSize(new java.awt.Dimension(100, 10));
-        add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 180, 220, 10));
-
-        jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
-        jSeparator2.setPreferredSize(new java.awt.Dimension(100, 10));
-        add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 110, 220, 10));
 
         lblMensaje.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         lblMensaje.setForeground(new java.awt.Color(255, 0, 0));
@@ -81,7 +73,7 @@ public class InmForm extends javax.swing.JPanel {
                 txtCalleActionPerformed(evt);
             }
         });
-        add(txtCalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 220, 40));
+        add(txtCalle, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 90, 220, 30));
 
         txtAltura.setBackground(new java.awt.Color(255, 255, 255));
         txtAltura.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -131,6 +123,14 @@ public class InmForm extends javax.swing.JPanel {
             }
         });
         add(guardarBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 230, 130, 40));
+
+        jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
+        jSeparator4.setPreferredSize(new java.awt.Dimension(100, 10));
+        add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 220, 10));
+
+        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
+        jSeparator3.setPreferredSize(new java.awt.Dimension(100, 10));
+        add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, 220, 10));
 
         jLabel5.setForeground(new java.awt.Color(255, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -203,8 +203,8 @@ public class InmForm extends javax.swing.JPanel {
     private javax.swing.JPanel contentIF;
     private javax.swing.JButton guardarBoton;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JLabel lblMensaje;
     private javax.swing.JButton limpiarBtn1;
     private javax.swing.JTextField txtAltura;
