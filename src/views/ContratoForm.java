@@ -9,6 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import models.Inmueble;
 import models.Inquilino;
 import servicios.InmuebleServicio;
+import servicios.InquilinoServicio;
 
 /**
  *
@@ -17,24 +18,24 @@ import servicios.InmuebleServicio;
 public class ContratoForm extends javax.swing.JPanel {
 
     InmuebleServicio inmServ = new InmuebleServicio();
+    InquilinoServicio inqServ = new InquilinoServicio();
     DefaultTableModel dtm = new DefaultTableModel();
     List<Inmueble> inmuebles = inmServ.consultaTodos();
 
     public ContratoForm() {
         initComponents();
         llenarComboBox();
-        
+
     }
 
     private void llenarComboBox() {
-        
+
         cmbInmuebles.removeAllItems();
         for (Inmueble inmueble : inmuebles) {
             cmbInmuebles.addItem(inmueble.getDireccion());
         }
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -57,7 +58,7 @@ public class ContratoForm extends javax.swing.JPanel {
         txtMontoInicial = new javax.swing.JTextField();
         txtCantMese = new javax.swing.JTextField();
         limpiarBtn1 = new javax.swing.JButton();
-        guardarBoton = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
@@ -232,18 +233,18 @@ public class ContratoForm extends javax.swing.JPanel {
         });
         contentPI.add(limpiarBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, 130, 40));
 
-        guardarBoton.setBackground(new java.awt.Color(0, 51, 153));
-        guardarBoton.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        guardarBoton.setForeground(new java.awt.Color(255, 255, 255));
-        guardarBoton.setText("GUARDAR");
-        guardarBoton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        guardarBoton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        guardarBoton.addActionListener(new java.awt.event.ActionListener() {
+        btnGuardar.setBackground(new java.awt.Color(0, 51, 153));
+        btnGuardar.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setText("GUARDAR");
+        btnGuardar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnGuardar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarBotonActionPerformed(evt);
+                btnGuardarActionPerformed(evt);
             }
         });
-        contentPI.add(guardarBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 390, 130, 40));
+        contentPI.add(btnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 390, 130, 40));
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
@@ -296,10 +297,6 @@ public class ContratoForm extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTelefonoActionPerformed
 
-    private void txtFInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFInicioActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtFInicioActionPerformed
-
     private void txtFFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFFinActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFFinActionPerformed
@@ -312,20 +309,43 @@ public class ContratoForm extends javax.swing.JPanel {
 
     }//GEN-LAST:event_limpiarBtn1ActionPerformed
 
-    private void guardarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarBotonActionPerformed
-    Inquilino inquilino = new Inquilino(txtCuit.getText(),txtNombre.getText(),txtApellido.getText(),txtTelefono.getText());
-    
-    }//GEN-LAST:event_guardarBotonActionPerformed
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // Inquilino inquilino = new Inquilino(txtCuit.getText(),txtNombre.getText(),txtApellido.getText(),txtTelefono.getText());
+        Inquilino inquilino;
+        Inmueble inmueble;
+        String cuit, nombre, apellido, telefono, fechaInicio, fechaFin, direccion;
+        cuit = txtCuit.getText();
+        nombre = txtNombre.getText();
+        apellido = txtApellido.getText();
+        telefono = txtTelefono.getText();
+        fechaInicio = txtFInicio.getText();
+        fechaFin = txtFFin.getText();
+        direccion = (String) cmbInmuebles.getSelectedItem();
+        int cantidadMeses = Integer.parseInt(txtCantMese.getText());
+        double valorInicial = Integer.parseInt(txtMontoInicial.getText());
+        for (Inmueble inm : inmuebles) {
+            if (inm.getDireccion().equals(direccion)) {
+                inmueble = inm;
+                break;
+            }
+        }
+        Inquilino inquilinoTemp = new Inquilino(cuit, nombre, apellido, telefono);
+        inquilino = inqServ.guardar(inquilinoTemp);
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtMontoInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoInicialActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMontoInicialActionPerformed
 
+    private void txtFInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFInicioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtFInicioActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cmbInmuebles;
     private javax.swing.JPanel contentPI;
-    private javax.swing.JButton guardarBoton;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;

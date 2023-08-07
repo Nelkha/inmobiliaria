@@ -15,27 +15,33 @@ import models.Inquilino;
 public class InquilinoServicio {
 
     InquilinoJpaController inquilinoJpa = new InquilinoJpaController();
-    List<Inquilino> inquilinos;
+ 
 
     public List<Inquilino> consultaTodos() {
         return inquilinoJpa.findInquilinoEntities();
     }
 
-    public List<Inquilino> buscarInquilinoPorCuit(Inquilino inq) {
-        inquilinos = inquilinoJpa.findInquilinoByCuit(inq.getCuit());
-
-        return inquilinos;
+     public Inquilino buscarInquilinoPorCuit(String cuit) {
+        List<Inquilino> inquilinos = inquilinoJpa.findInquilinoByCuit(cuit);
+        
+        if (inquilinos.isEmpty()) {
+            return null;
+        } else {
+            return inquilinos.get(0);
+        }
     }
 
     public Inquilino guardar(Inquilino inquilino) {
-        inquilinos = this.buscarInquilinoPorCuit(inquilino);
-        if (inquilinos.isEmpty()) {
+        Inquilino inquilinoExistente = buscarInquilinoPorCuit(inquilino.getCuit());
+        
+        if (inquilinoExistente == null) {
             inquilinoJpa.create(inquilino);
             return inquilino;
         } else {
-           return inquilinos.get(0);
+            return inquilinoExistente;
         }
-        
     }
 
-}
+    }
+
+
