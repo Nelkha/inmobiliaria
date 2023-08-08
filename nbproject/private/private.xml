@@ -3,14 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Mario/Documents/NetBeansProjects/Inmobiliaria/src/servicios/InmuebleServicio.java</file>
-            <file>file:/C:/Users/Mario/Documents/NetBeansProjects/Inmobiliaria/src/controladores/InmuebleJpaController.java</file>
-            <file>file:/C:/Users/Mario/Documents/NetBeansProjects/Inmobiliaria/src/controladores/InquilinoJpaController.java</file>
-            <file>file:/C:/Users/Mario/Documents/NetBeansProjects/Inmobiliaria/src/models/Inmueble.java</file>
+            <file>file:/C:/Users/Mario/Documents/NetBeansProjects/Inmobiliaria/src/views/InmList.java</file>
+            <file>file:/C:/Users/Mario/Documents/NetBeansProjects/Inmobiliaria/src/models/Contrato.java</file>
             <file>file:/C:/Users/Mario/Documents/NetBeansProjects/Inmobiliaria/src/views/ContratoForm.java</file>
-            <file>file:/C:/Users/Mario/Documents/NetBeansProjects/Inmobiliaria/src/servicios/InquilinoServicio.java</file>
-            <file>file:/C:/Users/Mario/Documents/NetBeansProjects/Inmobiliaria/src/models/Inquilino.java</file>
-            <file>file:/C:/Users/Mario/Documents/NetBeansProjects/Inmobiliaria/src/controladores/ContratoJpaController.java</file>
             <file>file:/C:/Users/Mario/Documents/NetBeansProjects/Inmobiliaria/src/servicios/ContratoServicio.java</file>
         </group>
     </open-files>

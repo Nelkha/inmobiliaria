@@ -5,6 +5,7 @@
 package servicios;
 
 import controladores.ContratoJpaController;
+import java.util.List;
 import models.Contrato;
 
 /**
@@ -14,6 +15,9 @@ import models.Contrato;
 public class ContratoServicio {
      ContratoJpaController contratoJpa = new ContratoJpaController();
      
+     public List<Contrato>consultaTodos(){
+     return contratoJpa.findContratoEntities();
+     }
      public void guardar(Contrato contrato){
      contratoJpa.create(contrato);
      }
