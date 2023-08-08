@@ -69,7 +69,7 @@ public class Contrato implements Serializable {
         this.montoAlquiler = montoAlquiler;
         this.indexacionMeses = indexacionMeses;
         this.alta = alta;
-        this.importesAlquiler = new ArrayList<>();
+        this.importesAlquiler = importesAlquiler;
     }
 
     public Long getId() {

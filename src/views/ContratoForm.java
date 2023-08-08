@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import models.Contrato;
 import models.Inmueble;
 import models.Inquilino;
+import servicios.ContratoServicio;
 import servicios.InmuebleServicio;
 import servicios.InquilinoServicio;
 
@@ -339,6 +340,8 @@ public class ContratoForm extends javax.swing.JPanel {
         importesContrato.add(valorInicial);
         Contrato contrato = new Contrato(inquilino,inmueble,fechaInicio,fechaFin,valorInicial,cantidadMeses,true,importesContrato);
         System.out.println(inquilino.getId());
+        ContratoServicio contratoServ=new ContratoServicio();
+        contratoServ.guardar(contrato);
         inqServ.agregarContrato(inquilino, contrato);
         inmServ.agregarContrato(inmueble, contrato);
         
