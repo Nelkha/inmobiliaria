@@ -37,15 +37,9 @@ public class ContratoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
-    public void agregarImportesAlquiler(Contrato contrato, List<Double> importesAlquiler) {
-        contrato.setImportesAlquiler(importesAlquiler);
-    }
+ 
 
-    public List<Double> obtenerImportesAlquiler(Contrato contrato) {
-        return contrato.getImportesAlquiler();
-    }
-
-    public void create(Contrato contrato, List<Double> importesAlquiler) {
+    public void create(Contrato contrato) {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -72,7 +66,7 @@ public class ContratoJpaController implements Serializable {
             em.getTransaction().commit();
 
             
-            agregarImportesAlquiler(contrato, importesAlquiler);
+            
 
             
             em.getTransaction().begin();
@@ -85,7 +79,7 @@ public class ContratoJpaController implements Serializable {
         }
     }
 
-    public void edit(Contrato contrato, List<Double> importesAlquiler) throws NonexistentEntityException, Exception {
+    public void edit(Contrato contrato) throws NonexistentEntityException, Exception {
         EntityManager em = null;
         try {
             em = getEntityManager();
@@ -123,7 +117,7 @@ public class ContratoJpaController implements Serializable {
             em.getTransaction().commit();
 
             
-            contrato.setImportesAlquiler(importesAlquiler);
+            
 
             
             em.getTransaction().begin();

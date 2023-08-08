@@ -6,6 +6,9 @@ package servicios;
 
 import controladores.InquilinoJpaController;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import models.Contrato;
 import models.Inquilino;
 
 /**
@@ -39,6 +42,17 @@ public class InquilinoServicio {
             return inquilino;
         } else {
             return inquilinoExistente;
+        }
+    }
+    
+    public void agregarContrato(Inquilino inquilino,Contrato contrato){
+        try {
+            List<Contrato> contratosAttached=inquilino.getContratos();
+            contratosAttached.add(contrato);
+            inquilino.setContratos(contratosAttached);
+            inquilinoJpa.edit(inquilino);
+        } catch (Exception ex) {
+            Logger.getLogger(InquilinoServicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

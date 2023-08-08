@@ -194,7 +194,7 @@ public class InquilinoJpaController implements Serializable {
     public List<Inquilino> findInquilinoByCuit(String cuit) {
         EntityManager em = getEntityManager();
         try {
-            String jpql = "SELEC i FROM Inquilino i WHERE i.cuit =:cuit";
+            String jpql = "SELECT i FROM Inquilino i WHERE i.cuit =:cuit";
             Query query = em.createQuery(jpql, Inquilino.class);
             query.setParameter("cuit", cuit);
             return query.getResultList();

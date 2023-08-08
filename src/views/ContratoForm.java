@@ -4,8 +4,11 @@
  */
 package views;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import models.Contrato;
 import models.Inmueble;
 import models.Inquilino;
 import servicios.InmuebleServicio;
@@ -312,14 +315,16 @@ public class ContratoForm extends javax.swing.JPanel {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // Inquilino inquilino = new Inquilino(txtCuit.getText(),txtNombre.getText(),txtApellido.getText(),txtTelefono.getText());
         Inquilino inquilino;
-        Inmueble inmueble;
-        String cuit, nombre, apellido, telefono, fechaInicio, fechaFin, direccion;
+        Inmueble inmueble=null;
+        List<Double>importesContrato=new ArrayList();
+        String cuit, nombre, apellido, telefono, direccion;
+        LocalDate fechaInicio, fechaFin;
         cuit = txtCuit.getText();
         nombre = txtNombre.getText();
         apellido = txtApellido.getText();
         telefono = txtTelefono.getText();
-        fechaInicio = txtFInicio.getText();
-        fechaFin = txtFFin.getText();
+        fechaInicio = LocalDate.parse(txtFInicio.getText());
+        fechaFin = LocalDate.parse(txtFFin.getText());
         direccion = (String) cmbInmuebles.getSelectedItem();
         int cantidadMeses = Integer.parseInt(txtCantMese.getText());
         double valorInicial = Integer.parseInt(txtMontoInicial.getText());
@@ -331,6 +336,13 @@ public class ContratoForm extends javax.swing.JPanel {
         }
         Inquilino inquilinoTemp = new Inquilino(cuit, nombre, apellido, telefono);
         inquilino = inqServ.guardar(inquilinoTemp);
+        importesContrato.add(valorInicial);
+        Contrato contrato = new Contrato(inquilino,inmueble,fechaInicio,fechaFin,valorInicial,cantidadMeses,true,importesContrato);
+        System.out.println(inquilino.getId());
+        inqServ.agregarContrato(inquilino, contrato);
+        inmServ.agregarContrato(inmueble, contrato);
+        
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void txtMontoInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtMontoInicialActionPerformed

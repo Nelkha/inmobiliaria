@@ -5,7 +5,10 @@
 package servicios;
 
 import controladores.InmuebleJpaController;
+import java.lang.System.Logger;
+import java.lang.System.Logger.Level;
 import java.util.List;
+import models.Contrato;
 import models.Inmueble;
 
 /**
@@ -64,5 +67,19 @@ public class InmuebleServicio {
         }
         return mensaje;
     }
+    
+    public void agregarContrato(Inmueble inmueble,Contrato contrato){
+        
+        try {
+            List<Contrato> contratosAttached=inmueble.getContratos();
+            contratosAttached.add(contrato);
+            inmueble.setContratos(contratosAttached);
+            inmuebleJpa.edit(inmueble);
+        } catch (Exception ex) {
+            java.util.logging.Logger.getLogger(InmuebleServicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+    }
 
-}
+    }
+
+

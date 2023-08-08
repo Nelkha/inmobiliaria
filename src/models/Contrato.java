@@ -60,8 +60,8 @@ public class Contrato implements Serializable {
     public Contrato() {
     }
 
-    public Contrato(Long id, Inquilino inquilino, Inmueble inmueble, LocalDate fechaInicio, LocalDate fechaFin, double montoAlquiler, int indexacionMeses, boolean alta, List<Double> importesAlquiler) {
-        this.id = id;
+    public Contrato(Inquilino inquilino, Inmueble inmueble, LocalDate fechaInicio, LocalDate fechaFin, double montoAlquiler, int indexacionMeses, boolean alta, List<Double> importesAlquiler) {
+        
         this.inquilino = inquilino;
         this.inmueble = inmueble;
         this.fechaInicio = fechaInicio;
