@@ -160,6 +160,11 @@ public class Principal extends javax.swing.JFrame {
         jButton5.setText("LISTAR TODOS LOS CONTRATOS");
         jButton5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton5.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 310, 220, 40));
 
         jButton2.setBackground(new java.awt.Color(255, 0, 51));
@@ -232,6 +237,17 @@ public class Principal extends javax.swing.JFrame {
         contentP.revalidate();
         contentP.repaint();
     }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+       ContrList contrList = new ContrList();
+        contrList.setSize(490, 480);
+        contrList.setLocation(0, 0);
+
+        contentP.removeAll();
+        contentP.add(contrList, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        contentP.revalidate();
+        contentP.repaint();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments

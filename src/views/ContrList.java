@@ -7,35 +7,32 @@ package views;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import models.Contrato;
-import models.Inmueble;
 import servicios.ContratoServicio;
 
 /**
  *
  * @author Nelkha
  */
-public class ContList extends javax.swing.JPanel {
+public class ContrList extends javax.swing.JPanel {
 
     ContratoServicio contServ = new ContratoServicio();
     DefaultTableModel dtm = new DefaultTableModel();
     List<Contrato> contratos = contServ.consultaTodos();
 
-    public ContList() {
+    public ContrList() {
         initComponents();
-        String[] titulos = new String[]{"ID", "INQUILINO", "INMUEBLE", "F. INICIO", "F. FIN", "IMPORTE", "INDEXACION", "IMPORTES ANT."};
+        String[] titulos = new String[]{"ID", "INQUILINO", "INMUEBLE", "INDEX", "VIGENCIA"};
         dtm.setColumnIdentifiers(titulos);
 
         tblCont.setModel(dtm);
-        tblCont.getColumnModel().getColumn(0).setPreferredWidth(10);
-        tblCont.getColumnModel().getColumn(1).setPreferredWidth(150);
-        tblCont.getColumnModel().getColumn(2).setPreferredWidth(150);
-        tblCont.getColumnModel().getColumn(3).setPreferredWidth(100);
-        tblCont.getColumnModel().getColumn(4).setPreferredWidth(100);
-        tblCont.getColumnModel().getColumn(5).setPreferredWidth(10);
-        tblCont.getColumnModel().getColumn(6).setPreferredWidth(10);
-        tblCont.getColumnModel().getColumn(6).setPreferredWidth(100);
-        for (contrato : contratos) {
-            dtm.addRow(new Object[]{contrato.getId(), contrato.getDireccion(), contrato)});
+        tblCont.getColumnModel().getColumn(0).setPreferredWidth(5);
+        tblCont.getColumnModel().getColumn(1).setPreferredWidth(120);
+        tblCont.getColumnModel().getColumn(2).setPreferredWidth(120);
+        tblCont.getColumnModel().getColumn(3).setPreferredWidth(5);
+        tblCont.getColumnModel().getColumn(4).setPreferredWidth(10);
+        for (Contrato cont : contratos) {
+            dtm.addRow(new Object[]{cont.getId(), cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido(), cont.getInmueble().getDireccion(),
+            cont.getIndexacionMeses(), cont.isAlta()});
         }
     }
 
@@ -66,7 +63,7 @@ public class ContList extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("LISTADO CONTRATOS");
+        jLabel1.setText("LISTADO DE CONTRATOS");
         contentPI.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, -1));
 
         tblCont.setBackground(new java.awt.Color(255, 255, 255));
