@@ -32,4 +32,4 @@ With the setup complete, you are now ready to run and test the project. Happy co
 
 ---
 
-_This README was crafted with ❤️. Feel free to contact us at maritogallego@hotmail.com](maritogallego@hotmail.com) for any questions or concerns._
+_This README was crafted with ❤️. Feel free to contact me at maritogallego@hotmail.com] for any questions or concerns._
