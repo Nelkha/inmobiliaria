@@ -5,15 +5,16 @@
 package views;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
 import models.Contrato;
 import models.Inmueble;
 import models.Inquilino;
 import servicios.ContratoServicio;
 import servicios.InmuebleServicio;
 import servicios.InquilinoServicio;
+import static servicios.Globales.comportamientoTextField;
 
 /**
  *
@@ -23,13 +24,19 @@ public class ContratoForm extends javax.swing.JPanel {
 
     InmuebleServicio inmServ = new InmuebleServicio();
     InquilinoServicio inqServ = new InquilinoServicio();
-    DefaultTableModel dtm = new DefaultTableModel();
     List<Inmueble> inmuebles = inmServ.consultaTodos();
 
     public ContratoForm() {
         initComponents();
         llenarComboBox();
-
+        comportamientoTextField(txtCuit,"CUIT");
+        comportamientoTextField(txtNombre,"NOMBRE");
+        comportamientoTextField(txtApellido,"APELLIDO");
+        comportamientoTextField(txtCantMese,"MESES INDEXACION");
+        comportamientoTextField(txtFInicio,"AAAA-MM-DD");
+        comportamientoTextField(txtFFin,"AAAA-MM-DD");
+        comportamientoTextField(txtTelefono,"TELEFONO");
+        comportamientoTextField(txtMontoInicial,"VALOR INICIAL");
     }
 
     private void llenarComboBox() {
@@ -46,7 +53,7 @@ public class ContratoForm extends javax.swing.JPanel {
 
         jSeparator4 = new javax.swing.JSeparator();
         contentPI = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        lblMensaje = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtCuit = new javax.swing.JTextField();
         txtNombre = new javax.swing.JTextField();
@@ -71,6 +78,7 @@ public class ContratoForm extends javax.swing.JPanel {
         jSeparator7 = new javax.swing.JSeparator();
         jSeparator8 = new javax.swing.JSeparator();
         jSeparator9 = new javax.swing.JSeparator();
+        jLabel5 = new javax.swing.JLabel();
 
         jSeparator4.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
@@ -86,11 +94,11 @@ public class ContratoForm extends javax.swing.JPanel {
         contentPI.setForeground(new java.awt.Color(0, 0, 0));
         contentPI.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(204, 0, 0));
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("ADVERTENCIA TODOS LOS CAMPOS SON REQUERIDOS");
-        contentPI.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 460, -1));
+        lblMensaje.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        lblMensaje.setForeground(new java.awt.Color(204, 0, 0));
+        lblMensaje.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblMensaje.setText("ADVERTENCIA TODOS LOS CAMPOS SON REQUERIDOS");
+        contentPI.add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 460, -1));
 
         jLabel4.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
@@ -282,6 +290,12 @@ public class ContratoForm extends javax.swing.JPanel {
         jSeparator9.setForeground(new java.awt.Color(0, 0, 0));
         contentPI.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 110, 10));
 
+        jLabel5.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(204, 0, 0));
+        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel5.setText("ADVERTENCIA TODOS LOS CAMPOS SON REQUERIDOS");
+        contentPI.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 460, -1));
+
         add(contentPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 460));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -315,35 +329,67 @@ public class ContratoForm extends javax.swing.JPanel {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // Inquilino inquilino = new Inquilino(txtCuit.getText(),txtNombre.getText(),txtApellido.getText(),txtTelefono.getText());
-        Inquilino inquilino;
-        Inmueble inmueble=null;
-        List<Double>importesContrato=new ArrayList();
-        String cuit, nombre, apellido, telefono, direccion;
-        LocalDate fechaInicio, fechaFin;
-        cuit = txtCuit.getText();
-        nombre = txtNombre.getText();
-        apellido = txtApellido.getText();
-        telefono = txtTelefono.getText();
-        fechaInicio = LocalDate.parse(txtFInicio.getText());
-        fechaFin = LocalDate.parse(txtFFin.getText());
-        direccion = (String) cmbInmuebles.getSelectedItem();
-        int cantidadMeses = Integer.parseInt(txtCantMese.getText());
-        double valorInicial = Integer.parseInt(txtMontoInicial.getText());
-        for (Inmueble inm : inmuebles) {
-            if (inm.getDireccion().equals(direccion)) {
-                inmueble = inm;
-                break;
-            }
+        try {
+    String cuit, nombre, apellido, telefono, direccion;
+    LocalDate fechaInicio, fechaFin;
+
+    // Validar campos obligatorios no estén vacíos
+    cuit = txtCuit.getText().trim();
+    nombre = txtNombre.getText().trim();
+    apellido = txtApellido.getText().trim();
+    telefono = txtTelefono.getText();
+    fechaInicio = LocalDate.parse(txtFInicio.getText().trim());
+    fechaFin = LocalDate.parse(txtFFin.getText().trim());
+    direccion = (String) cmbInmuebles.getSelectedItem();
+    int cantidadMeses = Integer.parseInt(txtCantMese.getText().trim());
+    double valorInicial = Double.parseDouble(txtMontoInicial.getText().trim());
+
+    // Validar longitud del CUIT
+    if (cuit.length() != 11) {
+        lblMensaje.setText("El CUIT debe tener 11 caracteres.");
+        return;
+    }
+
+    // Validar fechas
+    LocalDate fechaActual = LocalDate.now();
+    if (fechaInicio.isAfter(fechaActual)) {
+        lblMensaje.setText("La fecha de inicio no puede ser posterior a la fecha actual.");
+        return;
+    }
+    if (fechaFin.isBefore(fechaInicio)) {
+       lblMensaje.setText("La fecha de fin no puede ser anterior a la fecha de inicio."); 
+        return;
+    }
+
+    Inmueble inmueble = null;
+    for (Inmueble inm : inmuebles) {
+        if (inm.getDireccion().equals(direccion)) {
+            inmueble = inm;
+            break;
         }
-        Inquilino inquilinoTemp = new Inquilino(cuit, nombre, apellido, telefono);
-        inquilino = inqServ.guardar(inquilinoTemp);
-        importesContrato.add(valorInicial);
-        Contrato contrato = new Contrato(inquilino,inmueble,fechaInicio,fechaFin,valorInicial,cantidadMeses,true,importesContrato);
-        System.out.println(inquilino.getId());
-        ContratoServicio contratoServ=new ContratoServicio();
-        contratoServ.guardar(contrato);
-        inqServ.agregarContrato(inquilino, contrato);
-        inmServ.agregarContrato(inmueble, contrato);
+    }
+
+    Inquilino inquilinoTemp = new Inquilino(cuit, nombre, apellido, telefono);
+    Inquilino inquilino = inqServ.guardar(inquilinoTemp);
+    List<Double> importesContrato = new ArrayList<>();
+    importesContrato.add(valorInicial);
+    Contrato contrato = new Contrato(inquilino, inmueble, fechaInicio, fechaFin, valorInicial, cantidadMeses, true, importesContrato);
+    
+   
+    
+    ContratoServicio contratoServ = new ContratoServicio();
+    contratoServ.guardar(contrato);
+    
+    inqServ.agregarContrato(inquilino, contrato);
+    inmServ.agregarContrato(inmueble, contrato);
+} catch (DateTimeParseException e) {
+   lblMensaje.setText("Debe ingresar una fecha valida");
+} catch (NumberFormatException e) {
+     lblMensaje.setText("Debe ingresar un numero valido");
+} catch (Exception e) {
+    lblMensaje.setText("Ocurrió un error inesperado. Verifique los datos e intente nuevamente");
+    e.printStackTrace();
+}
         
         
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -361,8 +407,8 @@ public class ContratoForm extends javax.swing.JPanel {
     private javax.swing.JButton btnGuardar;
     private javax.swing.JComboBox<String> cmbInmuebles;
     private javax.swing.JPanel contentPI;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -376,6 +422,7 @@ public class ContratoForm extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator7;
     private javax.swing.JSeparator jSeparator8;
     private javax.swing.JSeparator jSeparator9;
+    private javax.swing.JLabel lblMensaje;
     private javax.swing.JButton limpiarBtn1;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCantMese;
