@@ -33,3 +33,12 @@ With the setup complete, you are now ready to run and test the project. Happy co
 ---
 
 _This README was crafted with ❤️. Feel free to contact me at maritogallego@hotmail.com] for any questions or concerns._
+
+## Screenshots
+
+
+![Imagen de WhatsApp 2023-08-04 a las 19 05 16](https://github.com/Nelkha/inmobiliaria/assets/42981170/4161a7db-53a7-493e-b7a1-746f3fb2f232)
+![Imagen de WhatsApp 2023-08-04 a las 19 05 26](https://github.com/Nelkha/inmobiliaria/assets/42981170/b31c83a6-8d7e-417a-8b11-05ae11423b94)
+![Imagen de WhatsApp 2023-08-04 a las 19 05 21](https://github.com/Nelkha/inmobiliaria/assets/42981170/e86e8704-78b2-4c19-9d66-4b93206788f8)
+![Imagen de WhatsApp 2023-08-04 a las 19 05 33](https://github.com/Nelkha/inmobiliaria/assets/42981170/174c6378-4d13-4f7f-b49b-f5a5c2a1ff87)
+![Imagen de WhatsApp 2023-08-04 a las 19 05 30](https://github.com/Nelkha/inmobiliaria/assets/42981170/c8622fd5-abbb-4f76-9aff-017a450135bc)
