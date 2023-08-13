@@ -34,9 +34,10 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        btnBusquedaCuit = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
-        jTextField3 = new javax.swing.JTextField();
+        txtBusquedaCuit = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jTextField2 = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -59,6 +60,18 @@ public class Principal extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0, 102, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnBusquedaCuit.setBackground(new java.awt.Color(0, 102, 255));
+        btnBusquedaCuit.setForeground(new java.awt.Color(255, 255, 255));
+        btnBusquedaCuit.setText("Buscar");
+        btnBusquedaCuit.setBorder(null);
+        btnBusquedaCuit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBusquedaCuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBusquedaCuitActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnBusquedaCuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 60, 20));
+
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator3.setPreferredSize(new java.awt.Dimension(100, 10));
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 150, 200, -1));
@@ -67,18 +80,18 @@ public class Principal extends javax.swing.JFrame {
         jSeparator2.setPreferredSize(new java.awt.Dimension(100, 10));
         jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 200, -1));
 
-        jTextField3.setBackground(new java.awt.Color(0, 102, 255));
-        jTextField3.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jTextField3.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField3.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField3.setText("CUIT INQULINO");
-        jTextField3.setBorder(null);
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        txtBusquedaCuit.setBackground(new java.awt.Color(0, 102, 255));
+        txtBusquedaCuit.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtBusquedaCuit.setForeground(new java.awt.Color(255, 255, 255));
+        txtBusquedaCuit.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtBusquedaCuit.setText("CUIT INQULINO");
+        txtBusquedaCuit.setBorder(null);
+        txtBusquedaCuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                txtBusquedaCuitActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 220, 40));
+        jPanel2.add(txtBusquedaCuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 220, 40));
 
         jLabel1.setBackground(new java.awt.Color(0, 102, 255));
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 10)); // NOI18N
@@ -205,7 +218,14 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+       InqList inqList = new InqList();
+        inqList.setSize(490, 480);
+        inqList.setLocation(0, 0);
+
+        contentP.removeAll();
+        contentP.add(inqList, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        contentP.revalidate();
+        contentP.repaint();
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void btnListInmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListInmActionPerformed
@@ -223,9 +243,9 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2ActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void txtBusquedaCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaCuitActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_txtBusquedaCuitActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         CrudForm crud = new CrudForm();
@@ -249,11 +269,27 @@ public class Principal extends javax.swing.JFrame {
         contentP.repaint();
     }//GEN-LAST:event_jButton5ActionPerformed
 
+    private void btnBusquedaCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaCuitActionPerformed
+        
+       
+        InqPage inqPage=new InqPage("20449024509");
+         
+        inqPage.setSize(490, 480);
+        inqPage.setLocation(0, 0);
+
+        contentP.removeAll();
+        contentP.add(inqPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        contentP.revalidate();
+        contentP.repaint();
+        
+    }//GEN-LAST:event_btnBusquedaCuitActionPerformed
+
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBusquedaCuit;
     private javax.swing.JButton btnListInm;
     private javax.swing.JPanel contentP;
     private javax.swing.JButton jButton2;
@@ -268,6 +304,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField txtBusquedaCuit;
     // End of variables declaration//GEN-END:variables
 }

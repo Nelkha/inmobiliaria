@@ -335,8 +335,8 @@ public class ContratoForm extends javax.swing.JPanel {
 
     // Validar campos obligatorios no estén vacíos
     cuit = txtCuit.getText().trim();
-    nombre = txtNombre.getText().trim();
-    apellido = txtApellido.getText().trim();
+    nombre = txtNombre.getText().trim().toUpperCase();
+    apellido = txtApellido.getText().trim().toUpperCase();
     telefono = txtTelefono.getText();
     fechaInicio = LocalDate.parse(txtFInicio.getText().trim());
     fechaFin = LocalDate.parse(txtFFin.getText().trim());

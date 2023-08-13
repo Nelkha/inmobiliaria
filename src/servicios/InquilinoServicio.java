@@ -18,15 +18,20 @@ import models.Inquilino;
 public class InquilinoServicio {
 
     InquilinoJpaController inquilinoJpa = new InquilinoJpaController();
- 
 
     public List<Inquilino> consultaTodos() {
         return inquilinoJpa.findInquilinoEntities();
     }
 
-     public Inquilino buscarInquilinoPorCuit(String cuit) {
+    public List<Contrato> buscarContratosInquilino(Inquilino inq) {
+        List<Contrato> contratos = inquilinoJpa.findContratosInquilino(inq);
+        return contratos;
+
+    }
+
+    public Inquilino buscarInquilinoPorCuit(String cuit) {
         List<Inquilino> inquilinos = inquilinoJpa.findInquilinoByCuit(cuit);
-        
+
         if (inquilinos.isEmpty()) {
             return null;
         } else {
@@ -36,7 +41,7 @@ public class InquilinoServicio {
 
     public Inquilino guardar(Inquilino inquilino) {
         Inquilino inquilinoExistente = buscarInquilinoPorCuit(inquilino.getCuit());
-        
+
         if (inquilinoExistente == null) {
             inquilinoJpa.create(inquilino);
             return inquilino;
@@ -44,10 +49,10 @@ public class InquilinoServicio {
             return inquilinoExistente;
         }
     }
-    
-    public void agregarContrato(Inquilino inquilino,Contrato contrato){
+
+    public void agregarContrato(Inquilino inquilino, Contrato contrato) {
         try {
-            List<Contrato> contratosAttached=inquilino.getContratos();
+            List<Contrato> contratosAttached = inquilino.getContratos();
             contratosAttached.add(contrato);
             inquilino.setContratos(contratosAttached);
             inquilinoJpa.edit(inquilino);
@@ -56,6 +61,4 @@ public class InquilinoServicio {
         }
     }
 
-    }
-
-
+}

@@ -16,6 +16,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import models.Inquilino;
 
 /**
@@ -146,7 +147,14 @@ public class InquilinoJpaController implements Serializable {
     }
 
     public List<Inquilino> findInquilinoEntities() {
+
         return findInquilinoEntities(true, -1, -1);
+        
+    }
+    public List<Contrato> findContratosInquilino(Inquilino inquilino){
+    List<Contrato> contratos = inquilino.getContratos();
+        
+    return contratos;
     }
 
     public List<Inquilino> findInquilinoEntities(int maxResults, int firstResult) {
@@ -202,4 +210,9 @@ public class InquilinoJpaController implements Serializable {
             em.close();
         }
     }
-}
+
+    
+
+    }
+
+

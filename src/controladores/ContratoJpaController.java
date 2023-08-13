@@ -37,8 +37,6 @@ public class ContratoJpaController implements Serializable {
         return emf.createEntityManager();
     }
 
- 
-
     public void create(Contrato contrato) {
         EntityManager em = null;
         try {
@@ -65,10 +63,6 @@ public class ContratoJpaController implements Serializable {
             }
             em.getTransaction().commit();
 
-            
-            
-
-            
             em.getTransaction().begin();
             contrato = em.merge(contrato);
             em.getTransaction().commit();
@@ -116,10 +110,6 @@ public class ContratoJpaController implements Serializable {
             }
             em.getTransaction().commit();
 
-            
-            
-
-            
             em.getTransaction().begin();
             contrato = em.merge(contrato);
             em.getTransaction().commit();
@@ -170,7 +160,8 @@ public class ContratoJpaController implements Serializable {
         }
     }
 
-    public List<Contrato> findContratoEntities() {
+   public List<Contrato> findContratoEntities() {
+       
         return findContratoEntities(true, -1, -1);
     }
 

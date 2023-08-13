@@ -22,18 +22,16 @@ public class InqList extends javax.swing.JPanel {
 
     public InqList() {
         initComponents();
-        String[] titulos = new String[]{"ID", "INQUILINO", "INMUEBLE", "INDEX", "VIGENCIA"};
+        String[] titulos = new String[]{"ID", "CUIT", "INQUILINO"};
         dtm.setColumnIdentifiers(titulos);
 
         tblCont.setModel(dtm);
         tblCont.getColumnModel().getColumn(0).setPreferredWidth(5);
-        tblCont.getColumnModel().getColumn(1).setPreferredWidth(120);
-        tblCont.getColumnModel().getColumn(2).setPreferredWidth(120);
-        tblCont.getColumnModel().getColumn(3).setPreferredWidth(5);
-        tblCont.getColumnModel().getColumn(4).setPreferredWidth(10);
-        for (Contrato cont : contratos) {
-            dtm.addRow(new Object[]{cont.getId(), cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido(), cont.getInmueble().getDireccion(),
-            cont.getIndexacionMeses(), cont.isAlta()});
+        tblCont.getColumnModel().getColumn(1).setPreferredWidth(50);
+        tblCont.getColumnModel().getColumn(2).setPreferredWidth(205);
+        
+        for (Inquilino inq : inquilinos) {
+            dtm.addRow(new Object[]{inq.getId(), inq.getCuit(),inq.getNombre() + " " + inq.getApellido()});
         }
     }
 
@@ -64,7 +62,7 @@ public class InqList extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("LISTADO DE CONTRATOS");
+        jLabel1.setText("LISTADO INQUILINOS");
         contentPI.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, -1));
 
         tblCont.setBackground(new java.awt.Color(255, 255, 255));
