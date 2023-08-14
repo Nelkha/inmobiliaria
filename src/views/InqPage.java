@@ -27,6 +27,11 @@ public class InqPage extends javax.swing.JPanel {
         StringBuilder contratoText = new StringBuilder();
 
         for (Contrato contrato : contratos) {
+                List<Double>importesAlquiler=contrato.getImportesAlquiler();
+                for(double importe:importesAlquiler){
+                
+                }
+            
             contratoText.append(contrato.getId()).append("\n")
                     .append(contrato.getInquilino().getNombre()).append("\n")
                     .append(contrato.getInmueble().getDireccion()).append("\n")
