@@ -14,6 +14,8 @@ public class Principal extends javax.swing.JFrame {
      */
     public Principal() {
         initComponents();
+        Globales.comportamientoTextField(txtBusquedaCuit, "CUIT INQUILINO");
+        Globales.comportamientoTextField(txtDireccionInmueble, "DIRECCION INMUEBLE");
         CrudForm crud = new CrudForm();
         crud.setSize(490, 480);
         crud.setLocation(0, 0);
@@ -36,11 +38,12 @@ public class Principal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnBusquedaCuit = new javax.swing.JButton();
+        btnBusquedaCuit2 = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         txtBusquedaCuit = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtDireccionInmueble = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         btnListInm = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -72,7 +75,20 @@ public class Principal extends javax.swing.JFrame {
                 btnBusquedaCuitActionPerformed(evt);
             }
         });
-        jPanel2.add(btnBusquedaCuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 120, 30, 30));
+        jPanel2.add(btnBusquedaCuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 30, 30));
+
+        btnBusquedaCuit2.setBackground(new java.awt.Color(0, 102, 255));
+        btnBusquedaCuit2.setForeground(new java.awt.Color(255, 255, 255));
+        btnBusquedaCuit2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/search.png"))); // NOI18N
+        btnBusquedaCuit2.setBorder(null);
+        btnBusquedaCuit2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBusquedaCuit2.setFocusPainted(false);
+        btnBusquedaCuit2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBusquedaCuit2ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(btnBusquedaCuit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 30, 30));
 
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator3.setPreferredSize(new java.awt.Dimension(100, 10));
@@ -86,14 +102,14 @@ public class Principal extends javax.swing.JFrame {
         txtBusquedaCuit.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtBusquedaCuit.setForeground(new java.awt.Color(255, 255, 255));
         txtBusquedaCuit.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtBusquedaCuit.setText("CUIT INQULINO");
+        txtBusquedaCuit.setText("CUIT INQUILINO");
         txtBusquedaCuit.setBorder(null);
         txtBusquedaCuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtBusquedaCuitActionPerformed(evt);
             }
         });
-        jPanel2.add(txtBusquedaCuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, 220, 40));
+        jPanel2.add(txtBusquedaCuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 180, 20));
 
         jLabel1.setBackground(new java.awt.Color(0, 102, 255));
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 10)); // NOI18N
@@ -102,18 +118,18 @@ public class Principal extends javax.swing.JFrame {
         jLabel1.setText("HA INMUEBLES");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 360, 77));
 
-        jTextField2.setBackground(new java.awt.Color(0, 102, 255));
-        jTextField2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        jTextField2.setText("DIRECCION INMUEBLE");
-        jTextField2.setBorder(null);
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        txtDireccionInmueble.setBackground(new java.awt.Color(0, 102, 255));
+        txtDireccionInmueble.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtDireccionInmueble.setForeground(new java.awt.Color(255, 255, 255));
+        txtDireccionInmueble.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtDireccionInmueble.setText("DIRECCION INMUEBLE");
+        txtDireccionInmueble.setBorder(null);
+        txtDireccionInmueble.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                txtDireccionInmuebleActionPerformed(evt);
             }
         });
-        jPanel2.add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 220, 40));
+        jPanel2.add(txtDireccionInmueble, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 180, 180, 20));
 
         jLabel2.setBackground(new java.awt.Color(0, 153, 204));
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 16)); // NOI18N
@@ -220,7 +236,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       InqList inqList = new InqList();
+        InqList inqList = new InqList();
         inqList.setSize(490, 480);
         inqList.setLocation(0, 0);
 
@@ -241,9 +257,9 @@ public class Principal extends javax.swing.JFrame {
         contentP.repaint();
     }//GEN-LAST:event_btnListInmActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void txtDireccionInmuebleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionInmuebleActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_txtDireccionInmuebleActionPerformed
 
     private void txtBusquedaCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBusquedaCuitActionPerformed
         // TODO add your handling code here:
@@ -261,7 +277,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-       ContrList contrList = new ContrList();
+        ContrList contrList = new ContrList();
         contrList.setSize(490, 480);
         contrList.setLocation(0, 0);
 
@@ -272,10 +288,12 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void btnBusquedaCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaCuitActionPerformed
-    
-        String cuit=txtBusquedaCuit.getText();
-        InqPage inqPage=new InqPage(cuit);
+       
+    }//GEN-LAST:event_btnBusquedaCuitActionPerformed
 
+    private void btnBusquedaCuit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaCuit2ActionPerformed
+      String cuit = txtBusquedaCuit.getText();
+        InqPage inqPage = new InqPage(cuit);
         inqPage.setSize(490, 480);
         inqPage.setLocation(0, 0);
 
@@ -283,8 +301,7 @@ public class Principal extends javax.swing.JFrame {
         contentP.add(inqPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         contentP.revalidate();
         contentP.repaint();
-
-    }//GEN-LAST:event_btnBusquedaCuitActionPerformed
+    }//GEN-LAST:event_btnBusquedaCuit2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,6 +309,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBusquedaCuit;
+    private javax.swing.JButton btnBusquedaCuit2;
     private javax.swing.JButton btnListInm;
     private javax.swing.JPanel contentP;
     private javax.swing.JButton jButton2;
@@ -305,7 +323,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField txtBusquedaCuit;
+    private javax.swing.JTextField txtDireccionInmueble;
     // End of variables declaration//GEN-END:variables
 }

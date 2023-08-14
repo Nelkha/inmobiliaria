@@ -49,7 +49,11 @@ public class InmForm extends javax.swing.JPanel {
 
         jSeparator10.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator10.setForeground(new java.awt.Color(0, 0, 0));
-        add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 130, 10));
+        jSeparator10.setToolTipText("");
+        jSeparator10.setDoubleBuffered(true);
+        jSeparator10.setMinimumSize(new java.awt.Dimension(10, 10));
+        jSeparator10.setPreferredSize(new java.awt.Dimension(10, 10));
+        add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 130, 20));
 
         jSeparator8.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator8.setForeground(new java.awt.Color(0, 0, 0));
@@ -58,7 +62,7 @@ public class InmForm extends javax.swing.JPanel {
         lblMensaje.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         lblMensaje.setForeground(new java.awt.Color(255, 0, 0));
         lblMensaje.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 440, 20));
+        add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, 440, 20));
 
         txtCalle.setBackground(new java.awt.Color(255, 255, 255));
         txtCalle.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
