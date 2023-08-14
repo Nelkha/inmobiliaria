@@ -23,17 +23,16 @@ public class InmList extends javax.swing.JPanel {
         initComponents();
         String[] titulos = new String[]{"ID", "DIRECCION", "ALTA/BAJA"};
         dtm.setColumnIdentifiers(titulos);
-        
+
         tblInm.setModel(dtm);
         tblInm.getColumnModel().getColumn(0).setPreferredWidth(15); // ID
-    tblInm.getColumnModel().getColumn(1).setPreferredWidth(250); // DIRECCION
-    tblInm.getColumnModel().getColumn(2).setPreferredWidth(15);
+        tblInm.getColumnModel().getColumn(1).setPreferredWidth(250); // DIRECCION
+        tblInm.getColumnModel().getColumn(2).setPreferredWidth(15);
         for (Inmueble inm : inmuebles) {
             dtm.addRow(new Object[]{inm.getId(), inm.getDireccion(), inmServ.getAlta(inm)});
         }
     }
 
-    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

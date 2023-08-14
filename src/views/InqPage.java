@@ -4,6 +4,8 @@
  */
 package views;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import models.Contrato;
@@ -18,29 +20,30 @@ import servicios.InquilinoServicio;
 public class InqPage extends javax.swing.JPanel {
 
     InquilinoServicio inqServ = new InquilinoServicio();
+    DefaultTableModel dtm = new DefaultTableModel();
 
     public InqPage(String cuit) {
         initComponents();
+        String[] titulos = new String[]{"ID", "INM", "I.ACTUAL", "F. INCIO", "F.FIN"};
+        dtm.setColumnIdentifiers(titulos);
+
+        tblContInq.setModel(dtm);
+        tblContInq.getColumnModel().getColumn(0).setPreferredWidth(5); // ID
+        tblContInq.getColumnModel().getColumn(1).setPreferredWidth(125); // DIRECCION
+        tblContInq.getColumnModel().getColumn(2).setPreferredWidth(55);
+        tblContInq.getColumnModel().getColumn(3).setPreferredWidth(50);
+        tblContInq.getColumnModel().getColumn(4).setPreferredWidth(50);
+       
+        // Formatear el BigDecimal
+        DecimalFormat formato = new DecimalFormat("#,##0.00");
         Inquilino inquilino = inqServ.buscarInquilinoPorCuit(cuit);
         List<Contrato> contratos = inqServ.buscarContratosInquilino(inquilino);
         lblInqTitle.setText(inquilino.getNombre() + " " + inquilino.getApellido());
-        StringBuilder contratoText = new StringBuilder();
-
-        for (Contrato contrato : contratos) {
-                List<Double>importesAlquiler=contrato.getImportesAlquiler();
-                for(double importe:importesAlquiler){
-                
-                }
-            
-            contratoText.append(contrato.getId()).append("\n")
-                    .append(contrato.getInquilino().getNombre()).append("\n")
-                    .append(contrato.getInmueble().getDireccion()).append("\n")
-                    .append(contrato.getMontoAlquiler())
-                    .append(contrato.getImportesAlquiler().get(0))
-                    .append("\n"); // Agregar un espacio entre contratos
+        for (Contrato cont : contratos) {
+            dtm.addRow(new Object[]{cont.getId(), cont.getInmueble().getDireccion(),
+            "$ "+formato.format(BigDecimal.valueOf(cont.getMontoAlquiler())),cont.getFechaInicio(),cont.getFechaFin()});
         }
-
-        txaCont.setText(contratoText.toString());
+      
 
     }
 
@@ -55,8 +58,8 @@ public class InqPage extends javax.swing.JPanel {
 
         contentPI = new javax.swing.JPanel();
         lblInqTitle = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txaCont = new javax.swing.JTextArea();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblContInq = new javax.swing.JTable();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setMinimumSize(new java.awt.Dimension(490, 480));
@@ -73,11 +76,20 @@ public class InqPage extends javax.swing.JPanel {
         lblInqTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         contentPI.add(lblInqTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, -1));
 
-        txaCont.setColumns(20);
-        txaCont.setRows(5);
-        jScrollPane1.setViewportView(txaCont);
+        tblContInq.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(tblContInq);
 
-        contentPI.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 440, -1));
+        contentPI.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, 400));
 
         add(contentPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 460));
     }// </editor-fold>//GEN-END:initComponents
@@ -85,8 +97,8 @@ public class InqPage extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contentPI;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblInqTitle;
-    private javax.swing.JTextArea txaCont;
+    private javax.swing.JTable tblContInq;
     // End of variables declaration//GEN-END:variables
 }
