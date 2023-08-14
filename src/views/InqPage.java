@@ -36,6 +36,7 @@ public class InqPage extends javax.swing.JPanel {
        
         // Formatear el BigDecimal
         DecimalFormat formato = new DecimalFormat("#,##0.00");
+       
         Inquilino inquilino = inqServ.buscarInquilinoPorCuit(cuit);
         List<Contrato> contratos = inqServ.buscarContratosInquilino(inquilino);
         lblInqTitle.setText(inquilino.getNombre() + " " + inquilino.getApellido());

@@ -5,6 +5,7 @@
 package views;
 
 import java.awt.BorderLayout;
+import servicios.Globales;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -271,8 +272,9 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void btnBusquedaCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaCuitActionPerformed
-
-        InqPage inqPage=new InqPage("20449024509");
+    
+        String cuit=txtBusquedaCuit.getText();
+        InqPage inqPage=new InqPage(cuit);
 
         inqPage.setSize(490, 480);
         inqPage.setLocation(0, 0);
