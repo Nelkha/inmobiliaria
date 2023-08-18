@@ -121,8 +121,8 @@ public class InqPage extends javax.swing.JPanel {
         lblInqTitle1.setText("DETALLES");
         contentPI.add(lblInqTitle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 460, 30));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/info (1).png"))); // NOI18N
-        contentPI.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, 130, 210));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/info.png"))); // NOI18N
+        contentPI.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, -1, -1));
 
         add(contentPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 460));
     }// </editor-fold>//GEN-END:initComponents
