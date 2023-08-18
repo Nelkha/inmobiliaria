@@ -4,6 +4,8 @@
  */
 package views;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;
@@ -20,6 +22,7 @@ import servicios.InquilinoServicio;
 public class InqPage extends javax.swing.JPanel {
 
     InquilinoServicio inqServ = new InquilinoServicio();
+    ContratoServicio contServ = new ContratoServicio();
     DefaultTableModel dtm = new DefaultTableModel();
 
     public InqPage(String cuit) {
@@ -33,18 +36,21 @@ public class InqPage extends javax.swing.JPanel {
         tblContInq.getColumnModel().getColumn(2).setPreferredWidth(55);
         tblContInq.getColumnModel().getColumn(3).setPreferredWidth(50);
         tblContInq.getColumnModel().getColumn(4).setPreferredWidth(50);
-       
+
         // Formatear el BigDecimal
         DecimalFormat formato = new DecimalFormat("#,##0.00");
-       
+
         Inquilino inquilino = inqServ.buscarInquilinoPorCuit(cuit);
-        List<Contrato> contratos = inqServ.buscarContratosInquilino(inquilino);
-        lblInqTitle.setText(inquilino.getNombre() + " " + inquilino.getApellido());
-        for (Contrato cont : contratos) {
-            dtm.addRow(new Object[]{cont.getId(), cont.getInmueble().getDireccion(),
-            "$ "+formato.format(BigDecimal.valueOf(cont.getMontoAlquiler())),cont.getFechaInicio(),cont.getFechaFin()});
+        if (inquilino != null) {
+            List<Contrato> contratos = inqServ.buscarContratosInquilino(inquilino);
+            lblInqTitle.setText(inquilino.getNombre() + " " + inquilino.getApellido());
+            for (Contrato cont : contratos) {
+                dtm.addRow(new Object[]{cont.getId(), cont.getInmueble().getDireccion(),
+                    "$ " + formato.format(BigDecimal.valueOf(cont.getMontoAlquiler())), cont.getFechaInicio(), cont.getFechaFin()});
+            }
+        } else {
+            lblInqTitle.setText("INQUILINO INEXISTENTE");
         }
-      
 
     }
 
@@ -61,6 +67,10 @@ public class InqPage extends javax.swing.JPanel {
         lblInqTitle = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblContInq = new javax.swing.JTable();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txaDetalles = new javax.swing.JTextArea();
+        lblInqTitle1 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setMinimumSize(new java.awt.Dimension(490, 480));
@@ -88,18 +98,68 @@ public class InqPage extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblContInq.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblContInqMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblContInq);
 
-        contentPI.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, 400));
+        contentPI.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, -1, 180));
+
+        txaDetalles.setEditable(false);
+        txaDetalles.setColumns(20);
+        txaDetalles.setRows(5);
+        txaDetalles.setBorder(null);
+        jScrollPane1.setViewportView(txaDetalles);
+
+        contentPI.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 230, 180));
+
+        lblInqTitle1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        lblInqTitle1.setForeground(new java.awt.Color(204, 0, 0));
+        lblInqTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblInqTitle1.setText("DETALLES");
+        contentPI.add(lblInqTitle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 460, 30));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/info (1).png"))); // NOI18N
+        contentPI.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, 130, 210));
 
         add(contentPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 460));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tblContInqMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblContInqMouseClicked
+        int selectedRow = tblContInq.getSelectedRow();
+        if (selectedRow >= 0) {
+            long idCont = (long) tblContInq.getValueAt(selectedRow, 0);
+            Contrato contrato = contServ.buscarContratoPorId(idCont);
+            StringBuilder importesText = new StringBuilder();
+            for (Double importe : contrato.getImportesAlquiler()) {
+                importesText.append(importe).append(", ");
+            }
+            txaDetalles.setText("ID Contrato: " + contrato.getId() + "\n"
+                    + "Inquilino: " + contrato.getInquilino().getNombre() + " " + contrato.getInquilino().getApellido() + "\n"
+                    + "Inmueble: " + contrato.getInmueble().getDireccion() + "\n"
+                    + "Fecha de Inicio: " + contrato.getFechaInicio() + "\n"
+                    + "Fecha de Fin: " + contrato.getFechaInicio() + "\n"
+                    + "Monto Actual: " + contrato.getMontoAlquiler() + "\n"
+                    + "Index Meses: " + contrato.getIndexacionMeses() + "\n"
+                    + "Importes historicos: " + importesText.toString()
+            );
+
+        }
+
+
+    }//GEN-LAST:event_tblContInqMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel contentPI;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblInqTitle;
+    private javax.swing.JLabel lblInqTitle1;
     private javax.swing.JTable tblContInq;
+    private javax.swing.JTextArea txaDetalles;
     // End of variables declaration//GEN-END:variables
 }

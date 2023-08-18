@@ -21,4 +21,8 @@ public class ContratoServicio {
      public void guardar(Contrato contrato){
      contratoJpa.create(contrato);
      }
+     public Contrato buscarContratoPorId(long id){
+     return contratoJpa.findContrato(id);
+   
+     }
 }

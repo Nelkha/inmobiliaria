@@ -21,18 +21,17 @@ public class ContrList extends javax.swing.JPanel {
 
     public ContrList() {
         initComponents();
-        String[] titulos = new String[]{"ID", "INQUILINO", "INMUEBLE", "INDEX", "VIGENCIA"};
+        String[] titulos = new String[]{"C. ID", "INQUILINO", "INMUEBLE", "INDEX"};
         dtm.setColumnIdentifiers(titulos);
 
         tblCont.setModel(dtm);
         tblCont.getColumnModel().getColumn(0).setPreferredWidth(5);
-        tblCont.getColumnModel().getColumn(1).setPreferredWidth(120);
-        tblCont.getColumnModel().getColumn(2).setPreferredWidth(120);
+        tblCont.getColumnModel().getColumn(1).setPreferredWidth(125);
+        tblCont.getColumnModel().getColumn(2).setPreferredWidth(125);
         tblCont.getColumnModel().getColumn(3).setPreferredWidth(5);
-        tblCont.getColumnModel().getColumn(4).setPreferredWidth(10);
         for (Contrato cont : contratos) {
             dtm.addRow(new Object[]{cont.getId(), cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido(), cont.getInmueble().getDireccion(),
-            cont.getIndexacionMeses(), cont.isAlta()});
+                cont.getIndexacionMeses()});
         }
     }
 
@@ -46,9 +45,12 @@ public class ContrList extends javax.swing.JPanel {
     private void initComponents() {
 
         contentPI = new javax.swing.JPanel();
+        btnNoVig = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCont = new javax.swing.JTable();
+        btnVig = new javax.swing.JButton();
+        btnAll = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setMinimumSize(new java.awt.Dimension(490, 480));
@@ -59,6 +61,19 @@ public class ContrList extends javax.swing.JPanel {
 
         contentPI.setBackground(new java.awt.Color(255, 255, 255));
         contentPI.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnNoVig.setBackground(new java.awt.Color(0, 51, 153));
+        btnNoVig.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
+        btnNoVig.setForeground(new java.awt.Color(255, 255, 255));
+        btnNoVig.setText("NO VIGENTES");
+        btnNoVig.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnNoVig.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnNoVig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNoVigActionPerformed(evt);
+            }
+        });
+        contentPI.add(btnNoVig, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 130, 40));
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 0, 0));
@@ -81,13 +96,73 @@ public class ContrList extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblCont);
 
-        contentPI.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 450, 420));
+        contentPI.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 450, 360));
+
+        btnVig.setBackground(new java.awt.Color(0, 51, 153));
+        btnVig.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
+        btnVig.setForeground(new java.awt.Color(255, 255, 255));
+        btnVig.setText("VIGENTES");
+        btnVig.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnVig.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnVig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnVigActionPerformed(evt);
+            }
+        });
+        contentPI.add(btnVig, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 130, 40));
+
+        btnAll.setBackground(new java.awt.Color(0, 51, 153));
+        btnAll.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
+        btnAll.setForeground(new java.awt.Color(255, 255, 255));
+        btnAll.setText("TODOS");
+        btnAll.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnAll.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAllActionPerformed(evt);
+            }
+        });
+        contentPI.add(btnAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 130, 40));
 
         add(contentPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 460));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnNoVigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoVigActionPerformed
+dtm.setRowCount(0);
+        for (Contrato cont : contratos) {
+            if(!cont.isAlta()){
+                dtm.addRow(new Object[]{cont.getId(), cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido(), cont.getInmueble().getDireccion(),
+                cont.getIndexacionMeses()});
+            }
+            
+        }       
+    }//GEN-LAST:event_btnNoVigActionPerformed
+
+    private void btnVigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVigActionPerformed
+        dtm.setRowCount(0);
+        for (Contrato cont : contratos) {
+            if(cont.isAlta()){
+                dtm.addRow(new Object[]{cont.getId(), cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido(), cont.getInmueble().getDireccion(),
+                cont.getIndexacionMeses()});
+            }
+            
+        }       
+    }//GEN-LAST:event_btnVigActionPerformed
+
+    private void btnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllActionPerformed
+        dtm.setRowCount(0);
+        for (Contrato cont : contratos) {
+            
+            dtm.addRow(new Object[]{cont.getId(), cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido(), cont.getInmueble().getDireccion(),
+                cont.getIndexacionMeses()});
+        }        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAllActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAll;
+    private javax.swing.JButton btnNoVig;
+    private javax.swing.JButton btnVig;
     private javax.swing.JPanel contentPI;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
