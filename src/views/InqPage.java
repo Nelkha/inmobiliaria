@@ -140,7 +140,7 @@ public class InqPage extends javax.swing.JPanel {
                     + "Inquilino: " + contrato.getInquilino().getNombre() + " " + contrato.getInquilino().getApellido() + "\n"
                     + "Inmueble: " + contrato.getInmueble().getDireccion() + "\n"
                     + "Fecha de Inicio: " + contrato.getFechaInicio() + "\n"
-                    + "Fecha de Fin: " + contrato.getFechaInicio() + "\n"
+                    + "Fecha de Fin: " + contrato.getFechaFin() + "\n"
                     + "Monto Actual: " + contrato.getMontoAlquiler() + "\n"
                     + "Index Meses: " + contrato.getIndexacionMeses() + "\n"
                     + "Importes historicos: " + importesText.toString()
