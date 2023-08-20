@@ -37,7 +37,7 @@ public class Principal extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        btnBusquedaCuit = new javax.swing.JButton();
+        btnBusquedaDireccion = new javax.swing.JButton();
         btnBusquedaCuit2 = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -64,18 +64,18 @@ public class Principal extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(0, 102, 255));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnBusquedaCuit.setBackground(new java.awt.Color(0, 102, 255));
-        btnBusquedaCuit.setForeground(new java.awt.Color(255, 255, 255));
-        btnBusquedaCuit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/search.png"))); // NOI18N
-        btnBusquedaCuit.setBorder(null);
-        btnBusquedaCuit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBusquedaCuit.setFocusPainted(false);
-        btnBusquedaCuit.addActionListener(new java.awt.event.ActionListener() {
+        btnBusquedaDireccion.setBackground(new java.awt.Color(0, 102, 255));
+        btnBusquedaDireccion.setForeground(new java.awt.Color(255, 255, 255));
+        btnBusquedaDireccion.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/search.png"))); // NOI18N
+        btnBusquedaDireccion.setBorder(null);
+        btnBusquedaDireccion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBusquedaDireccion.setFocusPainted(false);
+        btnBusquedaDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBusquedaCuitActionPerformed(evt);
+                btnBusquedaDireccionActionPerformed(evt);
             }
         });
-        jPanel2.add(btnBusquedaCuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 30, 30));
+        jPanel2.add(btnBusquedaDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 30, 30));
 
         btnBusquedaCuit2.setBackground(new java.awt.Color(0, 102, 255));
         btnBusquedaCuit2.setForeground(new java.awt.Color(255, 255, 255));
@@ -287,12 +287,20 @@ public class Principal extends javax.swing.JFrame {
         contentP.repaint();
     }//GEN-LAST:event_jButton5ActionPerformed
 
-    private void btnBusquedaCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaCuitActionPerformed
-       
-    }//GEN-LAST:event_btnBusquedaCuitActionPerformed
+    private void btnBusquedaDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaDireccionActionPerformed
+        String direccion = txtDireccionInmueble.getText().trim();
+        InmPage inmPage = new InmPage(direccion);
+        inmPage.setSize(490, 480);
+        inmPage.setLocation(0, 0);
+
+        contentP.removeAll();
+        contentP.add(inmPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        contentP.revalidate();
+        contentP.repaint();
+    }//GEN-LAST:event_btnBusquedaDireccionActionPerformed
 
     private void btnBusquedaCuit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaCuit2ActionPerformed
-      String cuit = txtBusquedaCuit.getText();
+        String cuit = txtBusquedaCuit.getText().trim();
         InqPage inqPage = new InqPage(cuit);
         inqPage.setSize(490, 480);
         inqPage.setLocation(0, 0);
@@ -308,8 +316,8 @@ public class Principal extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBusquedaCuit;
     private javax.swing.JButton btnBusquedaCuit2;
+    private javax.swing.JButton btnBusquedaDireccion;
     private javax.swing.JButton btnListInm;
     private javax.swing.JPanel contentP;
     private javax.swing.JButton jButton2;

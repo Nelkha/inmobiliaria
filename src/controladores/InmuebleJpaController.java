@@ -177,6 +177,32 @@ public class InmuebleJpaController implements Serializable {
             em.close();
         }
     }
+ public Inmueble findInmuebleByDir(String dir) {
+    EntityManager em = getEntityManager();
+    try {
+        String jpql = "SELECT i FROM Inmueble i WHERE i.direccion = :dir";
+        Query query = em.createQuery(jpql, Inmueble.class);
+        query.setParameter("dir", dir);
+        
+        List<Inmueble> results = query.getResultList();
+        if (!results.isEmpty()) {
+            return results.get(0);
+        } else {
+            return null; // Opcional: devolver null si no se encuentra ningún resultado.
+        }
+    } catch (Exception e) {
+        
+        e.printStackTrace();
+        return null; 
+    } finally {
+        em.close();
+    }
+}
+     
+     public List<Contrato>findContratosInmueble(Inmueble inm){
+     List<Contrato>contratos=inm.getContratos();
+     return contratos;
+     }
 
     public int getInmuebleCount() {
         EntityManager em = getEntityManager();

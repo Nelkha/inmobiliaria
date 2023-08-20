@@ -80,6 +80,14 @@ public class InmuebleServicio {
         }
     }
 
+    public Inmueble buscarInmuebleDireccion(String direccion) {
+        Inmueble inm=inmuebleJpa.findInmuebleByDir(direccion);
+        
+        return inm;
     }
+    public List<Contrato>buscarContratosInmuble(Inmueble inm){
+    List<Contrato>contratos=inmuebleJpa.findContratosInmueble(inm);
+    return contratos;
+}
 
-
+}
