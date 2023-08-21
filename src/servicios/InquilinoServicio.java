@@ -60,5 +60,8 @@ public class InquilinoServicio {
             Logger.getLogger(InquilinoServicio.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    public void editarInquilino(Inquilino inquilino) throws Exception{
+    inquilinoJpa.edit(inquilino);
+    }
 
 }

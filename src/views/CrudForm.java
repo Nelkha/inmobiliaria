@@ -4,6 +4,10 @@
  */
 package views;
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Nelkha
@@ -236,7 +240,12 @@ public class CrudForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        ContratoForm contratoF = new ContratoForm();
+        ContratoForm contratoF = null;
+        try {
+            contratoF = new ContratoForm();
+        } catch (ParseException ex) {
+            Logger.getLogger(CrudForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         contratoF.setSize(490, 480);
         contratoF.setLocation(0, 0);
 

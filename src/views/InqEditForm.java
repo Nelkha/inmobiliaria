@@ -4,11 +4,15 @@
  */
 package views;
 
-import java.awt.Color;
-import models.Inmueble;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import models.Inquilino;
+import servicios.Globales;
 import static servicios.Globales.comportamientoTextField;
-import static servicios.Globales.revertirComportamientoTextField;
-import servicios.InmuebleServicio;
+import servicios.InquilinoServicio;
 
 /**
  *
@@ -16,17 +20,38 @@ import servicios.InmuebleServicio;
  */
 public class InqEditForm extends javax.swing.JPanel {
 
-    /**
-     * Creates new form CrudForm2
-     */
+    InquilinoServicio inqServ = new InquilinoServicio();
+    Inquilino inquilino;
+
+ 
+
     public InqEditForm() {
         initComponents();
         txtNombre.setEditable(false);
         txtApellido.setEditable(false);
         txtTelefono.setEditable(false);
-        
-              
-        
+        txtNuevoNombre.setEditable(false);
+        txtNuevoApellido.setEditable(false);
+        txtNuevoTelefono.setEditable(false);
+        lblNuevoNombre.setVisible(false);
+        txtNuevoNombre.setVisible(false);
+        sepNuevoNombre.setVisible(false);
+        lblNuevoApellido.setVisible(false);
+        txtNuevoApellido.setVisible(false);
+        sepNuevoApellido.setVisible(false);
+        lblNuevoTelefono.setVisible(false);
+        txtNuevoTelefono.setVisible(false);
+        sepNuevoTelefono.setVisible(false);
+        lblTabNombre.setVisible(false);
+        lblTabApellido.setVisible(false);
+        lblTabTelefono.setVisible(false);
+        comportamientoTextField(txtCuit, "CUIT");
+        Globales.activarBuscarConEnter(txtCuit, btnBuscar);
+        btnEditarNombre.setVisible(false);
+        btnEditarApellido.setVisible(false);
+        btnEditarTelefono.setVisible(false);
+        btnConfirmar.setEnabled(false);
+
     }
 
     /**
@@ -54,9 +79,18 @@ public class InqEditForm extends javax.swing.JPanel {
         btnEditarNombre = new javax.swing.JLabel();
         btnEditarApellido = new javax.swing.JLabel();
         btnBuscar = new javax.swing.JLabel();
-        lblTelefono = new javax.swing.JLabel();
-        lblNombre = new javax.swing.JLabel();
-        lblApellido = new javax.swing.JLabel();
+        lblNuevoApellido = new javax.swing.JLabel();
+        txtNuevoApellido = new javax.swing.JTextField();
+        sepNuevoApellido = new javax.swing.JSeparator();
+        lblNuevoNombre = new javax.swing.JLabel();
+        txtNuevoNombre = new javax.swing.JTextField();
+        sepNuevoNombre = new javax.swing.JSeparator();
+        lblNuevoTelefono = new javax.swing.JLabel();
+        sepNuevoTelefono = new javax.swing.JSeparator();
+        txtNuevoTelefono = new javax.swing.JTextField();
+        lblTabApellido = new javax.swing.JLabel();
+        lblTabTelefono = new javax.swing.JLabel();
+        lblTabNombre = new javax.swing.JLabel();
 
         contentIF.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -67,12 +101,13 @@ public class InqEditForm extends javax.swing.JPanel {
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnEditarTelefono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/editar.png"))); // NOI18N
+        btnEditarTelefono.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditarTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnEditarTelefonoMouseClicked(evt);
             }
         });
-        add(btnEditarTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, -1, -1));
+        add(btnEditarTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, -1, -1));
 
         sepNombre.setBackground(new java.awt.Color(255, 255, 255));
         sepNombre.setForeground(new java.awt.Color(0, 0, 0));
@@ -84,7 +119,7 @@ public class InqEditForm extends javax.swing.JPanel {
 
         sepApellido.setBackground(new java.awt.Color(255, 255, 255));
         sepApellido.setForeground(new java.awt.Color(0, 0, 0));
-        add(sepApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 130, 20));
+        add(sepApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 130, 20));
 
         lblMensaje.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         lblMensaje.setForeground(new java.awt.Color(255, 0, 0));
@@ -118,7 +153,7 @@ public class InqEditForm extends javax.swing.JPanel {
         txtApellido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         txtApellido.setForeground(new java.awt.Color(102, 102, 102));
         txtApellido.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtApellido.setText(" Apellido");
+        txtApellido.setText("Apellido");
         txtApellido.setBorder(null);
         txtApellido.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
@@ -135,7 +170,7 @@ public class InqEditForm extends javax.swing.JPanel {
                 txtApellidoActionPerformed(evt);
             }
         });
-        add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 110, 30));
+        add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 110, 30));
 
         btnConfirmar.setBackground(new java.awt.Color(0, 51, 153));
         btnConfirmar.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
@@ -148,7 +183,7 @@ public class InqEditForm extends javax.swing.JPanel {
                 btnConfirmarActionPerformed(evt);
             }
         });
-        add(btnConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 130, 40));
+        add(btnConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 130, 40));
 
         jLabel5.setForeground(new java.awt.Color(255, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -192,7 +227,7 @@ public class InqEditForm extends javax.swing.JPanel {
         sepTelefono.setDoubleBuffered(true);
         sepTelefono.setMinimumSize(new java.awt.Dimension(10, 10));
         sepTelefono.setPreferredSize(new java.awt.Dimension(10, 10));
-        add(sepTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 130, 20));
+        add(sepTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 130, 20));
 
         txtTelefono.setBackground(new java.awt.Color(255, 255, 255));
         txtTelefono.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -215,9 +250,10 @@ public class InqEditForm extends javax.swing.JPanel {
                 txtTelefonoActionPerformed(evt);
             }
         });
-        add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 110, 30));
+        add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 110, 30));
 
         btnEditarNombre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/editar.png"))); // NOI18N
+        btnEditarNombre.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditarNombre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnEditarNombreMouseClicked(evt);
@@ -226,24 +262,124 @@ public class InqEditForm extends javax.swing.JPanel {
         add(btnEditarNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, -1, -1));
 
         btnEditarApellido.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/editar.png"))); // NOI18N
+        btnEditarApellido.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnEditarApellido.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnEditarApellidoMouseClicked(evt);
             }
         });
-        add(btnEditarApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, -1, -1));
+        add(btnEditarApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, -1, -1));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/lupa.png"))); // NOI18N
+        btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnBuscarMouseClicked(evt);
+            }
+        });
         add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, -1, -1));
 
-        lblTelefono.setText("< Presione para habilitar edicion del Telefono");
-        add(lblTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 190, -1, -1));
+        lblNuevoApellido.setText("Ingrese nuevo apellido");
+        add(lblNuevoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, -1, -1));
 
-        lblNombre.setText("< Presione para habilitar edicion del nombre");
-        add(lblNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, -1, -1));
+        txtNuevoApellido.setBackground(new java.awt.Color(255, 255, 255));
+        txtNuevoApellido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtNuevoApellido.setForeground(new java.awt.Color(102, 102, 102));
+        txtNuevoApellido.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtNuevoApellido.setBorder(null);
+        txtNuevoApellido.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNuevoApellidoFocusLost(evt);
+            }
+        });
+        txtNuevoApellido.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNuevoApellidoMouseClicked(evt);
+            }
+        });
+        txtNuevoApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNuevoApellidoActionPerformed(evt);
+            }
+        });
+        add(txtNuevoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 170, 130, 30));
 
-        lblApellido.setText("< Presione para habilitar edicion del Apellido");
-        add(lblApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, -1, -1));
+        sepNuevoApellido.setBackground(new java.awt.Color(255, 255, 255));
+        sepNuevoApellido.setForeground(new java.awt.Color(102, 204, 255));
+        add(sepNuevoApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 200, 130, 20));
+
+        lblNuevoNombre.setText("Ingrese nuevo nombre");
+        add(lblNuevoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, -1, -1));
+
+        txtNuevoNombre.setBackground(new java.awt.Color(255, 255, 255));
+        txtNuevoNombre.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtNuevoNombre.setForeground(new java.awt.Color(102, 102, 102));
+        txtNuevoNombre.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtNuevoNombre.setBorder(null);
+        txtNuevoNombre.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNuevoNombreFocusLost(evt);
+            }
+        });
+        txtNuevoNombre.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNuevoNombreMouseClicked(evt);
+            }
+        });
+        txtNuevoNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNuevoNombreActionPerformed(evt);
+            }
+        });
+        add(txtNuevoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 130, 30));
+
+        sepNuevoNombre.setBackground(new java.awt.Color(255, 255, 255));
+        sepNuevoNombre.setForeground(new java.awt.Color(102, 204, 255));
+        add(sepNuevoNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 130, 20));
+
+        lblNuevoTelefono.setText("Ingrese nuevo telefono");
+        add(lblNuevoTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 220, -1, -1));
+
+        sepNuevoTelefono.setBackground(new java.awt.Color(255, 255, 255));
+        sepNuevoTelefono.setForeground(new java.awt.Color(102, 204, 255));
+        add(sepNuevoTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 130, 20));
+
+        txtNuevoTelefono.setBackground(new java.awt.Color(255, 255, 255));
+        txtNuevoTelefono.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtNuevoTelefono.setForeground(new java.awt.Color(102, 102, 102));
+        txtNuevoTelefono.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtNuevoTelefono.setBorder(null);
+        txtNuevoTelefono.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNuevoTelefonoFocusLost(evt);
+            }
+        });
+        txtNuevoTelefono.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNuevoTelefonoMouseClicked(evt);
+            }
+        });
+        txtNuevoTelefono.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNuevoTelefonoActionPerformed(evt);
+            }
+        });
+        add(txtNuevoTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, 130, 30));
+
+        lblTabApellido.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        lblTabApellido.setForeground(new java.awt.Color(102, 204, 255));
+        lblTabApellido.setText("TAB para confirmar");
+        add(lblTabApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 180, -1, -1));
+
+        lblTabTelefono.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        lblTabTelefono.setForeground(new java.awt.Color(102, 204, 255));
+        lblTabTelefono.setText("TAB para confirmar");
+        add(lblTabTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, -1, -1));
+
+        lblTabNombre.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        lblTabNombre.setForeground(new java.awt.Color(102, 204, 255));
+        lblTabNombre.setText("TAB para confirmar");
+        add(lblTabNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
@@ -251,32 +387,49 @@ public class InqEditForm extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
-     
+
     }//GEN-LAST:event_txtApellidoActionPerformed
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
-        
+        if (!inquilino.getNombre().equalsIgnoreCase(txtNombre.getText())) {
+            inquilino.setNombre(txtNombre.getText());
+
+        }
+        if (!inquilino.getApellido().equalsIgnoreCase(txtApellido.getText())) {
+            inquilino.setApellido(txtApellido.getText());
+        }
+        if (!inquilino.getTelefono().equalsIgnoreCase(txtTelefono.getText())) {
+            inquilino.setTelefono(txtTelefono.getText());
+        }
+        try {
+            inqServ.editarInquilino(inquilino);
+            lblMensaje.setText("El inquilino fue modificado correctamente");
+        } catch (Exception ex) {
+            lblMensaje.setText("No se pudo modifcar el inquilino");
+        }
+        btnConfirmar.setEnabled(false);
+        txtNombre.setText("Nombre");
+        txtApellido.setText("Apellido");
+        txtTelefono.setText("Telefono");
+        txtCuit.setText("CUIT");
+
     }//GEN-LAST:event_btnConfirmarActionPerformed
 
     private void txtNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreMouseClicked
-        
+
     }//GEN-LAST:event_txtNombreMouseClicked
 
     private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
-        txtNombre.setEditable(false);
-        sepNombre.setForeground(Color.black);
-        revertirComportamientoTextField(txtNombre,"Nombre");
-               
+
+
     }//GEN-LAST:event_txtNombreFocusLost
 
     private void txtApellidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtApellidoMouseClicked
-        
+
     }//GEN-LAST:event_txtApellidoMouseClicked
 
     private void txtApellidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtApellidoFocusLost
-      txtNombre.setEditable(false);
-        sepNombre.setForeground(Color.black);
-        revertirComportamientoTextField(txtApellido,"Apellido");  
+
     }//GEN-LAST:event_txtApellidoFocusLost
 
     private void txtCuitFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtCuitFocusLost
@@ -292,9 +445,7 @@ public class InqEditForm extends javax.swing.JPanel {
     }//GEN-LAST:event_txtCuitActionPerformed
 
     private void txtTelefonoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtTelefonoFocusLost
-        txtNombre.setEditable(false);
-        sepNombre.setForeground(Color.black);
-        revertirComportamientoTextField(txtTelefono,"Telefono"); 
+
     }//GEN-LAST:event_txtTelefonoFocusLost
 
     private void txtTelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTelefonoMouseClicked
@@ -306,22 +457,120 @@ public class InqEditForm extends javax.swing.JPanel {
     }//GEN-LAST:event_txtTelefonoActionPerformed
 
     private void btnEditarNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarNombreMouseClicked
-        comportamientoTextField(txtNombre,"Nombre");
-        txtNombre.setEditable(true);
-        sepNombre.setForeground(Color.green);
+        lblNuevoNombre.setVisible(true);
+        txtNuevoNombre.setVisible(true);
+        sepNuevoNombre.setVisible(true);
+        lblTabNombre.setVisible(true);
+        txtNuevoNombre.setEditable(true);
+        txtNuevoNombre.requestFocus();
+
+
     }//GEN-LAST:event_btnEditarNombreMouseClicked
 
     private void btnEditarApellidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarApellidoMouseClicked
-       comportamientoTextField(txtApellido,"Apellido");
-        txtNombre.setEditable(true);
-        sepNombre.setForeground(Color.green);  
+        lblNuevoApellido.setVisible(true);
+        txtNuevoApellido.setVisible(true);
+        sepNuevoApellido.setVisible(true);
+        lblTabApellido.setVisible(true);
+        txtNuevoApellido.setEditable(true);
+        txtNuevoApellido.requestFocus();
     }//GEN-LAST:event_btnEditarApellidoMouseClicked
 
     private void btnEditarTelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarTelefonoMouseClicked
-       comportamientoTextField(txtApellido,"Telefono");
-        txtNombre.setEditable(true);
-        sepNombre.setForeground(Color.green);  
+        lblNuevoTelefono.setVisible(true);
+        txtNuevoTelefono.setVisible(true);
+        sepNuevoTelefono.setVisible(true);
+        lblTabTelefono.setVisible(true);
+        txtNuevoTelefono.setEditable(true);
+        txtNuevoTelefono.requestFocus();
     }//GEN-LAST:event_btnEditarTelefonoMouseClicked
+
+    private void txtNuevoApellidoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevoApellidoFocusLost
+        lblNuevoApellido.setVisible(false);
+        txtNuevoApellido.setVisible(false);
+        sepNuevoApellido.setVisible(false);
+        lblTabApellido.setVisible(false);
+        if (!txtNuevoApellido.getText().trim().isEmpty() && !txtNuevoApellido.getText().equalsIgnoreCase("Apellido")) {
+            txtApellido.setText(txtNuevoApellido.getText().toUpperCase());
+            txtNuevoApellido.setText("");
+            btnConfirmar.setEnabled(true);
+        } else {
+            txtNuevoApellido.setText("");
+        }
+
+
+    }//GEN-LAST:event_txtNuevoApellidoFocusLost
+
+    private void txtNuevoApellidoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNuevoApellidoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNuevoApellidoMouseClicked
+
+    private void txtNuevoApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNuevoApellidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNuevoApellidoActionPerformed
+
+    private void txtNuevoNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevoNombreFocusLost
+        lblNuevoNombre.setVisible(false);
+        txtNuevoNombre.setVisible(false);
+        sepNuevoNombre.setVisible(false);
+        lblTabNombre.setVisible(false);
+        if (!txtNuevoNombre.getText().trim().isEmpty() && !txtNuevoNombre.getText().equalsIgnoreCase("Nombre")) {
+            txtNombre.setText(txtNuevoNombre.getText().toUpperCase());
+            txtNuevoNombre.setText("");
+            btnConfirmar.setEnabled(true);
+        } else {
+            txtNuevoNombre.setText("");
+        }
+    }//GEN-LAST:event_txtNuevoNombreFocusLost
+
+    private void txtNuevoNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNuevoNombreMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNuevoNombreMouseClicked
+
+    private void txtNuevoNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNuevoNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNuevoNombreActionPerformed
+
+    private void txtNuevoTelefonoFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevoTelefonoFocusLost
+        lblNuevoTelefono.setVisible(false);
+        txtNuevoTelefono.setVisible(false);
+        sepNuevoTelefono.setVisible(false);
+        lblTabTelefono.setVisible(false);
+        if (!txtNuevoTelefono.getText().trim().isEmpty() && !txtNuevoTelefono.getText().equalsIgnoreCase("Telefono")) {
+            txtTelefono.setText(txtNuevoTelefono.getText().toUpperCase());
+            txtNuevoTelefono.setText("");
+            btnConfirmar.setEnabled(true);
+        } else {
+            txtNuevoTelefono.setText("");
+        }
+
+
+    }//GEN-LAST:event_txtNuevoTelefonoFocusLost
+
+    private void txtNuevoTelefonoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNuevoTelefonoMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNuevoTelefonoMouseClicked
+
+    private void txtNuevoTelefonoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNuevoTelefonoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNuevoTelefonoActionPerformed
+
+    private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
+        inquilino = inqServ.buscarInquilinoPorCuit(txtCuit.getText().trim());
+        if (inquilino != null) {
+            txtNombre.setText(inquilino.getNombre());
+            txtApellido.setText(inquilino.getApellido());
+            txtTelefono.setText(inquilino.getTelefono());
+            btnEditarNombre.setVisible(true);
+            btnEditarApellido.setVisible(true);
+            btnEditarTelefono.setVisible(true);
+        } else {
+            lblMensaje.setText("No se ha encontrado ningun inquilino con ese CUIT en la base de datos");
+            txtNombre.setText("Nombre");
+            txtApellido.setText("Apellido");
+            txtTelefono.setText("Telefono");
+        }
+    }//GEN-LAST:event_btnBuscarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -333,16 +582,25 @@ public class InqEditForm extends javax.swing.JPanel {
     private javax.swing.JPanel contentIF;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JSeparator jSeparator11;
-    private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblMensaje;
-    private javax.swing.JLabel lblNombre;
-    private javax.swing.JLabel lblTelefono;
+    private javax.swing.JLabel lblNuevoApellido;
+    private javax.swing.JLabel lblNuevoNombre;
+    private javax.swing.JLabel lblNuevoTelefono;
+    private javax.swing.JLabel lblTabApellido;
+    private javax.swing.JLabel lblTabNombre;
+    private javax.swing.JLabel lblTabTelefono;
     private javax.swing.JSeparator sepApellido;
     private javax.swing.JSeparator sepNombre;
+    private javax.swing.JSeparator sepNuevoApellido;
+    private javax.swing.JSeparator sepNuevoNombre;
+    private javax.swing.JSeparator sepNuevoTelefono;
     private javax.swing.JSeparator sepTelefono;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCuit;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNuevoApellido;
+    private javax.swing.JTextField txtNuevoNombre;
+    private javax.swing.JTextField txtNuevoTelefono;
     private javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }

@@ -16,6 +16,8 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         Globales.comportamientoTextField(txtBusquedaCuit, "CUIT INQUILINO");
         Globales.comportamientoTextField(txtDireccionInmueble, "DIRECCION INMUEBLE");
+        Globales.activarBuscarConEnterBtn(txtBusquedaCuit, btnBusquedaCuit);
+           Globales.activarBuscarConEnterBtn(txtDireccionInmueble, btnBusquedaDireccion);
         CrudForm crud = new CrudForm();
         crud.setSize(490, 480);
         crud.setLocation(0, 0);
@@ -38,7 +40,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         btnBusquedaDireccion = new javax.swing.JButton();
-        btnBusquedaCuit2 = new javax.swing.JButton();
+        btnBusquedaCuit = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
         txtBusquedaCuit = new javax.swing.JTextField();
@@ -77,18 +79,18 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel2.add(btnBusquedaDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 30, 30));
 
-        btnBusquedaCuit2.setBackground(new java.awt.Color(0, 102, 255));
-        btnBusquedaCuit2.setForeground(new java.awt.Color(255, 255, 255));
-        btnBusquedaCuit2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/search.png"))); // NOI18N
-        btnBusquedaCuit2.setBorder(null);
-        btnBusquedaCuit2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        btnBusquedaCuit2.setFocusPainted(false);
-        btnBusquedaCuit2.addActionListener(new java.awt.event.ActionListener() {
+        btnBusquedaCuit.setBackground(new java.awt.Color(0, 102, 255));
+        btnBusquedaCuit.setForeground(new java.awt.Color(255, 255, 255));
+        btnBusquedaCuit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/search.png"))); // NOI18N
+        btnBusquedaCuit.setBorder(null);
+        btnBusquedaCuit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnBusquedaCuit.setFocusPainted(false);
+        btnBusquedaCuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBusquedaCuit2ActionPerformed(evt);
+                btnBusquedaCuitActionPerformed(evt);
             }
         });
-        jPanel2.add(btnBusquedaCuit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 30, 30));
+        jPanel2.add(btnBusquedaCuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, 30, 30));
 
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
         jSeparator3.setPreferredSize(new java.awt.Dimension(100, 10));
@@ -112,11 +114,11 @@ public class Principal extends javax.swing.JFrame {
         jPanel2.add(txtBusquedaCuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, 180, 20));
 
         jLabel1.setBackground(new java.awt.Color(0, 102, 255));
-        jLabel1.setFont(new java.awt.Font("Roboto", 1, 10)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("HA INMUEBLES");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 360, 77));
+        jLabel1.setText("GESTION DE CONTRATOS 1.0");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 360, 50));
 
         txtDireccionInmueble.setBackground(new java.awt.Color(0, 102, 255));
         txtDireccionInmueble.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -299,7 +301,7 @@ public class Principal extends javax.swing.JFrame {
         contentP.repaint();
     }//GEN-LAST:event_btnBusquedaDireccionActionPerformed
 
-    private void btnBusquedaCuit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaCuit2ActionPerformed
+    private void btnBusquedaCuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaCuitActionPerformed
         String cuit = txtBusquedaCuit.getText().trim();
         InqPage inqPage = new InqPage(cuit);
         inqPage.setSize(490, 480);
@@ -309,14 +311,14 @@ public class Principal extends javax.swing.JFrame {
         contentP.add(inqPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         contentP.revalidate();
         contentP.repaint();
-    }//GEN-LAST:event_btnBusquedaCuit2ActionPerformed
+    }//GEN-LAST:event_btnBusquedaCuitActionPerformed
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnBusquedaCuit2;
+    private javax.swing.JButton btnBusquedaCuit;
     private javax.swing.JButton btnBusquedaDireccion;
     private javax.swing.JButton btnListInm;
     private javax.swing.JPanel contentP;

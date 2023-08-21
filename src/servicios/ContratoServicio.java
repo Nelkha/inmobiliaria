@@ -18,8 +18,16 @@ public class ContratoServicio {
      public List<Contrato>consultaTodos(){
      return contratoJpa.findContratoEntities();
      }
-     public void guardar(Contrato contrato){
+     public boolean guardar(Contrato contrato){
+     try{
      contratoJpa.create(contrato);
+     return true;
+     }
+     catch(Exception e){
+         
+         return false;
+     }
+         
      }
      public Contrato buscarContratoPorId(long id){
      return contratoJpa.findContrato(id);
