@@ -17,9 +17,11 @@ import models.Contrato;
 import models.Inmueble;
 import models.Inquilino;
 import servicios.ContratoServicio;
+import static servicios.Globales.activarBuscarConEnterBtn;
 import servicios.InmuebleServicio;
 import servicios.InquilinoServicio;
 import static servicios.Globales.comportamientoTextField;
+import static servicios.Globales.vaciarFocus;
 
 /**
  *
@@ -39,8 +41,18 @@ public class ContratoForm extends javax.swing.JPanel {
         comportamientoTextField(txtApellido, "APELLIDO");
         comportamientoTextField(txtCantMese, "MESES INDEXACION");
         comportamientoTextField(txtFFin, "AAAA-MM-DD");
+        comportamientoTextField(txtFInicio, "AAAA-MM-DD");
         comportamientoTextField(txtTelefono, "TELEFONO");
         comportamientoTextField(txtMontoInicial, "VALOR INICIAL");
+        activarBuscarConEnterBtn(txtCantMese,btnGuardar);
+        vaciarFocus(txtCuit);
+        vaciarFocus(txtNombre);
+        vaciarFocus(txtApellido);
+        vaciarFocus(txtCantMese);
+        vaciarFocus(txtFFin);
+        vaciarFocus(txtFInicio);
+        vaciarFocus(txtTelefono);
+        vaciarFocus(txtMontoInicial);
         MaskFormatter mask = new MaskFormatter("##/##/####");
         mask.setPlaceholderCharacter('0'); // Carácter que se mostrará en lugar de los guiones
         DefaultFormatterFactory formatterFactory = new DefaultFormatterFactory(mask);

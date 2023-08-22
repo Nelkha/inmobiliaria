@@ -4,6 +4,8 @@
  */
 package servicios;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -102,6 +104,21 @@ public class Globales {
       public static void limpiar(JTextField textField){
       textField.setText("");
       
+      }
+      public static void vaciarFocus(JTextField textField){
+      
+            textField.addFocusListener(new FocusListener() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                // Este método se llama cuando el JTextField gana el foco
+                textField.setText(""); // Vaciar el JTextField
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                // Este método se llama cuando el JTextField pierde el foco
+            }
+        });
       }
 }
 
