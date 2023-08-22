@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFormattedTextField;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import models.Contrato;
@@ -21,7 +20,7 @@ import static servicios.Globales.activarBuscarConEnterBtn;
 import servicios.InmuebleServicio;
 import servicios.InquilinoServicio;
 import static servicios.Globales.comportamientoTextField;
-import static servicios.Globales.vaciarFocus;
+import static servicios.Globales.vaciarLetra;
 
 /**
  *
@@ -44,15 +43,15 @@ public class ContratoForm extends javax.swing.JPanel {
         comportamientoTextField(txtFInicio, "AAAA-MM-DD");
         comportamientoTextField(txtTelefono, "TELEFONO");
         comportamientoTextField(txtMontoInicial, "VALOR INICIAL");
-        activarBuscarConEnterBtn(txtCantMese,btnGuardar);
-        vaciarFocus(txtCuit);
-        vaciarFocus(txtNombre);
-        vaciarFocus(txtApellido);
-        vaciarFocus(txtCantMese);
-        vaciarFocus(txtFFin);
-        vaciarFocus(txtFInicio);
-        vaciarFocus(txtTelefono);
-        vaciarFocus(txtMontoInicial);
+        activarBuscarConEnterBtn(txtCantMese, btnGuardar);
+        vaciarLetra(txtCuit);
+        vaciarLetra(txtNombre);
+        vaciarLetra(txtApellido);
+        vaciarLetra(txtCantMese);
+        vaciarLetra(txtFFin);
+        vaciarLetra(txtFInicio);
+        vaciarLetra(txtTelefono);
+        vaciarLetra(txtMontoInicial);
         MaskFormatter mask = new MaskFormatter("##/##/####");
         mask.setPlaceholderCharacter('0'); // Carácter que se mostrará en lugar de los guiones
         DefaultFormatterFactory formatterFactory = new DefaultFormatterFactory(mask);

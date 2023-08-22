@@ -6,6 +6,7 @@ package servicios;
 
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
@@ -105,20 +106,19 @@ public class Globales {
       textField.setText("");
       
       }
-      public static void vaciarFocus(JTextField textField){
+      public static void vaciarLetra(JTextField textField){
       
-            textField.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                // Este método se llama cuando el JTextField gana el foco
-                textField.setText(""); // Vaciar el JTextField
-            }
+           textField.addKeyListener(new KeyAdapter() {
+        private boolean primeraLetraIngresada = false;
 
-            @Override
-            public void focusLost(FocusEvent e) {
-                // Este método se llama cuando el JTextField pierde el foco
+        @Override
+        public void keyTyped(KeyEvent e) {
+            if (!primeraLetraIngresada) {
+                textField.setText(""); // Borra el contenido existente al ingresar la primera letra
+                primeraLetraIngresada = true;
             }
-        });
+        }
+    });
       }
 }
 
