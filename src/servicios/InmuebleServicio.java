@@ -85,9 +85,17 @@ public class InmuebleServicio {
         
         return inm;
     }
+    public Inmueble buscarInmuebleId(long id) {
+        Inmueble inm=inmuebleJpa.findInmueble(id);
+        
+        return inm;
+    }
     public List<Contrato>buscarContratosInmuble(Inmueble inm){
     List<Contrato>contratos=inmuebleJpa.findContratosInmueble(inm);
     return contratos;
 }
+public void editarInmueble(Inmueble inmueble) throws Exception{
+    inmuebleJpa.edit(inmueble);
+    }
 
 }

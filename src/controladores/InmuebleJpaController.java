@@ -173,7 +173,12 @@ public class InmuebleJpaController implements Serializable {
         EntityManager em = getEntityManager();
         try {
             return em.find(Inmueble.class, id);
-        } finally {
+        } 
+        catch(Exception e){
+         e.printStackTrace();
+        return null; 
+        }
+        finally {
             em.close();
         }
     }

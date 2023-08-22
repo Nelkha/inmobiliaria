@@ -120,6 +120,11 @@ public class CrudForm extends javax.swing.JPanel {
         jButton7.setText("INMUEBLE");
         jButton7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton7.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -264,6 +269,16 @@ public class CrudForm extends javax.swing.JPanel {
         contentPI.revalidate();
         contentPI.repaint();
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+    InmEditForm inmEdit = new InmEditForm();
+        inmEdit.setSize(490, 480);
+        inmEdit.setLocation(0, 0);
+        contentPI.removeAll();
+        contentPI.add(inmEdit, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        contentPI.revalidate();
+        contentPI.repaint();
+    }//GEN-LAST:event_jButton7ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
