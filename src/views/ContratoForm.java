@@ -76,6 +76,14 @@ public class ContratoForm extends javax.swing.JPanel {
 
         jSeparator4 = new javax.swing.JSeparator();
         contentPI = new javax.swing.JPanel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jSeparator2 = new javax.swing.JSeparator();
+        jSeparator3 = new javax.swing.JSeparator();
+        jSeparator5 = new javax.swing.JSeparator();
+        jSeparator6 = new javax.swing.JSeparator();
+        jSeparator7 = new javax.swing.JSeparator();
+        jSeparator8 = new javax.swing.JSeparator();
+        jSeparator9 = new javax.swing.JSeparator();
         lblMensaje = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtCuit = new javax.swing.JTextField();
@@ -94,14 +102,6 @@ public class ContratoForm extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         txtFInicio = new javax.swing.JFormattedTextField();
         txtFFin = new javax.swing.JFormattedTextField();
-        jSeparator1 = new javax.swing.JSeparator();
-        jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
-        jSeparator5 = new javax.swing.JSeparator();
-        jSeparator6 = new javax.swing.JSeparator();
-        jSeparator7 = new javax.swing.JSeparator();
-        jSeparator8 = new javax.swing.JSeparator();
-        jSeparator9 = new javax.swing.JSeparator();
 
         jSeparator4.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
@@ -116,6 +116,38 @@ public class ContratoForm extends javax.swing.JPanel {
         contentPI.setBackground(new java.awt.Color(255, 255, 255));
         contentPI.setForeground(new java.awt.Color(0, 0, 0));
         contentPI.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
+        contentPI.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 110, 10));
+
+        jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
+        contentPI.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 110, 10));
+
+        jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
+        contentPI.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 110, 10));
+
+        jSeparator5.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
+        contentPI.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 110, 10));
+
+        jSeparator6.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
+        contentPI.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 110, 10));
+
+        jSeparator7.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator7.setForeground(new java.awt.Color(0, 0, 0));
+        contentPI.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 110, 10));
+
+        jSeparator8.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator8.setForeground(new java.awt.Color(0, 0, 0));
+        contentPI.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 110, 10));
+
+        jSeparator9.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator9.setForeground(new java.awt.Color(0, 0, 0));
+        contentPI.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 110, 10));
 
         lblMensaje.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         lblMensaje.setForeground(new java.awt.Color(204, 0, 0));
@@ -273,38 +305,6 @@ public class ContratoForm extends javax.swing.JPanel {
         contentPI.add(txtFFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, -1, -1));
 
         add(contentPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 460));
-
-        jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
-        jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 110, 10));
-
-        jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
-        jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 110, 10));
-
-        jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
-        jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
-        add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 110, 10));
-
-        jSeparator5.setBackground(new java.awt.Color(255, 255, 255));
-        jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
-        add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 110, 10));
-
-        jSeparator6.setBackground(new java.awt.Color(255, 255, 255));
-        jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
-        add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 110, 10));
-
-        jSeparator7.setBackground(new java.awt.Color(255, 255, 255));
-        jSeparator7.setForeground(new java.awt.Color(0, 0, 0));
-        add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 110, 10));
-
-        jSeparator8.setBackground(new java.awt.Color(255, 255, 255));
-        jSeparator8.setForeground(new java.awt.Color(0, 0, 0));
-        add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 110, 10));
-
-        jSeparator9.setBackground(new java.awt.Color(255, 255, 255));
-        jSeparator9.setForeground(new java.awt.Color(0, 0, 0));
-        add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 110, 10));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoActionPerformed
