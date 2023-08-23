@@ -22,41 +22,66 @@ public class ContrList extends javax.swing.JPanel {
     DefaultTableModel dtm = new DefaultTableModel();
     List<Contrato> contratos = contServ.consultaTodos();
 
-    private void filtrarContratos() {
-    String filtroNombre = txtFiltro.getText().toLowerCase().trim();
-    boolean mostrarTodos = btnAll.isSelected();
-    boolean mostrarVigentes = btnVig.isSelected();
-    boolean mostrarNoVigentes = btnNoVig.isSelected();
+    private void actualizarTabla() {
+        String filtroNombre = txtFiltro.getText().toLowerCase().trim();
+        boolean mostrarVigentes = rbtnVig.isSelected();
+        boolean mostrarNoVigentes = rbtnNoVig.isSelected();
+        boolean mostrarTodos = rbtnAll.isSelected();
 
-    dtm.setRowCount(0);
+        dtm.setRowCount(0);
 
-    for (Contrato cont : contratos) {
-        String nombreCompleto = cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido();
-        boolean esVigente = cont.isAlta();
+        for (Contrato cont : contratos) {
+            String nombreCompleto = cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido();
+            boolean esVigente = cont.isAlta();
 
-        if ((mostrarTodos || (mostrarVigentes && esVigente) || (mostrarNoVigentes && !esVigente))
-                && nombreCompleto.toLowerCase().contains(filtroNombre)) {
-            dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
+            boolean cumpleFiltroNombre = filtroNombre.isEmpty() || filtroNombre.equals("Filtrar por nombre");
+
+
+            if (cumpleFiltroNombre) {
+                System.out.println("entro al if"); 
+                if(mostrarTodos && nombreCompleto.toLowerCase().contains(filtroNombre)){
+                 dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
+                 }
+                        
+            }
+            else{
+                System.out.println("entro al else"); 
+             if (mostrarTodos) {
+                dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
+
+            } else if (mostrarVigentes) {
+                if (esVigente) {
+                    dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
+                }
+
+            } else if (mostrarNoVigentes) {
+                if (!esVigente) {
+                    dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
+                }
+            }
+
+            
+            }
+           
         }
     }
-}
 
     public ContrList() {
         initComponents();
         txtFiltro.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-                filtrarContratos();
+                actualizarTabla();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-                filtrarContratos();
+                actualizarTabla();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
-                filtrarContratos();
+                actualizarTabla();
             }
         });
         comportamientoTextField(txtFiltro, "Escribe un nombre");
@@ -68,10 +93,7 @@ public class ContrList extends javax.swing.JPanel {
         tblCont.getColumnModel().getColumn(1).setPreferredWidth(125);
         tblCont.getColumnModel().getColumn(2).setPreferredWidth(125);
         tblCont.getColumnModel().getColumn(3).setPreferredWidth(5);
-        for (Contrato cont : contratos) {
-            dtm.addRow(new Object[]{cont.getId(), cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido(), cont.getInmueble().getDireccion(),
-                cont.getIndexacionMeses()});
-        }
+        actualizarTabla();
     }
 
     /**
@@ -83,18 +105,19 @@ public class ContrList extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         contentPI = new javax.swing.JPanel();
-        btnNoVig = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCont = new javax.swing.JTable();
-        btnVig = new javax.swing.JButton();
-        btnAll = new javax.swing.JButton();
         txtFiltro = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         txaDetalles = new javax.swing.JTextArea();
         lblInqTitle1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        rbtnNoVig = new javax.swing.JRadioButton();
+        rbtnAll = new javax.swing.JRadioButton();
+        rbtnVig = new javax.swing.JRadioButton();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setMinimumSize(new java.awt.Dimension(490, 480));
@@ -105,19 +128,6 @@ public class ContrList extends javax.swing.JPanel {
 
         contentPI.setBackground(new java.awt.Color(255, 255, 255));
         contentPI.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        btnNoVig.setBackground(new java.awt.Color(0, 51, 153));
-        btnNoVig.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        btnNoVig.setForeground(new java.awt.Color(255, 255, 255));
-        btnNoVig.setText("NO VIGENTES");
-        btnNoVig.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnNoVig.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnNoVig.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnNoVigActionPerformed(evt);
-            }
-        });
-        contentPI.add(btnNoVig, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 90, 20));
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 0, 0));
@@ -147,32 +157,6 @@ public class ContrList extends javax.swing.JPanel {
 
         contentPI.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 450, 170));
 
-        btnVig.setBackground(new java.awt.Color(0, 51, 153));
-        btnVig.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        btnVig.setForeground(new java.awt.Color(255, 255, 255));
-        btnVig.setText("VIGENTES");
-        btnVig.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnVig.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnVig.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVigActionPerformed(evt);
-            }
-        });
-        contentPI.add(btnVig, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 90, 20));
-
-        btnAll.setBackground(new java.awt.Color(0, 51, 153));
-        btnAll.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        btnAll.setForeground(new java.awt.Color(255, 255, 255));
-        btnAll.setText("TODOS");
-        btnAll.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnAll.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnAll.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAllActionPerformed(evt);
-            }
-        });
-        contentPI.add(btnAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 90, 20));
-
         txtFiltro.setText("Filtrar por nombre");
         contentPI.add(txtFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 130, 20));
 
@@ -193,39 +177,42 @@ public class ContrList extends javax.swing.JPanel {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/info.png"))); // NOI18N
         contentPI.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, -1, -1));
 
+        rbtnNoVig.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rbtnNoVig);
+        rbtnNoVig.setForeground(new java.awt.Color(51, 51, 51));
+        rbtnNoVig.setText("NO VIGENTES");
+        rbtnNoVig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnNoVigActionPerformed(evt);
+            }
+        });
+        contentPI.add(rbtnNoVig, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, -1, 20));
+
+        rbtnAll.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rbtnAll);
+        rbtnAll.setForeground(new java.awt.Color(51, 51, 51));
+        rbtnAll.setSelected(true);
+        rbtnAll.setText("TODOS");
+        rbtnAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnAllActionPerformed(evt);
+            }
+        });
+        contentPI.add(rbtnAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 40, 90, 20));
+
+        rbtnVig.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rbtnVig);
+        rbtnVig.setForeground(new java.awt.Color(51, 51, 51));
+        rbtnVig.setText("VIGENTES");
+        rbtnVig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbtnVigActionPerformed(evt);
+            }
+        });
+        contentPI.add(rbtnVig, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 90, 20));
+
         add(contentPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 460));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnNoVigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoVigActionPerformed
-        dtm.setRowCount(0);
-        for (Contrato cont : contratos) {
-            if (!cont.isAlta()) {
-                dtm.addRow(new Object[]{cont.getId(), cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido(), cont.getInmueble().getDireccion(),
-                    cont.getIndexacionMeses()});
-            }
-
-        }
-    }//GEN-LAST:event_btnNoVigActionPerformed
-
-    private void btnVigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVigActionPerformed
-        dtm.setRowCount(0);
-        for (Contrato cont : contratos) {
-            if (cont.isAlta()) {
-                dtm.addRow(new Object[]{cont.getId(), cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido(), cont.getInmueble().getDireccion(),
-                    cont.getIndexacionMeses()});
-            }
-
-        }
-    }//GEN-LAST:event_btnVigActionPerformed
-
-    private void btnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllActionPerformed
-        dtm.setRowCount(0);
-        for (Contrato cont : contratos) {
-
-            dtm.addRow(new Object[]{cont.getId(), cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido(), cont.getInmueble().getDireccion(),
-                cont.getIndexacionMeses()});
-        }        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAllActionPerformed
 
     private void tblContMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblContMouseClicked
         int selectedRow = tblCont.getSelectedRow();
@@ -249,17 +236,33 @@ public class ContrList extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_tblContMouseClicked
 
+    private void rbtnNoVigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNoVigActionPerformed
+        System.out.println("funciona");
+        actualizarTabla();
+    }//GEN-LAST:event_rbtnNoVigActionPerformed
+
+    private void rbtnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAllActionPerformed
+        actualizarTabla();
+        System.out.println("funciona");
+    }//GEN-LAST:event_rbtnAllActionPerformed
+
+    private void rbtnVigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnVigActionPerformed
+        actualizarTabla();
+        System.out.println("funciona");
+    }//GEN-LAST:event_rbtnVigActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAll;
-    private javax.swing.JButton btnNoVig;
-    private javax.swing.JButton btnVig;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel contentPI;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblInqTitle1;
+    private javax.swing.JRadioButton rbtnAll;
+    private javax.swing.JRadioButton rbtnNoVig;
+    private javax.swing.JRadioButton rbtnVig;
     private javax.swing.JTable tblCont;
     private javax.swing.JTextArea txaDetalles;
     private javax.swing.JTextField txtFiltro;
