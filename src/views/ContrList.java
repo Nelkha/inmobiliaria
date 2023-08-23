@@ -5,9 +5,12 @@
 package views;
 
 import java.util.List;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import models.Contrato;
 import servicios.ContratoServicio;
+import static servicios.Globales.comportamientoTextField;
 
 /**
  *
@@ -19,8 +22,44 @@ public class ContrList extends javax.swing.JPanel {
     DefaultTableModel dtm = new DefaultTableModel();
     List<Contrato> contratos = contServ.consultaTodos();
 
+    private void filtrarContratos() {
+    String filtroNombre = txtFiltro.getText().toLowerCase().trim();
+    boolean mostrarTodos = btnAll.isSelected();
+    boolean mostrarVigentes = btnVig.isSelected();
+    boolean mostrarNoVigentes = btnNoVig.isSelected();
+
+    dtm.setRowCount(0);
+
+    for (Contrato cont : contratos) {
+        String nombreCompleto = cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido();
+        boolean esVigente = cont.isAlta();
+
+        if ((mostrarTodos || (mostrarVigentes && esVigente) || (mostrarNoVigentes && !esVigente))
+                && nombreCompleto.toLowerCase().contains(filtroNombre)) {
+            dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
+        }
+    }
+}
+
     public ContrList() {
         initComponents();
+        txtFiltro.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                filtrarContratos();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                filtrarContratos();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                filtrarContratos();
+            }
+        });
+        comportamientoTextField(txtFiltro, "Escribe un nombre");
         String[] titulos = new String[]{"C. ID", "INQUILINO", "INMUEBLE", "INDEX"};
         dtm.setColumnIdentifiers(titulos);
 
@@ -51,6 +90,11 @@ public class ContrList extends javax.swing.JPanel {
         tblCont = new javax.swing.JTable();
         btnVig = new javax.swing.JButton();
         btnAll = new javax.swing.JButton();
+        txtFiltro = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txaDetalles = new javax.swing.JTextArea();
+        lblInqTitle1 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setMinimumSize(new java.awt.Dimension(490, 480));
@@ -73,7 +117,7 @@ public class ContrList extends javax.swing.JPanel {
                 btnNoVigActionPerformed(evt);
             }
         });
-        contentPI.add(btnNoVig, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 40, 130, 40));
+        contentPI.add(btnNoVig, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 40, 90, 20));
 
         jLabel1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(204, 0, 0));
@@ -94,9 +138,14 @@ public class ContrList extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblCont.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblContMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCont);
 
-        contentPI.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 450, 360));
+        contentPI.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 450, 170));
 
         btnVig.setBackground(new java.awt.Color(0, 51, 153));
         btnVig.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
@@ -109,7 +158,7 @@ public class ContrList extends javax.swing.JPanel {
                 btnVigActionPerformed(evt);
             }
         });
-        contentPI.add(btnVig, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 40, 130, 40));
+        contentPI.add(btnVig, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 90, 20));
 
         btnAll.setBackground(new java.awt.Color(0, 51, 153));
         btnAll.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
@@ -122,41 +171,83 @@ public class ContrList extends javax.swing.JPanel {
                 btnAllActionPerformed(evt);
             }
         });
-        contentPI.add(btnAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 130, 40));
+        contentPI.add(btnAll, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 40, 90, 20));
+
+        txtFiltro.setText("Filtrar por nombre");
+        contentPI.add(txtFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 130, 20));
+
+        txaDetalles.setEditable(false);
+        txaDetalles.setColumns(20);
+        txaDetalles.setRows(5);
+        txaDetalles.setBorder(null);
+        jScrollPane2.setViewportView(txaDetalles);
+
+        contentPI.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 230, 180));
+
+        lblInqTitle1.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
+        lblInqTitle1.setForeground(new java.awt.Color(204, 0, 0));
+        lblInqTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblInqTitle1.setText("DETALLES");
+        contentPI.add(lblInqTitle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 460, 30));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/info.png"))); // NOI18N
+        contentPI.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 320, -1, -1));
 
         add(contentPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 460));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNoVigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNoVigActionPerformed
-dtm.setRowCount(0);
+        dtm.setRowCount(0);
         for (Contrato cont : contratos) {
-            if(!cont.isAlta()){
+            if (!cont.isAlta()) {
                 dtm.addRow(new Object[]{cont.getId(), cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido(), cont.getInmueble().getDireccion(),
-                cont.getIndexacionMeses()});
+                    cont.getIndexacionMeses()});
             }
-            
-        }       
+
+        }
     }//GEN-LAST:event_btnNoVigActionPerformed
 
     private void btnVigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVigActionPerformed
         dtm.setRowCount(0);
         for (Contrato cont : contratos) {
-            if(cont.isAlta()){
+            if (cont.isAlta()) {
                 dtm.addRow(new Object[]{cont.getId(), cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido(), cont.getInmueble().getDireccion(),
-                cont.getIndexacionMeses()});
+                    cont.getIndexacionMeses()});
             }
-            
-        }       
+
+        }
     }//GEN-LAST:event_btnVigActionPerformed
 
     private void btnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAllActionPerformed
         dtm.setRowCount(0);
         for (Contrato cont : contratos) {
-            
+
             dtm.addRow(new Object[]{cont.getId(), cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido(), cont.getInmueble().getDireccion(),
                 cont.getIndexacionMeses()});
         }        // TODO add your handling code here:
     }//GEN-LAST:event_btnAllActionPerformed
+
+    private void tblContMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblContMouseClicked
+        int selectedRow = tblCont.getSelectedRow();
+        if (selectedRow >= 0) {
+            long idCont = (long) tblCont.getValueAt(selectedRow, 0);
+            Contrato contrato = contServ.buscarContratoPorId(idCont);
+            StringBuilder importesText = new StringBuilder();
+            for (Double importe : contrato.getImportesAlquiler()) {
+                importesText.append(importe).append(", ");
+            }
+            txaDetalles.setText("ID Contrato: " + contrato.getId() + "\n"
+                    + "Inquilino: " + contrato.getInquilino().getNombre() + " " + contrato.getInquilino().getApellido() + "\n"
+                    + "Inmueble: " + contrato.getInmueble().getDireccion() + "\n"
+                    + "Fecha de Inicio: " + contrato.getFechaInicio() + "\n"
+                    + "Fecha de Fin: " + contrato.getFechaFin() + "\n"
+                    + "Monto Actual: " + contrato.getMontoAlquiler() + "\n"
+                    + "Index Meses: " + contrato.getIndexacionMeses() + "\n"
+                    + "Importes historicos: " + importesText.toString()
+            );
+
+        }
+    }//GEN-LAST:event_tblContMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -165,7 +256,12 @@ dtm.setRowCount(0);
     private javax.swing.JButton btnVig;
     private javax.swing.JPanel contentPI;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblInqTitle1;
     private javax.swing.JTable tblCont;
+    private javax.swing.JTextArea txaDetalles;
+    private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 }
