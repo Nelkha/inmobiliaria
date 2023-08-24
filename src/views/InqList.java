@@ -22,16 +22,17 @@ public class InqList extends javax.swing.JPanel {
 
     public InqList() {
         initComponents();
-        String[] titulos = new String[]{"ID", "CUIT", "INQUILINO"};
+        String[] titulos = new String[]{"ID", "CUIT", "INQ.","TEL"};
         dtm.setColumnIdentifiers(titulos);
 
         tblCont.setModel(dtm);
         tblCont.getColumnModel().getColumn(0).setPreferredWidth(5);
         tblCont.getColumnModel().getColumn(1).setPreferredWidth(50);
-        tblCont.getColumnModel().getColumn(2).setPreferredWidth(205);
+        tblCont.getColumnModel().getColumn(2).setPreferredWidth(150);
+        tblCont.getColumnModel().getColumn(3).setPreferredWidth(60);
         
         for (Inquilino inq : inquilinos) {
-            dtm.addRow(new Object[]{inq.getId(), inq.getCuit(),inq.getNombre() + " " + inq.getApellido()});
+            dtm.addRow(new Object[]{inq.getId(), inq.getCuit(),inq.getNombre() + " " + inq.getApellido(),inq.getTelefono()});
         }
     }
 

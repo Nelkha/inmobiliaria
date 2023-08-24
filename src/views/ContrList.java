@@ -5,6 +5,7 @@
 package views;
 
 import java.util.List;
+import java.util.Locale;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -23,7 +24,7 @@ public class ContrList extends javax.swing.JPanel {
     List<Contrato> contratos = contServ.consultaTodos();
 
     private void actualizarTabla() {
-        String filtroNombre = txtFiltro.getText().toLowerCase().trim();
+        String filtroNombre = txtFiltro.getText().toUpperCase().trim();
         boolean mostrarVigentes = rbtnVig.isSelected();
         boolean mostrarNoVigentes = rbtnNoVig.isSelected();
         boolean mostrarTodos = rbtnAll.isSelected();
@@ -32,37 +33,25 @@ public class ContrList extends javax.swing.JPanel {
 
         for (Contrato cont : contratos) {
             String nombreCompleto = cont.getInquilino().getNombre() + " " + cont.getInquilino().getApellido();
+            nombreCompleto = nombreCompleto.toUpperCase().trim();
             boolean esVigente = cont.isAlta();
-
-            boolean cumpleFiltroNombre = filtroNombre.isEmpty() || filtroNombre.equals("Filtrar por nombre");
-
-
+            boolean mostrarContrato = mostrarTodos
+                    || (mostrarVigentes && esVigente)
+                    || (mostrarNoVigentes && !esVigente);
+            boolean cumpleFiltroNombre = filtroNombre.isEmpty() || !filtroNombre.equals("FILTRAR POR NOMBRE");
             if (cumpleFiltroNombre) {
-                System.out.println("entro al if"); 
-                if(mostrarTodos && nombreCompleto.toLowerCase().contains(filtroNombre)){
-                 dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
-                 }
-                        
-            }
-            else{
-                System.out.println("entro al else"); 
-             if (mostrarTodos) {
-                dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
 
-            } else if (mostrarVigentes) {
-                if (esVigente) {
+                if (mostrarContrato && nombreCompleto.contains(filtroNombre.toUpperCase())) {
                     dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
                 }
 
-            } else if (mostrarNoVigentes) {
-                if (!esVigente) {
+            } else {
+                if (mostrarContrato) {
                     dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
                 }
+
             }
 
-            
-            }
-           
         }
     }
 
@@ -84,7 +73,7 @@ public class ContrList extends javax.swing.JPanel {
                 actualizarTabla();
             }
         });
-        comportamientoTextField(txtFiltro, "Escribe un nombre");
+        comportamientoTextField(txtFiltro, "Filtrar por nombre");
         String[] titulos = new String[]{"C. ID", "INQUILINO", "INMUEBLE", "INDEX"};
         dtm.setColumnIdentifiers(titulos);
 
@@ -237,18 +226,15 @@ public class ContrList extends javax.swing.JPanel {
     }//GEN-LAST:event_tblContMouseClicked
 
     private void rbtnNoVigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnNoVigActionPerformed
-        System.out.println("funciona");
         actualizarTabla();
     }//GEN-LAST:event_rbtnNoVigActionPerformed
 
     private void rbtnAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnAllActionPerformed
         actualizarTabla();
-        System.out.println("funciona");
     }//GEN-LAST:event_rbtnAllActionPerformed
 
     private void rbtnVigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbtnVigActionPerformed
         actualizarTabla();
-        System.out.println("funciona");
     }//GEN-LAST:event_rbtnVigActionPerformed
 
 
