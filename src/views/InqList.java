@@ -5,8 +5,9 @@
 package views;
 
 import java.util.List;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
-import models.Contrato;
 import models.Inquilino;
 import servicios.InquilinoServicio;
 
@@ -20,9 +21,50 @@ public class InqList extends javax.swing.JPanel {
     DefaultTableModel dtm = new DefaultTableModel();
     List<Inquilino> inquilinos = inqServ.consultaTodos();
 
+    private void actualizarTabla() {
+        String filtroNombre = txtFiltro.getText().toUpperCase().trim();
+
+        dtm.setRowCount(0);
+
+        for (Inquilino inq : inquilinos) {
+            String nombreCompleto = inq.getNombre() + " " + inq.getApellido();
+            nombreCompleto = nombreCompleto.toUpperCase().trim();
+
+            boolean cumpleFiltroNombre = filtroNombre.isEmpty() || !filtroNombre.equals("FILTRAR POR NOMBRE");
+            if (cumpleFiltroNombre) {
+
+                if (nombreCompleto.contains(filtroNombre)) {
+                    dtm.addRow(new Object[]{inq.getId(), inq.getCuit(), nombreCompleto, inq.getTelefono()});
+                }
+
+            } else {
+
+                dtm.addRow(new Object[]{inq.getId(), inq.getCuit(), nombreCompleto, inq.getTelefono()});
+
+            }
+
+        }
+    }
+
     public InqList() {
         initComponents();
-        String[] titulos = new String[]{"ID", "CUIT", "INQ.","TEL"};
+        txtFiltro.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                actualizarTabla();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                actualizarTabla();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                actualizarTabla();
+            }
+        });
+        String[] titulos = new String[]{"ID", "CUIT", "INQ.", "TEL"};
         dtm.setColumnIdentifiers(titulos);
 
         tblCont.setModel(dtm);
@@ -30,10 +72,8 @@ public class InqList extends javax.swing.JPanel {
         tblCont.getColumnModel().getColumn(1).setPreferredWidth(50);
         tblCont.getColumnModel().getColumn(2).setPreferredWidth(150);
         tblCont.getColumnModel().getColumn(3).setPreferredWidth(60);
-        
-        for (Inquilino inq : inquilinos) {
-            dtm.addRow(new Object[]{inq.getId(), inq.getCuit(),inq.getNombre() + " " + inq.getApellido(),inq.getTelefono()});
-        }
+
+        actualizarTabla();
     }
 
     /**
@@ -49,6 +89,7 @@ public class InqList extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblCont = new javax.swing.JTable();
+        txtFiltro = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setMinimumSize(new java.awt.Dimension(490, 480));
@@ -81,7 +122,10 @@ public class InqList extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblCont);
 
-        contentPI.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 450, 420));
+        contentPI.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 450, 390));
+
+        txtFiltro.setText("Filtrar por nombre");
+        contentPI.add(txtFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 130, 20));
 
         add(contentPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 460));
     }// </editor-fold>//GEN-END:initComponents
@@ -92,5 +136,6 @@ public class InqList extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblCont;
+    private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 }

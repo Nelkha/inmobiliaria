@@ -29,7 +29,10 @@ public class Inmueble implements Serializable {
     private boolean alta;
     
     
-
+public String altaObaja(Inmueble inm){
+String altaoBaja=inm.isAlta()?"ALTA":"BAJA";
+return altaoBaja;
+}
     public boolean isAlta() {
         
         

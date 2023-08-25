@@ -5,6 +5,8 @@
 package views;
 
 import java.util.List;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import models.Inmueble;
 import servicios.InmuebleServicio;
@@ -19,18 +21,56 @@ public class InmList extends javax.swing.JPanel {
     DefaultTableModel dtm = new DefaultTableModel();
     List<Inmueble> inmuebles = inmServ.consultaTodos();
 
+    private void actualizarTabla() {
+        String filtroNombre = txtFiltro.getText().toUpperCase().trim();
+
+        dtm.setRowCount(0);
+
+        for (Inmueble inm : inmuebles) {
+            String direccion = inm.getDireccion().toUpperCase();
+           
+
+            boolean cumpleFiltroNombre = filtroNombre.isEmpty() || !filtroNombre.equals("FILTRAR POR DIRECCION");
+            if (cumpleFiltroNombre) {
+
+                if (direccion.contains(filtroNombre)) {
+                    dtm.addRow(new Object[]{inm.getId(), inm.getDireccion(), inm.altaObaja(inm)});
+                }
+
+            } else {
+
+                dtm.addRow(new Object[]{inm.getId(), inm.getDireccion(), inm.altaObaja(inm)});
+
+            }
+
+        }
+    }
+
     public InmList() {
         initComponents();
         String[] titulos = new String[]{"ID", "DIRECCION", "ALTA/BAJA"};
         dtm.setColumnIdentifiers(titulos);
+ txtFiltro.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                actualizarTabla();
+            }
 
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                actualizarTabla();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                actualizarTabla();
+            }
+        });
         tblInm.setModel(dtm);
         tblInm.getColumnModel().getColumn(0).setPreferredWidth(15); // ID
         tblInm.getColumnModel().getColumn(1).setPreferredWidth(250); // DIRECCION
         tblInm.getColumnModel().getColumn(2).setPreferredWidth(15);
-        for (Inmueble inm : inmuebles) {
-            dtm.addRow(new Object[]{inm.getId(), inm.getDireccion(), inmServ.getAlta(inm)});
-        }
+        actualizarTabla();
     }
 
     @SuppressWarnings("unchecked")
@@ -41,6 +81,7 @@ public class InmList extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblInm = new javax.swing.JTable();
+        txtFiltro = new javax.swing.JTextField();
 
         setBackground(new java.awt.Color(0, 0, 0));
         setMinimumSize(new java.awt.Dimension(490, 480));
@@ -73,7 +114,10 @@ public class InmList extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(tblInm);
 
-        contentPI.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 450, 420));
+        contentPI.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 450, 390));
+
+        txtFiltro.setText("Filtrar por direccion");
+        contentPI.add(txtFiltro, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 130, 20));
 
         add(contentPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 460));
     }// </editor-fold>//GEN-END:initComponents
@@ -84,5 +128,6 @@ public class InmList extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblInm;
+    private javax.swing.JTextField txtFiltro;
     // End of variables declaration//GEN-END:variables
 }
