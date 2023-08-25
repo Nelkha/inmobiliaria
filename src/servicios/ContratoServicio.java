@@ -33,4 +33,7 @@ public class ContratoServicio {
      return contratoJpa.findContrato(id);
    
      }
+     public void editarContrato(Contrato contrato) throws Exception{
+     contratoJpa.edit(contrato);
+     }
 }

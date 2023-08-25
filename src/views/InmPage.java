@@ -9,7 +9,7 @@ import java.text.DecimalFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import models.Contrato;
-import static models.Contrato_.inquilino;
+
 import models.Inmueble;
 import servicios.ContratoServicio;
 import servicios.InmuebleServicio;
