@@ -4,8 +4,9 @@
  */
 package views;
 
-import java.awt.BorderLayout;
+import java.time.LocalDate;
 import servicios.Globales;
+import servicios.NTPTimeService;
 
 public class Principal extends javax.swing.JFrame {
 
@@ -17,7 +18,7 @@ public class Principal extends javax.swing.JFrame {
         Globales.comportamientoTextField(txtBusquedaCuit, "CUIT INQUILINO");
         Globales.comportamientoTextField(txtDireccionInmueble, "DIRECCION INMUEBLE");
         Globales.activarBuscarConEnterBtn(txtBusquedaCuit, btnBusquedaCuit);
-           Globales.activarBuscarConEnterBtn(txtDireccionInmueble, btnBusquedaDireccion);
+        Globales.activarBuscarConEnterBtn(txtDireccionInmueble, btnBusquedaDireccion);
         CrudForm crud = new CrudForm();
         crud.setSize(490, 480);
         crud.setLocation(0, 0);
@@ -26,6 +27,15 @@ public class Principal extends javax.swing.JFrame {
         contentP.add(crud, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
         contentP.revalidate();
         contentP.repaint();
+
+        String ntpServer = "time.google.com";
+
+        NTPTimeService timeService = new NTPTimeService(ntpServer);
+
+        LocalDate fechaSincronizada = timeService.obtenerFechaSincronizada();
+
+        lblFecha.setText("Fecha: " + fechaSincronizada);
+
     }
 
     /**
@@ -53,6 +63,7 @@ public class Principal extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        lblFecha = new javax.swing.JLabel();
         contentP = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -211,6 +222,10 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 30));
 
+        lblFecha.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
+        lblFecha.setForeground(new java.awt.Color(255, 255, 255));
+        jPanel2.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 130, 20));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 480));
 
         contentP.setBackground(new java.awt.Color(255, 255, 255));
@@ -333,6 +348,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JLabel lblFecha;
     private javax.swing.JTextField txtBusquedaCuit;
     private javax.swing.JTextField txtDireccionInmueble;
     // End of variables declaration//GEN-END:variables

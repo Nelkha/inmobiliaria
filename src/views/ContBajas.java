@@ -12,6 +12,7 @@ import servicios.BajaServicio;
 import servicios.ContratoServicio;
 import servicios.Globales;
 import static servicios.Globales.comportamientoTextField;
+import servicios.NTPTimeService;
 
 /**
  *
@@ -22,6 +23,7 @@ public class ContBajas extends javax.swing.JPanel {
     BajaServicio bajaServ = new BajaServicio();
     ContratoServicio contServ = new ContratoServicio();
     Contrato contrato;
+    LocalDate fechaSincronizada;
 
     public ContBajas() {
         initComponents();
@@ -34,6 +36,13 @@ public class ContBajas extends javax.swing.JPanel {
         comportamientoTextField(txtIdCont, "ID CONTRATO");
         Globales.activarBuscarConEnter(txtIdCont, btnBuscar);
         btnDarBaja.setEnabled(false);
+        String ntpServer = "time.google.com";
+
+        NTPTimeService timeService = new NTPTimeService(ntpServer);
+
+        fechaSincronizada = timeService.obtenerFechaSincronizada();
+
+        
 
     }
 
@@ -269,7 +278,7 @@ public class ContBajas extends javax.swing.JPanel {
     private void btnDarBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarBajaActionPerformed
         contrato.setAlta(false);
         lblMensajeBajas.setText("Ya no esta vigente");
-        LocalDate fechaActual = LocalDate.now();
+        LocalDate fechaActual = fechaSincronizada;
         try {
             contServ.editarContrato(contrato);
             lblAlta.setVisible(false);
