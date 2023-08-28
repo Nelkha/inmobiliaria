@@ -52,7 +52,7 @@ public class CrudForm extends javax.swing.JPanel {
         contentPI.setBackground(new java.awt.Color(255, 255, 255));
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Agregar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(102, 102, 102))); // NOI18N
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Agregar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
 
         jButton5.setBackground(new java.awt.Color(0, 51, 153));
         jButton5.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
@@ -100,7 +100,7 @@ public class CrudForm extends javax.swing.JPanel {
         );
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Modificar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(102, 102, 102))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Modificar", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
 
         jButton6.setBackground(new java.awt.Color(0, 51, 153));
         jButton6.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
@@ -148,7 +148,7 @@ public class CrudForm extends javax.swing.JPanel {
         );
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Dar de baja", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 11), new java.awt.Color(102, 102, 102))); // NOI18N
+        jPanel6.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Dar de baja - ZONA DE PELIGRO", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(102, 102, 102))); // NOI18N
 
         jButton10.setBackground(new java.awt.Color(0, 51, 153));
         jButton10.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
@@ -156,6 +156,11 @@ public class CrudForm extends javax.swing.JPanel {
         jButton10.setText("INMUEBLE");
         jButton10.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         jButton10.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
         jButton8.setBackground(new java.awt.Color(0, 51, 153));
         jButton8.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
@@ -294,6 +299,16 @@ public class CrudForm extends javax.swing.JPanel {
         contentPI.revalidate();
         contentPI.repaint();
     }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+       InmBajas inmBajas = new InmBajas();
+        inmBajas.setSize(490, 480);
+        inmBajas.setLocation(0, 0);
+        contentPI.removeAll();
+        contentPI.add(inmBajas, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        contentPI.revalidate();
+        contentPI.repaint();
+    }//GEN-LAST:event_jButton10ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

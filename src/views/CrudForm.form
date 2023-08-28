@@ -268,7 +268,7 @@
             </Property>
             <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
               <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
-                <TitledBorder title="Dar de baja">
+                <TitledBorder title="Dar de baja - ZONA DE PELIGRO">
                   <Color PropertyName="color" blue="66" green="66" red="66" type="rgb"/>
                 </TitledBorder>
               </Border>
@@ -322,6 +322,9 @@
                   <Color id="Default Cursor"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton10ActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButton8">
               <Properties>

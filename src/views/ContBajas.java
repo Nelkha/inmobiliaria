@@ -4,19 +4,14 @@
  */
 package views;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 import models.Contrato;
-import models.Inquilino;
+import servicios.BajaServicio;
 import servicios.ContratoServicio;
 import servicios.Globales;
 import static servicios.Globales.comportamientoTextField;
-import servicios.InquilinoServicio;
 
 /**
  *
@@ -24,6 +19,7 @@ import servicios.InquilinoServicio;
  */
 public class ContBajas extends javax.swing.JPanel {
 
+    BajaServicio bajaServ = new BajaServicio();
     ContratoServicio contServ = new ContratoServicio();
     Contrato contrato;
 
@@ -273,17 +269,19 @@ public class ContBajas extends javax.swing.JPanel {
     private void btnDarBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDarBajaActionPerformed
         contrato.setAlta(false);
         lblMensajeBajas.setText("Ya no esta vigente");
-        
+        LocalDate fechaActual = LocalDate.now();
         try {
             contServ.editarContrato(contrato);
             lblAlta.setVisible(false);
-        lblBaja.setVisible(true);
-        lblMensaje.setText("El contrato fue dado de baja correctamente");
-        btnDarBaja.setEnabled(false);
+            lblBaja.setVisible(true);
+            lblMensaje.setText("El contrato fue dado de baja correctamente");
+            btnDarBaja.setEnabled(false);
+            bajaServ.guardar(contrato, fechaActual);
+
         } catch (Exception ex) {
             Logger.getLogger(ContBajas.class.getName()).log(Level.SEVERE, null, ex);
             lblMensaje.setText("Algo fallo. El contrato no fue dado de baja");
-            
+
         }
     }//GEN-LAST:event_btnDarBajaActionPerformed
 

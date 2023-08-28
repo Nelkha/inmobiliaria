@@ -39,16 +39,21 @@ public class InquilinoServicio {
         }
     }
 
-    public Inquilino guardar(Inquilino inquilino) {
-        Inquilino inquilinoExistente = buscarInquilinoPorCuit(inquilino.getCuit());
+    public Inquilino guardar(Inquilino inquilino) throws Exception {
+    Inquilino inquilinoExistente = buscarInquilinoPorCuit(inquilino.getCuit());
 
-        if (inquilinoExistente == null) {
-            inquilinoJpa.create(inquilino);
-            return inquilino;
-        } else {
-            return inquilinoExistente;
+    if (inquilinoExistente == null) {
+        inquilinoJpa.create(inquilino);
+        return inquilino;
+    } else {
+        
+        if (!inquilinoExistente.getTelefono().equals(inquilino.getTelefono())) {
+            inquilinoExistente.setTelefono(inquilino.getTelefono());
+            inquilinoJpa.edit(inquilinoExistente); 
         }
+        return inquilinoExistente;
     }
+}
 
     public void agregarContrato(Inquilino inquilino, Contrato contrato) {
         try {

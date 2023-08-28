@@ -1,12 +1,7 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package models;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CollectionTable;
 import javax.persistence.Column;
@@ -17,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -57,11 +53,22 @@ public class Contrato implements Serializable {
     @Column(name = "importe")
     private List<Double> importesAlquiler;
 
+    @OneToOne(mappedBy = "contrato")
+    private Baja baja;
+
+    public Baja getBaja() {
+        return baja;
+    }
+
+    public void setBaja(Baja baja) {
+        this.baja = baja;
+    }
+
     public Contrato() {
     }
 
     public Contrato(Inquilino inquilino, Inmueble inmueble, LocalDate fechaInicio, LocalDate fechaFin, double montoAlquiler, int indexacionMeses, boolean alta, List<Double> importesAlquiler) {
-        
+
         this.inquilino = inquilino;
         this.inmueble = inmueble;
         this.fechaInicio = fechaInicio;
@@ -146,7 +153,9 @@ public class Contrato implements Serializable {
 
     @Override
     public String toString() {
-        return "Contrato{" + "id=" + id + ", inquilino=" + inquilino + ", inmueble=" + inmueble + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", montoAlquiler=" + montoAlquiler + ", indexacionMeses=" + indexacionMeses + '}';
+        return "Contrato{" + "id=" + id + ", inquilino=" + inquilino + ", inmueble=" + inmueble + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", montoAlquiler=" + montoAlquiler + ", indexacionMeses=" + indexacionMeses + ", alta=" + alta + ", importesAlquiler=" + importesAlquiler + ", baja=" + baja + '}';
     }
+
+   
 
 }

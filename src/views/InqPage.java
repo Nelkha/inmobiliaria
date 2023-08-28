@@ -4,8 +4,6 @@
  */
 package views;
 
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.List;

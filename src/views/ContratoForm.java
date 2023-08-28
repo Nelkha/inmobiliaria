@@ -66,7 +66,10 @@ public class ContratoForm extends javax.swing.JPanel {
 
         cmbInmuebles.removeAllItems();
         for (Inmueble inmueble : inmuebles) {
+            if(inmueble.isAlta()){
             cmbInmuebles.addItem(inmueble.getDireccion());
+            }
+            
         }
     }
 

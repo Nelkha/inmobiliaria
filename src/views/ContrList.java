@@ -212,6 +212,12 @@ public class ContrList extends javax.swing.JPanel {
             for (Double importe : contrato.getImportesAlquiler()) {
                 importesText.append(importe).append(", ");
             }
+            String baja;
+            if (contrato.getBaja().getFechaBaja() != null) {
+                baja = "Fecha baja: " + contrato.getBaja().getFechaBaja();
+            } else {
+                baja = "Fecha baja: Sigue vigente";
+            }
             txaDetalles.setText("ID Contrato: " + contrato.getId() + "\n"
                     + "Inquilino: " + contrato.getInquilino().getNombre() + " " + contrato.getInquilino().getApellido() + "\n"
                     + "Inmueble: " + contrato.getInmueble().getDireccion() + "\n"
@@ -219,7 +225,8 @@ public class ContrList extends javax.swing.JPanel {
                     + "Fecha de Fin: " + contrato.getFechaFin() + "\n"
                     + "Monto Actual: " + contrato.getMontoAlquiler() + "\n"
                     + "Index Meses: " + contrato.getIndexacionMeses() + "\n"
-                    + "Importes historicos: " + importesText.toString()
+                    + "Importes historicos: " + importesText.toString() + "\n"
+                    + baja
             );
 
         }

@@ -5,6 +5,7 @@
     <class>models.Contrato</class>
     <class>models.Inmueble</class>
     <class>models.Inquilino</class>
+    <class>models.Baja</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/inmobiliaria?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
