@@ -222,9 +222,9 @@ public class Principal extends javax.swing.JFrame {
         });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 40, 30));
 
-        lblFecha.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
+        lblFecha.setFont(new java.awt.Font("Roboto", 0, 14)); // NOI18N
         lblFecha.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel2.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 130, 20));
+        jPanel2.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 130, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 480));
 

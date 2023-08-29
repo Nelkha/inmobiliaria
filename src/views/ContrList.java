@@ -213,8 +213,9 @@ public class ContrList extends javax.swing.JPanel {
                 importesText.append(importe).append(", ");
             }
             String baja;
-            if (contrato.getBaja().getFechaBaja() != null) {
+            if (contrato.getBaja() != null) {
                 baja = "Fecha baja: " + contrato.getBaja().getFechaBaja();
+                
             } else {
                 baja = "Fecha baja: Sigue vigente";
             }
