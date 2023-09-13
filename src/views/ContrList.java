@@ -5,7 +5,7 @@
 package views;
 
 import java.util.List;
-import java.util.Locale;
+
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -24,6 +24,8 @@ public class ContrList extends javax.swing.JPanel {
     List<Contrato> contratos = contServ.consultaTodos();
 
     private void actualizarTabla() {
+        contratos = contServ.consultaTodos();
+        
         String filtroNombre = txtFiltro.getText().toUpperCase().trim();
         boolean mostrarVigentes = rbtnVig.isSelected();
         boolean mostrarNoVigentes = rbtnNoVig.isSelected();
@@ -42,16 +44,20 @@ public class ContrList extends javax.swing.JPanel {
             if (cumpleFiltroNombre) {
 
                 if (mostrarContrato && nombreCompleto.contains(filtroNombre.toUpperCase())) {
+                   
                     dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
                 }
 
             } else {
                 if (mostrarContrato) {
+                    if(cont.getBaja()!=null){
+                        System.out.println(cont.getId()+" "+nombreCompleto+" "+cont.getBaja().getFechaBaja().toString());
+                    }
                     dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
                 }
 
             }
-
+            
         }
     }
 

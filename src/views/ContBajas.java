@@ -286,6 +286,8 @@ public class ContBajas extends javax.swing.JPanel {
             lblMensaje.setText("El contrato fue dado de baja correctamente");
             btnDarBaja.setEnabled(false);
             bajaServ.guardar(contrato, fechaActual);
+            
+             
 
         } catch (Exception ex) {
             Logger.getLogger(ContBajas.class.getName()).log(Level.SEVERE, null, ex);

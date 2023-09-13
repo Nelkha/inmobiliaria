@@ -39,6 +39,7 @@ public BajaJpaController() {
             em = getEntityManager();
             em.getTransaction().begin();
             em.persist(baja);
+            em.flush();
             em.getTransaction().commit();
         } finally {
             if (em != null) {
