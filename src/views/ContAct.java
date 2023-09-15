@@ -4,7 +4,6 @@
  */
 package views;
 
-import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Contrato;
@@ -12,7 +11,6 @@ import servicios.BajaServicio;
 import servicios.ContratoServicio;
 import servicios.Globales;
 import static servicios.Globales.comportamientoTextField;
-import servicios.NTPTimeService;
 
 /**
  *
@@ -27,12 +25,9 @@ public class ContAct extends javax.swing.JPanel {
 
     public ContAct() {
         initComponents();
-        txtNombre.setEditable(false);
+       
         txtDireccion.setEditable(false);
-        txtFInicio.setEditable(false);
-        txtFFin.setEditable(false);
-        lblAlta.setVisible(false);
-        lblBaja.setVisible(false);
+        
         comportamientoTextField(txtIdCont, "ID CONTRATO");
         Globales.activarBuscarConEnter(txtIdCont, btnBuscar);
         btnConfirmar.setEnabled(false);
@@ -286,12 +281,11 @@ public class ContAct extends javax.swing.JPanel {
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
         contrato.setAlta(false);
-        lblMensajeBajas.setText("Ya no esta vigente");
+        
        
         try {
             contServ.editarContrato(contrato);
-            lblAlta.setVisible(false);
-            lblBaja.setVisible(true);
+            
             lblMensaje.setText("El contrato fue dado de baja correctamente");
             btnConfirmar.setEnabled(false);
             
@@ -322,28 +316,18 @@ public class ContAct extends javax.swing.JPanel {
             contrato = contServ.buscarContratoPorId(idContrato);
 
             if (contrato != null) {
-                txtNombre.setText(contrato.getInquilino().getNombre() + " " + contrato.getInquilino().getApellido());
                 txtDireccion.setText(contrato.getInmueble().getDireccion());
-                txtFInicio.setText(contrato.getFechaInicio().toString());
-                txtFFin.setText(contrato.getFechaFin().toString());
                 if (contrato.isAlta()) {
-                    lblAlta.setVisible(true);
-                    lblMensajeBajas.setText("El contrato esta vigente.");
                     lblMensaje.setText("¡¡¡ADVERTENCIA!!! Al dar la baja no podra volver a su estado anterior");
                     btnConfirmar.setEnabled(true);
                 } else {
-                    lblBaja.setVisible(true);
-                    lblMensajeBajas.setText("El contrato ya no esta vigente.");
                     lblMensaje.setText("No se puede realizar ninguna accion ya que el contrato no esta vigente");
 
                 }
 
             } else {
                 lblMensaje.setText("No se ha encontrado ningún contrato con ese ID en la base de datos");
-                txtNombre.setText("Inquilino");
                 txtDireccion.setText("Inmueble");
-                txtFInicio.setText("Fecha Inicio");
-                txtFFin.setText("Fecha Fin");
             }
         } catch (NumberFormatException e) {
             lblMensaje.setText("El ID ingresado no es válido. Por favor, ingrese un número.");
