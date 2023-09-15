@@ -51,23 +51,27 @@ public class ContAct extends javax.swing.JPanel {
     private void initComponents() {
 
         contentIF = new javax.swing.JPanel();
-        sepNombre = new javax.swing.JSeparator();
         sepDireccion = new javax.swing.JSeparator();
         lblMensaje = new javax.swing.JLabel();
-        txtNombre = new javax.swing.JTextField();
         txtDireccion = new javax.swing.JTextField();
         btnConfirmar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jSeparator11 = new javax.swing.JSeparator();
         txtIdCont = new javax.swing.JTextField();
-        sepFInicio = new javax.swing.JSeparator();
-        txtFInicio = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JLabel();
-        txtFFin = new javax.swing.JTextField();
-        sepFFin = new javax.swing.JSeparator();
-        lblAlta = new javax.swing.JLabel();
-        lblMensajeBajas = new javax.swing.JLabel();
-        lblBaja = new javax.swing.JLabel();
+        sepNombre1 = new javax.swing.JSeparator();
+        txtNombre2 = new javax.swing.JTextField();
+        lblMensajeBajas1 = new javax.swing.JLabel();
+        lblNuevaAltura = new javax.swing.JLabel();
+        sepDireccion2 = new javax.swing.JSeparator();
+        txtDireccion2 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtNuevaAltura1 = new javax.swing.JTextField();
+        sepNuevaAltura1 = new javax.swing.JSeparator();
+        lblTabAltura1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jLabel1 = new javax.swing.JLabel();
 
         contentIF.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -77,14 +81,6 @@ public class ContAct extends javax.swing.JPanel {
         setRequestFocusEnabled(false);
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        sepNombre.setBackground(new java.awt.Color(255, 255, 255));
-        sepNombre.setForeground(new java.awt.Color(0, 0, 0));
-        sepNombre.setToolTipText("");
-        sepNombre.setDoubleBuffered(true);
-        sepNombre.setMinimumSize(new java.awt.Dimension(10, 10));
-        sepNombre.setPreferredSize(new java.awt.Dimension(10, 10));
-        add(sepNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 130, 20));
-
         sepDireccion.setBackground(new java.awt.Color(255, 255, 255));
         sepDireccion.setForeground(new java.awt.Color(0, 0, 0));
         add(sepDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 130, 20));
@@ -93,29 +89,6 @@ public class ContAct extends javax.swing.JPanel {
         lblMensaje.setForeground(new java.awt.Color(255, 0, 0));
         lblMensaje.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 440, 20));
-
-        txtNombre.setBackground(new java.awt.Color(255, 255, 255));
-        txtNombre.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtNombre.setForeground(new java.awt.Color(102, 102, 102));
-        txtNombre.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtNombre.setText("Inquilino");
-        txtNombre.setBorder(null);
-        txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNombreFocusLost(evt);
-            }
-        });
-        txtNombre.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtNombreMouseClicked(evt);
-            }
-        });
-        txtNombre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombreActionPerformed(evt);
-            }
-        });
-        add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 110, 30));
 
         txtDireccion.setBackground(new java.awt.Color(255, 255, 255));
         txtDireccion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -138,12 +111,12 @@ public class ContAct extends javax.swing.JPanel {
                 txtDireccionActionPerformed(evt);
             }
         });
-        add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 110, 30));
+        add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 130, 30));
 
         btnConfirmar.setBackground(new java.awt.Color(0, 51, 153));
         btnConfirmar.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         btnConfirmar.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirmar.setText("DAR DE BAJA");
+        btnConfirmar.setText("ACTUALIZAR");
         btnConfirmar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         btnConfirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
@@ -151,11 +124,11 @@ public class ContAct extends javax.swing.JPanel {
                 btnConfirmarActionPerformed(evt);
             }
         });
-        add(btnConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 380, 130, 40));
+        add(btnConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 130, 40));
 
         jLabel5.setForeground(new java.awt.Color(255, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("INGRESE ID CONTRATO PARA BAJA ANTICIPADA");
+        jLabel5.setText("INGRESE ID CONTRATO A ACTUALIZAR");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 470, -1));
 
         jSeparator11.setBackground(new java.awt.Color(255, 255, 255));
@@ -189,37 +162,6 @@ public class ContAct extends javax.swing.JPanel {
         });
         add(txtIdCont, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 30, 120, 30));
 
-        sepFInicio.setBackground(new java.awt.Color(255, 255, 255));
-        sepFInicio.setForeground(new java.awt.Color(0, 0, 0));
-        sepFInicio.setToolTipText("");
-        sepFInicio.setDoubleBuffered(true);
-        sepFInicio.setMinimumSize(new java.awt.Dimension(10, 10));
-        sepFInicio.setPreferredSize(new java.awt.Dimension(10, 10));
-        add(sepFInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 130, 20));
-
-        txtFInicio.setBackground(new java.awt.Color(255, 255, 255));
-        txtFInicio.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtFInicio.setForeground(new java.awt.Color(102, 102, 102));
-        txtFInicio.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtFInicio.setText("Fecha inicio");
-        txtFInicio.setBorder(null);
-        txtFInicio.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFInicioFocusLost(evt);
-            }
-        });
-        txtFInicio.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtFInicioMouseClicked(evt);
-            }
-        });
-        txtFInicio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFInicioActionPerformed(evt);
-            }
-        });
-        add(txtFInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 110, 30));
-
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/lupa.png"))); // NOI18N
         btnBuscar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -229,45 +171,117 @@ public class ContAct extends javax.swing.JPanel {
         });
         add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 40, -1, -1));
 
-        txtFFin.setBackground(new java.awt.Color(255, 255, 255));
-        txtFFin.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtFFin.setForeground(new java.awt.Color(102, 102, 102));
-        txtFFin.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtFFin.setText("Fecha fin");
-        txtFFin.setBorder(null);
-        txtFFin.addFocusListener(new java.awt.event.FocusAdapter() {
+        sepNombre1.setBackground(new java.awt.Color(255, 255, 255));
+        sepNombre1.setForeground(new java.awt.Color(0, 0, 0));
+        sepNombre1.setToolTipText("");
+        sepNombre1.setDoubleBuffered(true);
+        sepNombre1.setMinimumSize(new java.awt.Dimension(10, 10));
+        sepNombre1.setPreferredSize(new java.awt.Dimension(10, 10));
+        add(sepNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 130, 20));
+
+        txtNombre2.setBackground(new java.awt.Color(255, 255, 255));
+        txtNombre2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtNombre2.setForeground(new java.awt.Color(102, 102, 102));
+        txtNombre2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtNombre2.setText("Inquilino");
+        txtNombre2.setBorder(null);
+        txtNombre2.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtFFinFocusLost(evt);
+                txtNombre2FocusLost(evt);
             }
         });
-        txtFFin.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtNombre2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtFFinMouseClicked(evt);
+                txtNombre2MouseClicked(evt);
             }
         });
-        txtFFin.addActionListener(new java.awt.event.ActionListener() {
+        txtNombre2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtFFinActionPerformed(evt);
+                txtNombre2ActionPerformed(evt);
             }
         });
-        add(txtFFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 110, 30));
+        add(txtNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 130, 30));
 
-        sepFFin.setBackground(new java.awt.Color(255, 255, 255));
-        sepFFin.setForeground(new java.awt.Color(0, 0, 0));
-        sepFFin.setToolTipText("");
-        sepFFin.setDoubleBuffered(true);
-        sepFFin.setMinimumSize(new java.awt.Dimension(10, 10));
-        sepFFin.setPreferredSize(new java.awt.Dimension(10, 10));
-        add(sepFFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 130, 20));
+        lblMensajeBajas1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        add(lblMensajeBajas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 460, 30));
 
-        lblAlta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/comprobado.png"))); // NOI18N
-        add(lblAlta, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, -1, -1));
+        lblNuevaAltura.setText("Ingrese nuevo importe");
+        add(lblNuevaAltura, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, -1, -1));
 
-        lblMensajeBajas.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        add(lblMensajeBajas, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, 290, 30));
+        sepDireccion2.setBackground(new java.awt.Color(255, 255, 255));
+        sepDireccion2.setForeground(new java.awt.Color(0, 0, 0));
+        add(sepDireccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 130, 20));
 
-        lblBaja.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/cancelar.png"))); // NOI18N
-        add(lblBaja, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 180, -1, -1));
+        txtDireccion2.setBackground(new java.awt.Color(255, 255, 255));
+        txtDireccion2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtDireccion2.setForeground(new java.awt.Color(102, 102, 102));
+        txtDireccion2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtDireccion2.setText("Precio");
+        txtDireccion2.setBorder(null);
+        txtDireccion2.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtDireccion2FocusLost(evt);
+            }
+        });
+        txtDireccion2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDireccion2MouseClicked(evt);
+            }
+        });
+        txtDireccion2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDireccion2ActionPerformed(evt);
+            }
+        });
+        add(txtDireccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 110, 30));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/editar.png"))); // NOI18N
+        jLabel2.setText("jLabel1");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 30, -1));
+
+        txtNuevaAltura1.setBackground(new java.awt.Color(255, 255, 255));
+        txtNuevaAltura1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtNuevaAltura1.setForeground(new java.awt.Color(102, 102, 102));
+        txtNuevaAltura1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtNuevaAltura1.setBorder(null);
+        txtNuevaAltura1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtNuevaAltura1FocusLost(evt);
+            }
+        });
+        txtNuevaAltura1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtNuevaAltura1MouseClicked(evt);
+            }
+        });
+        txtNuevaAltura1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNuevaAltura1ActionPerformed(evt);
+            }
+        });
+        add(txtNuevaAltura1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, 130, 30));
+
+        sepNuevaAltura1.setBackground(new java.awt.Color(255, 255, 255));
+        sepNuevaAltura1.setForeground(new java.awt.Color(102, 204, 255));
+        add(sepNuevaAltura1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 130, 20));
+
+        lblTabAltura1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        lblTabAltura1.setForeground(new java.awt.Color(102, 204, 255));
+        lblTabAltura1.setText("TAB para confirmar");
+        add(lblTabAltura1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, -1, -1));
+
+        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(jList1);
+
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 230, 110));
+
+        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setText("Incrementos anteriores");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
@@ -348,61 +362,65 @@ public class ContAct extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtDireccionFocusLost
 
-    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+    private void txtNombre2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombre2FocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombreActionPerformed
+    }//GEN-LAST:event_txtNombre2FocusLost
 
-    private void txtNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreMouseClicked
-
-    }//GEN-LAST:event_txtNombreMouseClicked
-
-    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
-
-    }//GEN-LAST:event_txtNombreFocusLost
-
-    private void txtFInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFInicioActionPerformed
+    private void txtNombre2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombre2MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFInicioActionPerformed
+    }//GEN-LAST:event_txtNombre2MouseClicked
 
-    private void txtFInicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFInicioMouseClicked
+    private void txtNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFInicioMouseClicked
+    }//GEN-LAST:event_txtNombre2ActionPerformed
 
-    private void txtFInicioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFInicioFocusLost
-
-    }//GEN-LAST:event_txtFInicioFocusLost
-
-    private void txtFFinFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtFFinFocusLost
+    private void txtDireccion2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccion2FocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFFinFocusLost
+    }//GEN-LAST:event_txtDireccion2FocusLost
 
-    private void txtFFinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtFFinMouseClicked
+    private void txtDireccion2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDireccion2MouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFFinMouseClicked
+    }//GEN-LAST:event_txtDireccion2MouseClicked
 
-    private void txtFFinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFFinActionPerformed
+    private void txtDireccion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccion2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFFinActionPerformed
+    }//GEN-LAST:event_txtDireccion2ActionPerformed
+
+    private void txtNuevaAltura1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNuevaAltura1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNuevaAltura1ActionPerformed
+
+    private void txtNuevaAltura1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNuevaAltura1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNuevaAltura1MouseClicked
+
+    private void txtNuevaAltura1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevaAltura1FocusLost
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNuevaAltura1FocusLost
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btnBuscar;
     private javax.swing.JButton btnConfirmar;
     private javax.swing.JPanel contentIF;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator11;
-    private javax.swing.JLabel lblAlta;
-    private javax.swing.JLabel lblBaja;
     private javax.swing.JLabel lblMensaje;
-    private javax.swing.JLabel lblMensajeBajas;
+    private javax.swing.JLabel lblMensajeBajas1;
+    private javax.swing.JLabel lblNuevaAltura;
+    private javax.swing.JLabel lblTabAltura1;
     private javax.swing.JSeparator sepDireccion;
-    private javax.swing.JSeparator sepFFin;
-    private javax.swing.JSeparator sepFInicio;
-    private javax.swing.JSeparator sepNombre;
+    private javax.swing.JSeparator sepDireccion2;
+    private javax.swing.JSeparator sepNombre1;
+    private javax.swing.JSeparator sepNuevaAltura1;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtFFin;
-    private javax.swing.JTextField txtFInicio;
+    private javax.swing.JTextField txtDireccion2;
     private javax.swing.JTextField txtIdCont;
-    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNombre2;
+    private javax.swing.JTextField txtNuevaAltura1;
     // End of variables declaration//GEN-END:variables
 }

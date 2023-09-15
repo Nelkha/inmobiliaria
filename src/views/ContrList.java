@@ -25,7 +25,7 @@ public class ContrList extends javax.swing.JPanel {
 
     private void actualizarTabla() {
         contratos = contServ.consultaTodos();
-        
+
         String filtroNombre = txtFiltro.getText().toUpperCase().trim();
         boolean mostrarVigentes = rbtnVig.isSelected();
         boolean mostrarNoVigentes = rbtnNoVig.isSelected();
@@ -44,20 +44,19 @@ public class ContrList extends javax.swing.JPanel {
             if (cumpleFiltroNombre) {
 
                 if (mostrarContrato && nombreCompleto.contains(filtroNombre.toUpperCase())) {
-                   
+
                     dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
                 }
 
             } else {
                 if (mostrarContrato) {
-                    if(cont.getBaja()!=null){
-                        System.out.println(cont.getId()+" "+nombreCompleto+" "+cont.getBaja().getFechaBaja().toString());
+                    if (cont.getBaja() != null) {
+                        dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
                     }
-                    dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
                 }
 
             }
-            
+
         }
     }
 
@@ -221,7 +220,7 @@ public class ContrList extends javax.swing.JPanel {
             String baja;
             if (contrato.getBaja() != null) {
                 baja = "Fecha baja: " + contrato.getBaja().getFechaBaja();
-                
+
             } else {
                 baja = "Fecha baja: Sigue vigente";
             }
