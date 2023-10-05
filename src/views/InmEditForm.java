@@ -6,7 +6,6 @@ package views;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import static models.Contrato_.inquilino;
 import models.Inmueble;
 import servicios.Globales;
 import static servicios.Globales.comportamientoTextField;

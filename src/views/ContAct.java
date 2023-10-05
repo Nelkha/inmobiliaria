@@ -7,7 +7,6 @@ package views;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Contrato;
-import servicios.BajaServicio;
 import servicios.ContratoServicio;
 import servicios.Globales;
 import static servicios.Globales.comportamientoTextField;
@@ -18,21 +17,39 @@ import static servicios.Globales.comportamientoTextField;
  */
 public class ContAct extends javax.swing.JPanel {
 
-    BajaServicio bajaServ = new BajaServicio();
     ContratoServicio contServ = new ContratoServicio();
     Contrato contrato;
-   
+
+    public void actualizarUI() {
+        boolean manual = rManual.isSelected();
+        boolean porcentual = rPorcentual.isSelected();
+
+        if (manual) {
+            lblImporteManual.setVisible(true);
+            lblPorc.setVisible(false);
+        } else if (porcentual) {
+            lblImporteManual.setVisible(false);
+            lblPorc.setVisible(true);
+        }
+
+    }
 
     public ContAct() {
         initComponents();
-       
         txtDireccion.setEditable(false);
-        
+        txtNombre.setEditable(false);
+        txtPrecio.setEditable(false);
+        rManual.setVisible(false);
+        rPorcentual.setVisible(false);
+        txtNuevoPrecio.setVisible(false);
+        sepNuevoPrecio.setVisible(false);
+        lblTabPrecio.setVisible(false);
+        lblImporteManual.setVisible(false);
+        lblPorc.setVisible(false);
+        txtAAnt.setEditable(false);
         comportamientoTextField(txtIdCont, "ID CONTRATO");
         Globales.activarBuscarConEnter(txtIdCont, btnBuscar);
-        btnConfirmar.setEnabled(false);
-       
-        
+        btnActualizar.setEnabled(false);
 
     }
 
@@ -46,27 +63,30 @@ public class ContAct extends javax.swing.JPanel {
     private void initComponents() {
 
         contentIF = new javax.swing.JPanel();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         sepDireccion = new javax.swing.JSeparator();
         lblMensaje = new javax.swing.JLabel();
         txtDireccion = new javax.swing.JTextField();
-        btnConfirmar = new javax.swing.JButton();
+        btnActualizar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jSeparator11 = new javax.swing.JSeparator();
         txtIdCont = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JLabel();
         sepNombre1 = new javax.swing.JSeparator();
-        txtNombre2 = new javax.swing.JTextField();
-        lblMensajeBajas1 = new javax.swing.JLabel();
-        lblNuevaAltura = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        lblPorc = new javax.swing.JLabel();
         sepDireccion2 = new javax.swing.JSeparator();
-        txtDireccion2 = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        txtNuevaAltura1 = new javax.swing.JTextField();
-        sepNuevaAltura1 = new javax.swing.JSeparator();
-        lblTabAltura1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        txtPrecio = new javax.swing.JTextField();
+        lblEditar = new javax.swing.JLabel();
+        txtNuevoPrecio = new javax.swing.JTextField();
+        sepNuevoPrecio = new javax.swing.JSeparator();
+        lblTabPrecio = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        rManual = new javax.swing.JRadioButton();
+        rPorcentual = new javax.swing.JRadioButton();
+        lblImporteManual = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtAAnt = new javax.swing.JTextArea();
 
         contentIF.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -78,12 +98,12 @@ public class ContAct extends javax.swing.JPanel {
 
         sepDireccion.setBackground(new java.awt.Color(255, 255, 255));
         sepDireccion.setForeground(new java.awt.Color(0, 0, 0));
-        add(sepDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, 130, 20));
+        add(sepDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 130, 20));
 
         lblMensaje.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
         lblMensaje.setForeground(new java.awt.Color(255, 0, 0));
         lblMensaje.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 430, 440, 20));
+        add(lblMensaje, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 370, 440, 20));
 
         txtDireccion.setBackground(new java.awt.Color(255, 255, 255));
         txtDireccion.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
@@ -106,20 +126,20 @@ public class ContAct extends javax.swing.JPanel {
                 txtDireccionActionPerformed(evt);
             }
         });
-        add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 130, 30));
+        add(txtDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 100, 130, 30));
 
-        btnConfirmar.setBackground(new java.awt.Color(0, 51, 153));
-        btnConfirmar.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
-        btnConfirmar.setForeground(new java.awt.Color(255, 255, 255));
-        btnConfirmar.setText("ACTUALIZAR");
-        btnConfirmar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        btnConfirmar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        btnConfirmar.addActionListener(new java.awt.event.ActionListener() {
+        btnActualizar.setBackground(new java.awt.Color(0, 51, 153));
+        btnActualizar.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
+        btnActualizar.setForeground(new java.awt.Color(255, 255, 255));
+        btnActualizar.setText("ACTUALIZAR");
+        btnActualizar.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        btnActualizar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnConfirmarActionPerformed(evt);
+                btnActualizarActionPerformed(evt);
             }
         });
-        add(btnConfirmar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 130, 40));
+        add(btnActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 400, 130, 40));
 
         jLabel5.setForeground(new java.awt.Color(255, 0, 0));
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -174,128 +194,152 @@ public class ContAct extends javax.swing.JPanel {
         sepNombre1.setPreferredSize(new java.awt.Dimension(10, 10));
         add(sepNombre1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 130, 20));
 
-        txtNombre2.setBackground(new java.awt.Color(255, 255, 255));
-        txtNombre2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtNombre2.setForeground(new java.awt.Color(102, 102, 102));
-        txtNombre2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtNombre2.setText("Inquilino");
-        txtNombre2.setBorder(null);
-        txtNombre2.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtNombre.setBackground(new java.awt.Color(255, 255, 255));
+        txtNombre.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtNombre.setForeground(new java.awt.Color(102, 102, 102));
+        txtNombre.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtNombre.setText("Inquilino");
+        txtNombre.setBorder(null);
+        txtNombre.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNombre2FocusLost(evt);
+                txtNombreFocusLost(evt);
             }
         });
-        txtNombre2.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtNombre.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtNombre2MouseClicked(evt);
+                txtNombreMouseClicked(evt);
             }
         });
-        txtNombre2.addActionListener(new java.awt.event.ActionListener() {
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNombre2ActionPerformed(evt);
+                txtNombreActionPerformed(evt);
             }
         });
-        add(txtNombre2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 130, 30));
+        add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 130, 30));
 
-        lblMensajeBajas1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        add(lblMensajeBajas1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 460, 30));
-
-        lblNuevaAltura.setText("Ingrese nuevo importe");
-        add(lblNuevaAltura, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 230, -1, -1));
+        lblPorc.setText("Ingrese % de incremento");
+        add(lblPorc, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, -1, -1));
 
         sepDireccion2.setBackground(new java.awt.Color(255, 255, 255));
         sepDireccion2.setForeground(new java.awt.Color(0, 0, 0));
-        add(sepDireccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 130, 20));
+        add(sepDireccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 130, 20));
 
-        txtDireccion2.setBackground(new java.awt.Color(255, 255, 255));
-        txtDireccion2.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtDireccion2.setForeground(new java.awt.Color(102, 102, 102));
-        txtDireccion2.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtDireccion2.setText("Precio");
-        txtDireccion2.setBorder(null);
-        txtDireccion2.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtPrecio.setBackground(new java.awt.Color(255, 255, 255));
+        txtPrecio.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtPrecio.setForeground(new java.awt.Color(102, 102, 102));
+        txtPrecio.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtPrecio.setText("Precio");
+        txtPrecio.setBorder(null);
+        txtPrecio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtDireccion2FocusLost(evt);
+                txtPrecioFocusLost(evt);
             }
         });
-        txtDireccion2.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtPrecio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtDireccion2MouseClicked(evt);
+                txtPrecioMouseClicked(evt);
             }
         });
-        txtDireccion2.addActionListener(new java.awt.event.ActionListener() {
+        txtPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDireccion2ActionPerformed(evt);
+                txtPrecioActionPerformed(evt);
             }
         });
-        add(txtDireccion2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 110, 30));
+        add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 110, 30));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/editar.png"))); // NOI18N
-        jLabel2.setText("jLabel1");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 240, 30, -1));
+        lblEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/editar.png"))); // NOI18N
+        lblEditar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblEditar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblEditarMouseClicked(evt);
+            }
+        });
+        add(lblEditar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, 30, -1));
 
-        txtNuevaAltura1.setBackground(new java.awt.Color(255, 255, 255));
-        txtNuevaAltura1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        txtNuevaAltura1.setForeground(new java.awt.Color(102, 102, 102));
-        txtNuevaAltura1.setHorizontalAlignment(javax.swing.JTextField.LEFT);
-        txtNuevaAltura1.setBorder(null);
-        txtNuevaAltura1.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtNuevoPrecio.setBackground(new java.awt.Color(255, 255, 255));
+        txtNuevoPrecio.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        txtNuevoPrecio.setForeground(new java.awt.Color(102, 102, 102));
+        txtNuevoPrecio.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtNuevoPrecio.setBorder(null);
+        txtNuevoPrecio.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusLost(java.awt.event.FocusEvent evt) {
-                txtNuevaAltura1FocusLost(evt);
+                txtNuevoPrecioFocusLost(evt);
             }
         });
-        txtNuevaAltura1.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtNuevoPrecio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txtNuevaAltura1MouseClicked(evt);
+                txtNuevoPrecioMouseClicked(evt);
             }
         });
-        txtNuevaAltura1.addActionListener(new java.awt.event.ActionListener() {
+        txtNuevoPrecio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNuevaAltura1ActionPerformed(evt);
+                txtNuevoPrecioActionPerformed(evt);
             }
         });
-        add(txtNuevaAltura1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 240, 130, 30));
+        add(txtNuevoPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 130, 20));
 
-        sepNuevaAltura1.setBackground(new java.awt.Color(255, 255, 255));
-        sepNuevaAltura1.setForeground(new java.awt.Color(102, 204, 255));
-        add(sepNuevaAltura1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 270, 130, 20));
+        sepNuevoPrecio.setBackground(new java.awt.Color(255, 255, 255));
+        sepNuevoPrecio.setForeground(new java.awt.Color(102, 204, 255));
+        add(sepNuevoPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 190, 130, 20));
 
-        lblTabAltura1.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
-        lblTabAltura1.setForeground(new java.awt.Color(102, 204, 255));
-        lblTabAltura1.setText("TAB para confirmar");
-        add(lblTabAltura1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 250, -1, -1));
-
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(jList1);
-
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 120, 230, 110));
+        lblTabPrecio.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
+        lblTabPrecio.setForeground(new java.awt.Color(102, 204, 255));
+        lblTabPrecio.setText("TAB para confirmar");
+        add(lblTabPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 190, -1, -1));
 
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
         jLabel1.setText("Incrementos anteriores");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, -1, -1));
+
+        rManual.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rManual);
+        rManual.setForeground(new java.awt.Color(51, 51, 51));
+        rManual.setSelected(true);
+        rManual.setText("Importe manual");
+        rManual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rManualActionPerformed(evt);
+            }
+        });
+        add(rManual, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 140, -1, -1));
+
+        rPorcentual.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(rPorcentual);
+        rPorcentual.setForeground(new java.awt.Color(51, 51, 51));
+        rPorcentual.setText("Porcentual %");
+        rPorcentual.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rPorcentualActionPerformed(evt);
+            }
+        });
+        add(rPorcentual, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
+
+        lblImporteManual.setText("Ingrese nuevo importe(Manual)");
+        add(lblImporteManual, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, -1, -1));
+
+        txtAAnt.setColumns(20);
+        txtAAnt.setRows(5);
+        txtAAnt.setText("AQUI SE MOSTRARA LA PROGRESION DE PRECIOS.");
+        jScrollPane1.setViewportView(txtAAnt);
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 300, 110));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmarActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
         contrato.setAlta(false);
-        
-       
+
         try {
             contServ.editarContrato(contrato);
-            
+
             lblMensaje.setText("El contrato fue dado de baja correctamente");
-            btnConfirmar.setEnabled(false);
-            
+            btnActualizar.setEnabled(false);
 
         } catch (Exception ex) {
             Logger.getLogger(ContAct.class.getName()).log(Level.SEVERE, null, ex);
             lblMensaje.setText("Algo fallo. El contrato no fue dado de baja");
 
         }
-    }//GEN-LAST:event_btnConfirmarActionPerformed
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void txtIdContFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtIdContFocusLost
         // TODO add your handling code here:
@@ -319,7 +363,7 @@ public class ContAct extends javax.swing.JPanel {
                 txtDireccion.setText(contrato.getInmueble().getDireccion());
                 if (contrato.isAlta()) {
                     lblMensaje.setText("¡¡¡ADVERTENCIA!!! Al dar la baja no podra volver a su estado anterior");
-                    btnConfirmar.setEnabled(true);
+                    btnActualizar.setEnabled(true);
                 } else {
                     lblMensaje.setText("No se puede realizar ninguna accion ya que el contrato no esta vigente");
 
@@ -346,65 +390,85 @@ public class ContAct extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtDireccionFocusLost
 
-    private void txtNombre2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombre2FocusLost
+    private void txtNombreFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNombreFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombre2FocusLost
+    }//GEN-LAST:event_txtNombreFocusLost
 
-    private void txtNombre2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombre2MouseClicked
+    private void txtNombreMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNombreMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombre2MouseClicked
+    }//GEN-LAST:event_txtNombreMouseClicked
 
-    private void txtNombre2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombre2ActionPerformed
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNombre2ActionPerformed
+    }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void txtDireccion2FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtDireccion2FocusLost
+    private void txtPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPrecioFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDireccion2FocusLost
+    }//GEN-LAST:event_txtPrecioFocusLost
 
-    private void txtDireccion2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDireccion2MouseClicked
+    private void txtPrecioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtPrecioMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDireccion2MouseClicked
+    }//GEN-LAST:event_txtPrecioMouseClicked
 
-    private void txtDireccion2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccion2ActionPerformed
+    private void txtPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPrecioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDireccion2ActionPerformed
+    }//GEN-LAST:event_txtPrecioActionPerformed
 
-    private void txtNuevaAltura1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNuevaAltura1ActionPerformed
+    private void txtNuevoPrecioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNuevoPrecioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNuevaAltura1ActionPerformed
+    }//GEN-LAST:event_txtNuevoPrecioActionPerformed
 
-    private void txtNuevaAltura1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNuevaAltura1MouseClicked
+    private void txtNuevoPrecioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNuevoPrecioMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNuevaAltura1MouseClicked
+    }//GEN-LAST:event_txtNuevoPrecioMouseClicked
 
-    private void txtNuevaAltura1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevaAltura1FocusLost
+    private void txtNuevoPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevoPrecioFocusLost
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNuevaAltura1FocusLost
+    }//GEN-LAST:event_txtNuevoPrecioFocusLost
+
+    private void rManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rManualActionPerformed
+        actualizarUI();
+    }//GEN-LAST:event_rManualActionPerformed
+
+    private void rPorcentualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rPorcentualActionPerformed
+        actualizarUI();
+    }//GEN-LAST:event_rPorcentualActionPerformed
+
+    private void lblEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblEditarMouseClicked
+        rManual.setVisible(true);
+        rPorcentual.setVisible(true);
+        txtNuevoPrecio.setVisible(true);
+        sepNuevoPrecio.setVisible(true);
+        lblTabPrecio.setVisible(true);
+        actualizarUI();
+    }//GEN-LAST:event_lblEditarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActualizar;
     private javax.swing.JLabel btnBuscar;
-    private javax.swing.JButton btnConfirmar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JPanel contentIF;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList<String> jList1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JLabel lblEditar;
+    private javax.swing.JLabel lblImporteManual;
     private javax.swing.JLabel lblMensaje;
-    private javax.swing.JLabel lblMensajeBajas1;
-    private javax.swing.JLabel lblNuevaAltura;
-    private javax.swing.JLabel lblTabAltura1;
+    private javax.swing.JLabel lblPorc;
+    private javax.swing.JLabel lblTabPrecio;
+    private javax.swing.JRadioButton rManual;
+    private javax.swing.JRadioButton rPorcentual;
     private javax.swing.JSeparator sepDireccion;
     private javax.swing.JSeparator sepDireccion2;
     private javax.swing.JSeparator sepNombre1;
-    private javax.swing.JSeparator sepNuevaAltura1;
+    private javax.swing.JSeparator sepNuevoPrecio;
+    private javax.swing.JTextArea txtAAnt;
     private javax.swing.JTextField txtDireccion;
-    private javax.swing.JTextField txtDireccion2;
     private javax.swing.JTextField txtIdCont;
-    private javax.swing.JTextField txtNombre2;
-    private javax.swing.JTextField txtNuevaAltura1;
+    private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNuevoPrecio;
+    private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
 }

@@ -326,7 +326,13 @@ public class CrudForm extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        // TODO add your handling code here:
+        ContAct contAct = new ContAct();
+        contAct.setSize(490, 480);
+       contAct.setLocation(0, 0);
+        contentPI.removeAll();
+        contentPI.add(contAct, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        contentPI.revalidate();
+        contentPI.repaint();
     }//GEN-LAST:event_jButton12ActionPerformed
 
 
