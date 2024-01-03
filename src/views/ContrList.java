@@ -41,7 +41,7 @@ public class ContrList extends javax.swing.JPanel {
                     || (mostrarVigentes && esVigente)
                     || (mostrarNoVigentes && !esVigente);
            boolean cumpleFiltroNombre = filtroNombre.isEmpty() || !filtroNombre.equals("FILTRAR POR NOMBRE");
-            System.out.println(filtroNombre);
+            
             if (cumpleFiltroNombre) {
 
                 if (mostrarContrato && nombreCompleto.contains(filtroNombre.toUpperCase())) {

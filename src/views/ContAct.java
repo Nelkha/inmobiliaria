@@ -4,6 +4,7 @@
  */
 package views;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.Contrato;
@@ -47,6 +48,7 @@ public class ContAct extends javax.swing.JPanel {
         lblImporteManual.setVisible(false);
         lblPorc.setVisible(false);
         txtAAnt.setEditable(false);
+        lblEditar.setVisible(false);
         comportamientoTextField(txtIdCont, "ID CONTRATO");
         Globales.activarBuscarConEnter(txtIdCont, btnBuscar);
         btnActualizar.setEnabled(false);
@@ -360,14 +362,34 @@ public class ContAct extends javax.swing.JPanel {
             contrato = contServ.buscarContratoPorId(idContrato);
 
             if (contrato != null) {
-                txtNombre.setText(contrato.getInquilino().getNombre()+" "+contrato.getInquilino().getApellido());
-                txtPrecio.setText("$"+contrato.getMontoAlquiler());
+                txtNombre.setText(contrato.getInquilino().getNombre() + " " + contrato.getInquilino().getApellido());
+                txtPrecio.setText("$" + contrato.getMontoAlquiler());
                 txtDireccion.setText(contrato.getInmueble().getDireccion());
+                StringBuilder incrementosText = new StringBuilder();
+                List<Double>importesAnteriores =contrato.getImportesAlquiler();
+                for (int i = 0; i < contrato.getImportesAlquiler().size(); i++) {
+                    incrementosText.append(importesAnteriores.get(i));
+
+                    if (i < importesAnteriores.size() - 1) {
+                        incrementosText.append(">>>");
+                    }
+                }
+                
+                txtAAnt.setText(incrementosText.toString());
                 if (contrato.isAlta()) {
-                    lblMensaje.setText("¡¡¡ADVERTENCIA!!! Al dar la baja no podra volver a su estado anterior");
-                   
+                    lblMensaje.setText("¡¡¡ADVERTENCIA!!! Al confirmar el nuevo precio quedara en el registro permanentemente");
+                    lblEditar.setVisible(true);
+
                 } else {
                     lblMensaje.setText("No se puede realizar ninguna accion ya que el contrato no esta vigente");
+                    lblEditar.setVisible(false);
+                    rManual.setVisible(false);
+                    rPorcentual.setVisible(false);
+                    txtNuevoPrecio.setVisible(false);
+                    sepNuevoPrecio.setVisible(false);
+                    lblTabPrecio.setVisible(false);
+                    lblImporteManual.setVisible(false);
+                    lblPorc.setVisible(false);
 
                 }
 
