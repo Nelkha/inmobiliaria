@@ -40,7 +40,8 @@ public class ContrList extends javax.swing.JPanel {
             boolean mostrarContrato = mostrarTodos
                     || (mostrarVigentes && esVigente)
                     || (mostrarNoVigentes && !esVigente);
-            boolean cumpleFiltroNombre = filtroNombre.isEmpty() || !filtroNombre.equals("FILTRAR POR NOMBRE");
+           boolean cumpleFiltroNombre = filtroNombre.isEmpty() || !filtroNombre.equals("FILTRAR POR NOMBRE");
+            System.out.println(filtroNombre);
             if (cumpleFiltroNombre) {
 
                 if (mostrarContrato && nombreCompleto.contains(filtroNombre.toUpperCase())) {
@@ -49,11 +50,11 @@ public class ContrList extends javax.swing.JPanel {
                 }
 
             } else {
-                if (mostrarContrato) {
-                    if (cont.getBaja() != null) {
-                        dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
-                    }
-                }
+                
+                    if (mostrarContrato && (cont.getBaja() != null || filtroNombre.isEmpty() || filtroNombre.equals("FILTRAR POR NOMBRE"))) {
+        dtm.addRow(new Object[]{cont.getId(), nombreCompleto, cont.getInmueble().getDireccion(), cont.getIndexacionMeses()});
+    }
+                
 
             }
 

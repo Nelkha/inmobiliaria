@@ -360,10 +360,12 @@ public class ContAct extends javax.swing.JPanel {
             contrato = contServ.buscarContratoPorId(idContrato);
 
             if (contrato != null) {
+                txtNombre.setText(contrato.getInquilino().getNombre()+" "+contrato.getInquilino().getApellido());
+                txtPrecio.setText("$"+contrato.getMontoAlquiler());
                 txtDireccion.setText(contrato.getInmueble().getDireccion());
                 if (contrato.isAlta()) {
                     lblMensaje.setText("¡¡¡ADVERTENCIA!!! Al dar la baja no podra volver a su estado anterior");
-                    btnActualizar.setEnabled(true);
+                   
                 } else {
                     lblMensaje.setText("No se puede realizar ninguna accion ya que el contrato no esta vigente");
 
