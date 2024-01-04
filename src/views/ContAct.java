@@ -35,6 +35,20 @@ public class ContAct extends javax.swing.JPanel {
 
     }
 
+    public String mostrarImportesAnteriores(Contrato contrato) {
+        StringBuilder incrementosText = new StringBuilder();
+        List<Double> importesAnteriores = contrato.getImportesAlquiler();
+        for (int i = 0; i < contrato.getImportesAlquiler().size(); i++) {
+            incrementosText.append(importesAnteriores.get(i));
+
+            if (i < importesAnteriores.size() - 1) {
+                incrementosText.append(">>>");
+            }
+        }
+        String resultado = incrementosText.toString();
+        return resultado;
+    }
+
     public ContAct() {
         initComponents();
         txtDireccion.setEditable(false);
@@ -358,24 +372,15 @@ public class ContAct extends javax.swing.JPanel {
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         try {
             long idContrato = Long.parseLong(txtIdCont.getText());
-
+            txtAAnt.setText(" ");
             contrato = contServ.buscarContratoPorId(idContrato);
 
             if (contrato != null) {
                 txtNombre.setText(contrato.getInquilino().getNombre() + " " + contrato.getInquilino().getApellido());
                 txtPrecio.setText("$" + contrato.getMontoAlquiler());
                 txtDireccion.setText(contrato.getInmueble().getDireccion());
-                StringBuilder incrementosText = new StringBuilder();
-                List<Double>importesAnteriores =contrato.getImportesAlquiler();
-                for (int i = 0; i < contrato.getImportesAlquiler().size(); i++) {
-                    incrementosText.append(importesAnteriores.get(i));
 
-                    if (i < importesAnteriores.size() - 1) {
-                        incrementosText.append(">>>");
-                    }
-                }
-                
-                txtAAnt.setText(incrementosText.toString());
+                txtAAnt.setText(mostrarImportesAnteriores(contrato));
                 if (contrato.isAlta()) {
                     lblMensaje.setText("¡¡¡ADVERTENCIA!!! Al confirmar el nuevo precio quedara en el registro permanentemente");
                     lblEditar.setVisible(true);
@@ -396,6 +401,9 @@ public class ContAct extends javax.swing.JPanel {
             } else {
                 lblMensaje.setText("No se ha encontrado ningún contrato con ese ID en la base de datos");
                 txtDireccion.setText("Inmueble");
+                txtNombre.setText("Inquilino");
+                txtPrecio.setText("Precio");
+                txtAAnt.setText("AQUI SE MOSTRARA LA PROGRESION DE PRECIOS.");
             }
         } catch (NumberFormatException e) {
             lblMensaje.setText("El ID ingresado no es válido. Por favor, ingrese un número.");
@@ -447,7 +455,17 @@ public class ContAct extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNuevoPrecioMouseClicked
 
     private void txtNuevoPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevoPrecioFocusLost
-        // TODO add your handling code here:
+        
+        if((rManual.isSelected() || rPorcentual.isSelected()) && !txtNuevoPrecio.getText().equals("") ){
+        txtPrecio.setText(txtNuevoPrecio.getText());
+        }
+        rManual.setVisible(false);
+        rPorcentual.setVisible(false);
+        txtNuevoPrecio.setVisible(false);
+        sepNuevoPrecio.setVisible(false);
+        lblTabPrecio.setVisible(false);
+        lblImporteManual.setVisible(false);
+        lblPorc.setVisible(false);
     }//GEN-LAST:event_txtNuevoPrecioFocusLost
 
     private void rManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rManualActionPerformed
