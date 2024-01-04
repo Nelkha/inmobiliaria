@@ -49,6 +49,21 @@ public class ContAct extends javax.swing.JPanel {
         return resultado;
     }
 
+    public static double incrementarConLimite(String valorInicial, double porcentaje) {
+        double valorInicialD = Double.parseDouble(valorInicial.replace("$", ""));
+        double limitePorcentaje = 999;
+
+        // Verificar que el porcentaje no exceda el límite
+        if (porcentaje > limitePorcentaje) {
+            porcentaje = limitePorcentaje;
+        }
+
+        // Calcular el nuevo valor con el incremento
+        double nuevoValor = valorInicialD * (1 + porcentaje / 100);
+
+        return nuevoValor;
+    }
+
     public ContAct() {
         initComponents();
         txtDireccion.setEditable(false);
@@ -103,6 +118,7 @@ public class ContAct extends javax.swing.JPanel {
         lblImporteManual = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAAnt = new javax.swing.JTextArea();
+        lblMensaje1 = new javax.swing.JLabel();
 
         contentIF.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -339,6 +355,11 @@ public class ContAct extends javax.swing.JPanel {
         jScrollPane1.setViewportView(txtAAnt);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, 300, 110));
+
+        lblMensaje1.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
+        lblMensaje1.setForeground(new java.awt.Color(255, 0, 0));
+        lblMensaje1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        add(lblMensaje1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 440, 20));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
@@ -371,6 +392,11 @@ public class ContAct extends javax.swing.JPanel {
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         try {
+            rManual.setVisible(false);
+            rPorcentual.setVisible(false);
+            txtNuevoPrecio.setVisible(false);
+            sepNuevoPrecio.setVisible(false);
+            lblTabPrecio.setVisible(false);
             long idContrato = Long.parseLong(txtIdCont.getText());
             txtAAnt.setText(" ");
             contrato = contServ.buscarContratoPorId(idContrato);
@@ -387,6 +413,7 @@ public class ContAct extends javax.swing.JPanel {
 
                 } else {
                     lblMensaje.setText("No se puede realizar ninguna accion ya que el contrato no esta vigente");
+                    lblMensaje1.setText("");
                     lblEditar.setVisible(false);
                     rManual.setVisible(false);
                     rPorcentual.setVisible(false);
@@ -455,9 +482,15 @@ public class ContAct extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNuevoPrecioMouseClicked
 
     private void txtNuevoPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevoPrecioFocusLost
-        
-        if((rManual.isSelected() || rPorcentual.isSelected()) && !txtNuevoPrecio.getText().equals("") ){
-        txtPrecio.setText(txtNuevoPrecio.getText());
+
+        if (rPorcentual.isSelected() && !txtNuevoPrecio.getText().equals("")) {
+            double incremento = Math.floor((incrementarConLimite(txtPrecio.getText(), Double.parseDouble(txtNuevoPrecio.getText()))*100)/100);
+            txtPrecio.setText(String.valueOf(incremento));
+            lblMensaje1.setText("Con el " + txtNuevoPrecio.getText() + "% el nuevo precio sera de " +"$"+incremento+"\n" +" Presione Actualizar para confirmar y guardar.");
+            btnActualizar.setEnabled(true);
+        }
+        if (rManual.isSelected() && !txtNuevoPrecio.getText().equals("")) {
+            txtPrecio.setText("$" + txtNuevoPrecio.getText());
         }
         rManual.setVisible(false);
         rPorcentual.setVisible(false);
@@ -482,6 +515,8 @@ public class ContAct extends javax.swing.JPanel {
         txtNuevoPrecio.setVisible(true);
         sepNuevoPrecio.setVisible(true);
         lblTabPrecio.setVisible(true);
+        lblMensaje1.setText("");
+        txtNuevoPrecio.setText("");
         actualizarUI();
     }//GEN-LAST:event_lblEditarMouseClicked
 
@@ -498,6 +533,7 @@ public class ContAct extends javax.swing.JPanel {
     private javax.swing.JLabel lblEditar;
     private javax.swing.JLabel lblImporteManual;
     private javax.swing.JLabel lblMensaje;
+    private javax.swing.JLabel lblMensaje1;
     private javax.swing.JLabel lblPorc;
     private javax.swing.JLabel lblTabPrecio;
     private javax.swing.JRadioButton rManual;
