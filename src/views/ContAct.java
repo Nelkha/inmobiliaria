@@ -35,19 +35,7 @@ public class ContAct extends javax.swing.JPanel {
 
     }
 
-    public String mostrarImportesAnteriores(Contrato contrato) {
-        StringBuilder incrementosText = new StringBuilder();
-        List<Double> importesAnteriores = contrato.getImportesAlquiler();
-        for (int i = 0; i < contrato.getImportesAlquiler().size(); i++) {
-            incrementosText.append(importesAnteriores.get(i));
-
-            if (i < importesAnteriores.size() - 1) {
-                incrementosText.append(">>>");
-            }
-        }
-        String resultado = incrementosText.toString();
-        return resultado;
-    }
+   
 
     public static double incrementarConLimite(String valorInicial, double porcentaje) {
         double valorInicialD = Double.parseDouble(valorInicial.replace("$", ""));
@@ -363,17 +351,22 @@ public class ContAct extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        contrato.setAlta(false);
+       
 
         try {
+            List<Double>importesAnteriores;
+            importesAnteriores=contrato.getImportesAlquiler();
+            contrato.setMontoAlquiler(Double.parseDouble(txtPrecio.getText()));
+            importesAnteriores.add(Double.parseDouble(txtPrecio.getText()));
+            contrato.setImportesAlquiler(importesAnteriores);
             contServ.editarContrato(contrato);
 
-            lblMensaje.setText("El contrato fue dado de baja correctamente");
+            lblMensaje.setText("Se actualizo el importe del alquiler correctamente");
             btnActualizar.setEnabled(false);
 
         } catch (Exception ex) {
             Logger.getLogger(ContAct.class.getName()).log(Level.SEVERE, null, ex);
-            lblMensaje.setText("Algo fallo. El contrato no fue dado de baja");
+            lblMensaje.setText("Algo fallo. No actualizo el importe del alquiler");
 
         }
     }//GEN-LAST:event_btnActualizarActionPerformed
@@ -392,12 +385,14 @@ public class ContAct extends javax.swing.JPanel {
 
     private void btnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnBuscarMouseClicked
         try {
+           btnActualizar.setEnabled(false);
             rManual.setVisible(false);
             rPorcentual.setVisible(false);
             txtNuevoPrecio.setVisible(false);
             sepNuevoPrecio.setVisible(false);
             lblTabPrecio.setVisible(false);
             long idContrato = Long.parseLong(txtIdCont.getText());
+            lblMensaje1.setText("");
             txtAAnt.setText(" ");
             contrato = contServ.buscarContratoPorId(idContrato);
 
@@ -406,7 +401,7 @@ public class ContAct extends javax.swing.JPanel {
                 txtPrecio.setText("$" + contrato.getMontoAlquiler());
                 txtDireccion.setText(contrato.getInmueble().getDireccion());
 
-                txtAAnt.setText(mostrarImportesAnteriores(contrato));
+                txtAAnt.setText(Globales.mostrarImportesAnteriores(contrato));
                 if (contrato.isAlta()) {
                     lblMensaje.setText("¡¡¡ADVERTENCIA!!! Al confirmar el nuevo precio quedara en el registro permanentemente");
                     lblEditar.setVisible(true);
@@ -482,15 +477,17 @@ public class ContAct extends javax.swing.JPanel {
     }//GEN-LAST:event_txtNuevoPrecioMouseClicked
 
     private void txtNuevoPrecioFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNuevoPrecioFocusLost
-
-        if (rPorcentual.isSelected() && !txtNuevoPrecio.getText().equals("")) {
+       try{if (rPorcentual.isSelected() && !txtNuevoPrecio.getText().equals("")) {
             double incremento = Math.floor((incrementarConLimite(txtPrecio.getText(), Double.parseDouble(txtNuevoPrecio.getText()))*100)/100);
             txtPrecio.setText(String.valueOf(incremento));
-            lblMensaje1.setText("Con el " + txtNuevoPrecio.getText() + "% el nuevo precio sera de " +"$"+incremento+"\n" +" Presione Actualizar para confirmar y guardar.");
+            lblMensaje1.setText("Con el " + txtNuevoPrecio.getText() + "% el nuevo precio sera de " +"$"+incremento+" Presione Actualizar para confirmar y guardar.");
             btnActualizar.setEnabled(true);
         }
         if (rManual.isSelected() && !txtNuevoPrecio.getText().equals("")) {
-            txtPrecio.setText("$" + txtNuevoPrecio.getText());
+            txtPrecio.setText(txtNuevoPrecio.getText());
+            lblMensaje1.setText("El nuevo precio elegido es de "+"$"+txtNuevoPrecio.getText()+".Si es correcto actualice para guardar");
+            btnActualizar.setEnabled(true);
+            
         }
         rManual.setVisible(false);
         rPorcentual.setVisible(false);
@@ -499,6 +496,11 @@ public class ContAct extends javax.swing.JPanel {
         lblTabPrecio.setVisible(false);
         lblImporteManual.setVisible(false);
         lblPorc.setVisible(false);
+       
+       }catch (NumberFormatException e) {
+            lblMensaje.setText("Ingreso un caracter no valido. Por favor, ingrese solo un numeros.");
+        }
+        
     }//GEN-LAST:event_txtNuevoPrecioFocusLost
 
     private void rManualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rManualActionPerformed

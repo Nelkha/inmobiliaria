@@ -12,6 +12,7 @@ import models.Contrato;
 
 import models.Inmueble;
 import servicios.ContratoServicio;
+import servicios.Globales;
 import servicios.InmuebleServicio;
 
 /**
@@ -131,9 +132,13 @@ public class InmPage extends javax.swing.JPanel {
         if (selectedRow >= 0) {
             long idCont = (long) tblContInq.getValueAt(selectedRow, 0);
             Contrato contrato = contServ.buscarContratoPorId(idCont);
-            StringBuilder importesText = new StringBuilder();
-            for (Double importe : contrato.getImportesAlquiler()) {
-                importesText.append(importe).append(", ");
+            String importesText = Globales.mostrarImportesAnteriores(contrato);
+             String baja;
+            if (contrato.getBaja() != null) {
+                baja = "Fecha baja: " + contrato.getBaja().getFechaBaja();
+
+            } else {
+                baja = "Fecha baja: Sigue vigente";
             }
             txaDetalles.setText("ID Contrato: " + contrato.getId() + "\n"
                     + "Inquilino: " + contrato.getInquilino().getNombre() + " " + contrato.getInquilino().getApellido() + "\n"
@@ -142,7 +147,8 @@ public class InmPage extends javax.swing.JPanel {
                     + "Fecha de Fin: " + contrato.getFechaFin() + "\n"
                     + "Monto Actual: " + contrato.getMontoAlquiler() + "\n"
                     + "Index Meses: " + contrato.getIndexacionMeses() + "\n"
-                    + "Importes historicos: " + importesText.toString()
+                    + "Importes historicos: " +"\n"+ importesText+ "\n"
+                    +baja
             );
 
         }

@@ -11,6 +11,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import models.Contrato;
 import servicios.ContratoServicio;
+import servicios.Globales;
 import static servicios.Globales.comportamientoTextField;
 
 /**
@@ -214,10 +215,8 @@ public class ContrList extends javax.swing.JPanel {
         if (selectedRow >= 0) {
             long idCont = (long) tblCont.getValueAt(selectedRow, 0);
             Contrato contrato = contServ.buscarContratoPorId(idCont);
-            StringBuilder importesText = new StringBuilder();
-            for (Double importe : contrato.getImportesAlquiler()) {
-                importesText.append(importe).append(", ");
-            }
+            String importesText = Globales.mostrarImportesAnteriores(contrato);
+            
             String baja;
             if (contrato.getBaja() != null) {
                 baja = "Fecha baja: " + contrato.getBaja().getFechaBaja();
@@ -232,7 +231,7 @@ public class ContrList extends javax.swing.JPanel {
                     + "Fecha de Fin: " + contrato.getFechaFin() + "\n"
                     + "Monto Actual: " + contrato.getMontoAlquiler() + "\n"
                     + "Index Meses: " + contrato.getIndexacionMeses() + "\n"
-                    + "Importes historicos: " + importesText.toString() + "\n"
+                    + "Importes historicos: "+"\n" + importesText + "\n"
                     + baja
             );
 

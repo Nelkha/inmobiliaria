@@ -6,6 +6,7 @@ package controladores;
 
 import controladores.exceptions.NonexistentEntityException;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -207,4 +208,15 @@ public class ContratoJpaController implements Serializable {
         }
     }
 
+    public List<Contrato> findVigentes(LocalDate fechaActual) {
+        EntityManager em = getEntityManager();
+        try {
+            String jpql = "SELECT c FROM Contrato c WHERE c.fechaFin >=:fechaActual";
+            Query query = em.createQuery(jpql, Contrato.class);
+            query.setParameter("fechaActual", fechaActual);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

@@ -10,9 +10,11 @@ import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import models.Contrato;
 
 /**
  *
@@ -117,6 +119,28 @@ public class Globales {
         }
     });
       }
+      
+      public static String mostrarImportesAnteriores(Contrato contrato) {
+    StringBuilder incrementosText = new StringBuilder();
+    List<Double> importesAnteriores = contrato.getImportesAlquiler();
+    
+    for (int i = 0; i < importesAnteriores.size() - 1; i++) {
+        String valorAnterior = importesAnteriores.get(i).toString();
+        String valorNuevo = importesAnteriores.get(i + 1).toString();
+
+        // Agregar el par de valores a incrementosText
+        incrementosText.append(valorAnterior)
+                       .append(" >>> ")
+                       .append(valorNuevo)
+                       .append("\n");
+    }
+
+    // Añadir el último valor sin " >>> " al final
+    incrementosText.append(importesAnteriores.get(importesAnteriores.size() - 1));
+
+    String resultado = incrementosText.toString();
+    return resultado;
+}
 }
 
 

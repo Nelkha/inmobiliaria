@@ -5,6 +5,8 @@
 package servicios;
 
 import controladores.ContratoJpaController;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import models.Contrato;
 
@@ -35,5 +37,16 @@ public class ContratoServicio {
      }
      public void editarContrato(Contrato contrato) throws Exception{
      contratoJpa.edit(contrato);
+     }
+     
+     public List<Contrato>buscarVigentes(LocalDate fechaActual){
+     List<Contrato>contratosFechaVigente=contratoJpa.findVigentes(fechaActual);
+     List<Contrato>contratosVigentes=new ArrayList<>();
+     for(Contrato contrato:contratosFechaVigente){
+     if(contrato.isAlta()){
+     contratosVigentes.add(contrato);
+     }
+     }
+     return contratosVigentes;
      }
 }
