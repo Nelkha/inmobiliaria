@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.JFormattedTextField;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import models.Contrato;
@@ -62,7 +61,7 @@ public class ContratoForm extends javax.swing.JPanel {
         vaciarFocus(txtNombreGarante,"NOMBRE");
         vaciarFocus(txtApellidoGarante,"APELLIDO");
         vaciarFocus(txtTelefonoGarante,"TELEFONO");
-        vaciarFocus(txtDireccionGarante,"TELEFONO");
+        vaciarFocus(txtDireccionGarante,"DIRECCION");
         vaciarFocus(txtMontoInicial,"VALOR INICIAL");
         MaskFormatter mask = new MaskFormatter("##/##/####");
         mask.setPlaceholderCharacter('0'); // Carácter que se mostrará en lugar de los guiones
@@ -498,7 +497,7 @@ public class ContratoForm extends javax.swing.JPanel {
             double valorInicial = Double.parseDouble(txtMontoInicial.getText().trim());
 
             // Validar longitud del CUIT
-            if (cuit.length() != 11) {
+            if (cuit.length() != 11 || cuitGarante.length() != 11) {
                 lblMensaje.setText("El CUIT debe tener 11 caracteres.");
                 return;
             }

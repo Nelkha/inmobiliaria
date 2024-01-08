@@ -9,8 +9,11 @@ import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Timer;
 import models.Contrato;
+import servicios.BajaServicio;
 import servicios.ContratoServicio;
 import servicios.Globales;
 import servicios.NTPTimeService;
@@ -18,6 +21,14 @@ import servicios.NTPTimeService;
 public class Principal extends javax.swing.JFrame {
 
     ContratoServicio contServ = new ContratoServicio();
+    List<Contrato> contratosPorVencer = new ArrayList<>();
+    List<Contrato> contratosParaBaja = new ArrayList<>();
+    BajaServicio bajaServ = new BajaServicio();
+    String ntpServer = "time.google.com";
+
+    NTPTimeService timeService = new NTPTimeService(ntpServer);
+
+    LocalDate fechaSincronizada = timeService.obtenerFechaSincronizada();
 
     public Principal() {
         initComponents();
@@ -34,19 +45,28 @@ public class Principal extends javax.swing.JFrame {
         contentP.revalidate();
         contentP.repaint();
 
-        String ntpServer = "time.google.com";
+        lblFecha.setText("Fecha: " + fechaSincronizada);
 
-        NTPTimeService timeService = new NTPTimeService(ntpServer);
-
-        LocalDate fechaSincronizada = timeService.obtenerFechaSincronizada();
-         lblFecha.setText("Fecha: " + fechaSincronizada);
         Timer timer = new Timer(30000, new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 LocalDate fechaSincronizada = timeService.obtenerFechaSincronizada();
                 List<Contrato> contratosVigentes = contServ.buscarVigentes(fechaSincronizada);
-                List<Contrato> contratosPorVencer = new ArrayList();
+                contratosPorVencer.clear();
+                contratosParaBaja = contServ.buscarVencidos(fechaSincronizada);
+                for (Contrato cont : contratosParaBaja) {
+                    cont.setAlta(false);
 
+                    try {
+                        contServ.editarContrato(cont);
+                        bajaServ.guardar(cont, fechaSincronizada);
+
+                    } catch (Exception ex) {
+                        Logger.getLogger(ContBajas.class.getName()).log(Level.SEVERE, null, ex);
+                        ex.printStackTrace();
+
+                    }
+                }
                 for (Contrato contrato : contratosVigentes) {
                     long diferenciaEnDias = contrato.getFechaFin().toEpochDay() - fechaSincronizada.toEpochDay();
                     if (diferenciaEnDias <= 30) {
@@ -65,7 +85,12 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
         });
+        timer.getActionListeners()[0].actionPerformed(null);
         timer.start();
+
+    }
+
+    public void bajaAutomatica(List<Contrato> contratos) {
 
     }
 
@@ -260,6 +285,11 @@ public class Principal extends javax.swing.JFrame {
         jPanel2.add(lblFecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 0, 130, 30));
 
         lblNoti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/notification.png"))); // NOI18N
+        lblNoti.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblNotiMouseClicked(evt);
+            }
+        });
         jPanel2.add(lblNoti, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
 
         lblNoNoti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/bell.png"))); // NOI18N
@@ -366,6 +396,19 @@ public class Principal extends javax.swing.JFrame {
         contentP.revalidate();
         contentP.repaint();
     }//GEN-LAST:event_btnBusquedaCuitActionPerformed
+
+    private void lblNotiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNotiMouseClicked
+        if (contratosPorVencer != null) {
+            NotiPage notiPage = new NotiPage(contratosPorVencer, fechaSincronizada);
+            notiPage.setSize(490, 480);
+            notiPage.setLocation(0, 0);
+
+            contentP.removeAll();
+            contentP.add(notiPage, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+            contentP.revalidate();
+            contentP.repaint();
+        }
+    }//GEN-LAST:event_lblNotiMouseClicked
 
     /**
      * @param args the command line arguments

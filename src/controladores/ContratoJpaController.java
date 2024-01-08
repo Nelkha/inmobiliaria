@@ -235,4 +235,16 @@ public class ContratoJpaController implements Serializable {
             em.close();
         }
     }
+     public List<Contrato> findVencidos(LocalDate fechaActual) {
+        EntityManager em = getEntityManager();
+        try {
+            String jpql = "SELECT c FROM Contrato c WHERE c.fechaFin <:fechaActual";
+            Query query = em.createQuery(jpql, Contrato.class);
+            query.setParameter("fechaActual", fechaActual);
+            return query.getResultList();
+        } finally {
+            em.close();
+        }
+    }
+    
 }
