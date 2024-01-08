@@ -16,6 +16,7 @@ import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 import models.Contrato;
+import models.Garante;
 import models.Inquilino;
 import models.Inmueble;
 
@@ -53,6 +54,11 @@ public class ContratoJpaController implements Serializable {
                 inmueble = em.getReference(inmueble.getClass(), inmueble.getId());
                 contrato.setInmueble(inmueble);
             }
+            Garante garante = contrato.getGarante();
+            if (garante != null) {
+                garante = em.getReference(garante.getClass(), garante.getId());
+                contrato.setGarante(garante);
+            }
             em.persist(contrato);
             if (inquilino != null) {
                 inquilino.getContratos().add(contrato);
@@ -61,6 +67,9 @@ public class ContratoJpaController implements Serializable {
             if (inmueble != null) {
                 inmueble.getContratos().add(contrato);
                 inmueble = em.merge(inmueble);
+            }
+            if (garante != null) {
+                contrato.setGarante(garante);
             }
             em.getTransaction().commit();
 
@@ -79,6 +88,13 @@ public class ContratoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Garante garante = contrato.getGarante(); // Agregar esta línea para obtener el garante
+
+            if (garante != null) {
+                garante = em.getReference(garante.getClass(), garante.getId());
+                contrato.setGarante(garante);
+            }
+
             Contrato persistentContrato = em.find(Contrato.class, contrato.getId());
             Inquilino inquilinoOld = persistentContrato.getInquilino();
             Inquilino inquilinoNew = contrato.getInquilino();
@@ -161,8 +177,8 @@ public class ContratoJpaController implements Serializable {
         }
     }
 
-   public List<Contrato> findContratoEntities() {
-       
+    public List<Contrato> findContratoEntities() {
+
         return findContratoEntities(true, -1, -1);
     }
 

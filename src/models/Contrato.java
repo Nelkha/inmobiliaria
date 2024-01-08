@@ -33,6 +33,10 @@ public class Contrato implements Serializable {
     @JoinColumn(name = "inmueble_id")
     private Inmueble inmueble;
 
+    @ManyToOne
+    @JoinColumn(name = "garante_id")
+    private Garante garante;
+
     @Column(nullable = false)
     private LocalDate fechaInicio;
 
@@ -56,21 +60,13 @@ public class Contrato implements Serializable {
     @OneToOne(mappedBy = "contrato")
     private Baja baja;
 
-    public Baja getBaja() {
-        return baja;
-    }
-
-    public void setBaja(Baja baja) {
-        this.baja = baja;
-    }
-
     public Contrato() {
     }
 
-    public Contrato(Inquilino inquilino, Inmueble inmueble, LocalDate fechaInicio, LocalDate fechaFin, double montoAlquiler, int indexacionMeses, boolean alta, List<Double> importesAlquiler) {
-
+    public Contrato(Inquilino inquilino, Inmueble inmueble, Garante garante, LocalDate fechaInicio, LocalDate fechaFin, double montoAlquiler, int indexacionMeses, boolean alta, List<Double> importesAlquiler) {
         this.inquilino = inquilino;
         this.inmueble = inmueble;
+        this.garante = garante;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.montoAlquiler = montoAlquiler;
@@ -101,6 +97,14 @@ public class Contrato implements Serializable {
 
     public void setInmueble(Inmueble inmueble) {
         this.inmueble = inmueble;
+    }
+
+    public Garante getGarante() {
+        return garante;
+    }
+
+    public void setGarante(Garante garante) {
+        this.garante = garante;
     }
 
     public LocalDate getFechaInicio() {
@@ -151,11 +155,28 @@ public class Contrato implements Serializable {
         this.importesAlquiler = importesAlquiler;
     }
 
-    @Override
-    public String toString() {
-        return "Contrato{" + "id=" + id + ", inquilino=" + inquilino + ", inmueble=" + inmueble + ", fechaInicio=" + fechaInicio + ", fechaFin=" + fechaFin + ", montoAlquiler=" + montoAlquiler + ", indexacionMeses=" + indexacionMeses + ", alta=" + alta + ", importesAlquiler=" + importesAlquiler + ", baja=" + baja + '}';
+    public Baja getBaja() {
+        return baja;
     }
 
-   
+    public void setBaja(Baja baja) {
+        this.baja = baja;
+    }
 
+    @Override
+    public String toString() {
+        return "Contrato{" +
+                "id=" + id +
+                ", inquilino=" + inquilino +
+                ", inmueble=" + inmueble +
+                ", garante=" + garante +
+                ", fechaInicio=" + fechaInicio +
+                ", fechaFin=" + fechaFin +
+                ", montoAlquiler=" + montoAlquiler +
+                ", indexacionMeses=" + indexacionMeses +
+                ", alta=" + alta +
+                ", importesAlquiler=" + importesAlquiler +
+                ", baja=" + baja +
+                '}';
+    }
 }

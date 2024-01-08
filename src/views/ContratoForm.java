@@ -14,9 +14,11 @@ import javax.swing.JFormattedTextField;
 import javax.swing.text.DefaultFormatterFactory;
 import javax.swing.text.MaskFormatter;
 import models.Contrato;
+import models.Garante;
 import models.Inmueble;
 import models.Inquilino;
 import servicios.ContratoServicio;
+import servicios.GaranteServicio;
 import static servicios.Globales.activarBuscarConEnterBtn;
 import servicios.InmuebleServicio;
 import servicios.InquilinoServicio;
@@ -31,6 +33,7 @@ public class ContratoForm extends javax.swing.JPanel {
 
     InmuebleServicio inmServ = new InmuebleServicio();
     InquilinoServicio inqServ = new InquilinoServicio();
+    GaranteServicio garanteServ = new GaranteServicio();
     List<Inmueble> inmuebles = inmServ.consultaTodos();
 
     public ContratoForm() throws ParseException {
@@ -78,6 +81,7 @@ public class ContratoForm extends javax.swing.JPanel {
     private void initComponents() {
 
         jSeparator4 = new javax.swing.JSeparator();
+        buttonGroup1 = new javax.swing.ButtonGroup();
         contentPI = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -105,6 +109,21 @@ public class ContratoForm extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         txtFInicio = new javax.swing.JFormattedTextField();
         txtFFin = new javax.swing.JFormattedTextField();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
+        jCheckBox3 = new javax.swing.JCheckBox();
+        jCheckBox4 = new javax.swing.JCheckBox();
+        jLabel10 = new javax.swing.JLabel();
+        txtCuitGarante = new javax.swing.JTextField();
+        jSeparator10 = new javax.swing.JSeparator();
+        txtNombreGarante = new javax.swing.JTextField();
+        jSeparator11 = new javax.swing.JSeparator();
+        txtApellidoGarante = new javax.swing.JTextField();
+        jSeparator12 = new javax.swing.JSeparator();
+        txtTelefonoGarante = new javax.swing.JTextField();
+        jSeparator13 = new javax.swing.JSeparator();
+        txtDireccionGarante = new javax.swing.JTextField();
+        jSeparator14 = new javax.swing.JSeparator();
 
         jSeparator4.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
@@ -122,35 +141,35 @@ public class ContratoForm extends javax.swing.JPanel {
 
         jSeparator1.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator1.setForeground(new java.awt.Color(0, 0, 0));
-        contentPI.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 110, 10));
+        contentPI.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 110, 10));
 
         jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
-        contentPI.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 110, 10));
+        contentPI.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 110, 10));
 
         jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator3.setForeground(new java.awt.Color(0, 0, 0));
-        contentPI.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 110, 10));
+        contentPI.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 110, 10));
 
         jSeparator5.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator5.setForeground(new java.awt.Color(0, 0, 0));
-        contentPI.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 110, 10));
+        contentPI.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 110, 10));
 
         jSeparator6.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator6.setForeground(new java.awt.Color(0, 0, 0));
-        contentPI.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 110, 110, 10));
+        contentPI.add(jSeparator6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 110, 10));
 
         jSeparator7.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator7.setForeground(new java.awt.Color(0, 0, 0));
-        contentPI.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 110, 10));
+        contentPI.add(jSeparator7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 110, 10));
 
         jSeparator8.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator8.setForeground(new java.awt.Color(0, 0, 0));
-        contentPI.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, 110, 10));
+        contentPI.add(jSeparator8, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 110, 10));
 
         jSeparator9.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator9.setForeground(new java.awt.Color(0, 0, 0));
-        contentPI.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 110, 10));
+        contentPI.add(jSeparator9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 110, 10));
 
         lblMensaje.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
         lblMensaje.setForeground(new java.awt.Color(204, 0, 0));
@@ -173,7 +192,7 @@ public class ContratoForm extends javax.swing.JPanel {
                 txtCuitActionPerformed(evt);
             }
         });
-        contentPI.add(txtCuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 220, 20));
+        contentPI.add(txtCuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 120, 20));
 
         txtNombre.setBackground(new java.awt.Color(255, 255, 255));
         txtNombre.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
@@ -186,7 +205,7 @@ public class ContratoForm extends javax.swing.JPanel {
                 txtNombreActionPerformed(evt);
             }
         });
-        contentPI.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 120, 20));
+        contentPI.add(txtNombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 120, 20));
 
         txtApellido.setBackground(new java.awt.Color(255, 255, 255));
         txtApellido.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
@@ -199,7 +218,7 @@ public class ContratoForm extends javax.swing.JPanel {
                 txtApellidoActionPerformed(evt);
             }
         });
-        contentPI.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 220, 20));
+        contentPI.add(txtApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 110, 20));
 
         txtTelefono.setBackground(new java.awt.Color(255, 255, 255));
         txtTelefono.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
@@ -212,30 +231,30 @@ public class ContratoForm extends javax.swing.JPanel {
                 txtTelefonoActionPerformed(evt);
             }
         });
-        contentPI.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 220, 20));
+        contentPI.add(txtTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 110, 20));
 
         cmbInmuebles.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        contentPI.add(cmbInmuebles, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 170, -1));
+        contentPI.add(cmbInmuebles, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 170, -1));
 
         jLabel6.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("Caracteriticas del contrato");
-        contentPI.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+        contentPI.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
         jLabel7.setText("Inmueble");
-        contentPI.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, -1, -1));
+        contentPI.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, -1, -1));
 
         jLabel8.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(0, 0, 0));
         jLabel8.setText("Fecha de inicio");
-        contentPI.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, -1, -1));
+        contentPI.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Roboto", 0, 12)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(0, 0, 0));
         jLabel9.setText("Fecha de fin");
-        contentPI.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, -1, -1));
+        contentPI.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, -1, -1));
 
         txtMontoInicial.setBackground(new java.awt.Color(255, 255, 255));
         txtMontoInicial.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
@@ -248,7 +267,7 @@ public class ContratoForm extends javax.swing.JPanel {
                 txtMontoInicialActionPerformed(evt);
             }
         });
-        contentPI.add(txtMontoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 120, 20));
+        contentPI.add(txtMontoInicial, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, 120, 20));
 
         txtCantMese.setBackground(new java.awt.Color(255, 255, 255));
         txtCantMese.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
@@ -261,7 +280,7 @@ public class ContratoForm extends javax.swing.JPanel {
                 txtCantMeseActionPerformed(evt);
             }
         });
-        contentPI.add(txtCantMese, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 120, 20));
+        contentPI.add(txtCantMese, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 120, 20));
 
         limpiarBtn1.setBackground(new java.awt.Color(0, 51, 153));
         limpiarBtn1.setFont(new java.awt.Font("Roboto", 0, 11)); // NOI18N
@@ -299,13 +318,123 @@ public class ContratoForm extends javax.swing.JPanel {
         txtFInicio.setBorder(null);
         txtFInicio.setForeground(new java.awt.Color(102, 102, 102));
         txtFInicio.setText("AAAA-MM-DD");
-        contentPI.add(txtFInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
+        contentPI.add(txtFInicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, -1, -1));
 
         txtFFin.setBackground(new java.awt.Color(255, 255, 255));
         txtFFin.setBorder(null);
         txtFFin.setForeground(new java.awt.Color(102, 102, 102));
         txtFFin.setText("AAAA-MM-DD");
-        contentPI.add(txtFFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 280, -1, -1));
+        contentPI.add(txtFFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, -1, -1));
+
+        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(jCheckBox1);
+        jCheckBox1.setText("SRA.");
+        contentPI.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 60, 20));
+
+        jCheckBox2.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(jCheckBox2);
+        jCheckBox2.setText("SR.");
+        contentPI.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 50, 20));
+
+        jCheckBox3.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(jCheckBox3);
+        jCheckBox3.setText("SRA.");
+        contentPI.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 60, 20));
+
+        jCheckBox4.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(jCheckBox4);
+        jCheckBox4.setText("SR.");
+        contentPI.add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 50, 20));
+
+        jLabel10.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel10.setText("Datos del Garante");
+        contentPI.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 30, -1, -1));
+
+        txtCuitGarante.setBackground(new java.awt.Color(255, 255, 255));
+        txtCuitGarante.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        txtCuitGarante.setForeground(new java.awt.Color(102, 102, 102));
+        txtCuitGarante.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtCuitGarante.setText("CUIT");
+        txtCuitGarante.setBorder(null);
+        txtCuitGarante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCuitGaranteActionPerformed(evt);
+            }
+        });
+        contentPI.add(txtCuitGarante, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 70, 120, 20));
+
+        jSeparator10.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator10.setForeground(new java.awt.Color(0, 0, 0));
+        contentPI.add(jSeparator10, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 90, 110, 10));
+
+        txtNombreGarante.setBackground(new java.awt.Color(255, 255, 255));
+        txtNombreGarante.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        txtNombreGarante.setForeground(new java.awt.Color(102, 102, 102));
+        txtNombreGarante.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtNombreGarante.setText("NOMBRE");
+        txtNombreGarante.setBorder(null);
+        txtNombreGarante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreGaranteActionPerformed(evt);
+            }
+        });
+        contentPI.add(txtNombreGarante, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 120, 20));
+
+        jSeparator11.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator11.setForeground(new java.awt.Color(0, 0, 0));
+        contentPI.add(jSeparator11, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 120, 110, 10));
+
+        txtApellidoGarante.setBackground(new java.awt.Color(255, 255, 255));
+        txtApellidoGarante.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        txtApellidoGarante.setForeground(new java.awt.Color(102, 102, 102));
+        txtApellidoGarante.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtApellidoGarante.setText("APELLIDO");
+        txtApellidoGarante.setBorder(null);
+        txtApellidoGarante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtApellidoGaranteActionPerformed(evt);
+            }
+        });
+        contentPI.add(txtApellidoGarante, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 130, 110, 20));
+
+        jSeparator12.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator12.setForeground(new java.awt.Color(0, 0, 0));
+        contentPI.add(jSeparator12, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 150, 110, 10));
+
+        txtTelefonoGarante.setBackground(new java.awt.Color(255, 255, 255));
+        txtTelefonoGarante.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        txtTelefonoGarante.setForeground(new java.awt.Color(102, 102, 102));
+        txtTelefonoGarante.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtTelefonoGarante.setText("TELEFONO");
+        txtTelefonoGarante.setBorder(null);
+        txtTelefonoGarante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTelefonoGaranteActionPerformed(evt);
+            }
+        });
+        contentPI.add(txtTelefonoGarante, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 160, 110, 20));
+
+        jSeparator13.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator13.setForeground(new java.awt.Color(0, 0, 0));
+        contentPI.add(jSeparator13, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 180, 110, 10));
+
+        txtDireccionGarante.setBackground(new java.awt.Color(255, 255, 255));
+        txtDireccionGarante.setFont(new java.awt.Font("Roboto", 0, 10)); // NOI18N
+        txtDireccionGarante.setForeground(new java.awt.Color(102, 102, 102));
+        txtDireccionGarante.setHorizontalAlignment(javax.swing.JTextField.LEFT);
+        txtDireccionGarante.setText("DIRECCION");
+        txtDireccionGarante.setBorder(null);
+        txtDireccionGarante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDireccionGaranteActionPerformed(evt);
+            }
+        });
+        contentPI.add(txtDireccionGarante, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 160, 110, 20));
+
+        jSeparator14.setBackground(new java.awt.Color(255, 255, 255));
+        jSeparator14.setForeground(new java.awt.Color(0, 0, 0));
+        contentPI.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, 110, 10));
 
         add(contentPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 460));
     }// </editor-fold>//GEN-END:initComponents
@@ -337,17 +466,24 @@ public class ContratoForm extends javax.swing.JPanel {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
         try {
-            String cuit, nombre, apellido, telefono, direccion;
+            String cuit, nombre, apellido, telefono, direccion,cuitGarante, nombreGarante, apellidoGarante, telefonoGarante, direccionGarante;
             LocalDate fechaInicio, fechaFin;
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             // Validar campos obligatorios no estén vacíos
+            
             cuit = txtCuit.getText().trim();
             nombre = txtNombre.getText().trim().toUpperCase();
             apellido = txtApellido.getText().trim().toUpperCase();
-            telefono = txtTelefono.getText();
+            telefono = txtTelefono.getText().trim();
+            cuitGarante = txtCuit.getText().trim();
+            nombreGarante = txtNombre.getText().trim().toUpperCase();
+            apellidoGarante = txtApellido.getText().trim().toUpperCase();
+            telefonoGarante = txtTelefono.getText().trim();
+            direccionGarante=txtDireccionGarante.getText().trim();
             fechaInicio = LocalDate.parse(txtFInicio.getText().trim(), formato);
             fechaFin = LocalDate.parse(txtFFin.getText().trim(), formato);
             direccion = (String) cmbInmuebles.getSelectedItem();
+            
             int cantidadMeses = Integer.parseInt(txtCantMese.getText().trim());
             double valorInicial = Double.parseDouble(txtMontoInicial.getText().trim());
 
@@ -376,11 +512,14 @@ public class ContratoForm extends javax.swing.JPanel {
                 }
             }
 
+            
             Inquilino inquilinoTemp = new Inquilino(cuit, nombre, apellido, telefono);
             Inquilino inquilino = inqServ.guardar(inquilinoTemp);
+            Garante garanteTemp=new Garante(cuitGarante, nombreGarante, apellidoGarante, telefonoGarante, direccionGarante);
+            Garante garante=garanteServ.guardar(garanteTemp);
             List<Double> importesContrato = new ArrayList<>();
             importesContrato.add(valorInicial);
-            Contrato contrato = new Contrato(inquilino, inmueble, fechaInicio, fechaFin, valorInicial, cantidadMeses, true, importesContrato);
+            Contrato contrato = new Contrato(inquilino, inmueble,garante, fechaInicio, fechaFin, valorInicial, cantidadMeses, true, importesContrato);
 
             ContratoServicio contratoServ = new ContratoServicio();
             boolean contratoGuardado = contratoServ.guardar(contrato);
@@ -416,11 +555,37 @@ public class ContratoForm extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtMontoInicialActionPerformed
 
+    private void txtCuitGaranteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCuitGaranteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCuitGaranteActionPerformed
+
+    private void txtNombreGaranteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreGaranteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreGaranteActionPerformed
+
+    private void txtApellidoGaranteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoGaranteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtApellidoGaranteActionPerformed
+
+    private void txtTelefonoGaranteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTelefonoGaranteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTelefonoGaranteActionPerformed
+
+    private void txtDireccionGaranteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionGaranteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtDireccionGaranteActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cmbInmuebles;
     private javax.swing.JPanel contentPI;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
+    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jCheckBox4;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -428,6 +593,11 @@ public class ContratoForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator10;
+    private javax.swing.JSeparator jSeparator11;
+    private javax.swing.JSeparator jSeparator12;
+    private javax.swing.JSeparator jSeparator13;
+    private javax.swing.JSeparator jSeparator14;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
@@ -439,12 +609,17 @@ public class ContratoForm extends javax.swing.JPanel {
     private javax.swing.JLabel lblMensaje;
     private javax.swing.JButton limpiarBtn1;
     private javax.swing.JTextField txtApellido;
+    private javax.swing.JTextField txtApellidoGarante;
     private javax.swing.JTextField txtCantMese;
     private javax.swing.JTextField txtCuit;
+    private javax.swing.JTextField txtCuitGarante;
+    private javax.swing.JTextField txtDireccionGarante;
     private javax.swing.JFormattedTextField txtFFin;
     private javax.swing.JFormattedTextField txtFInicio;
     private javax.swing.JTextField txtMontoInicial;
     private javax.swing.JTextField txtNombre;
+    private javax.swing.JTextField txtNombreGarante;
     private javax.swing.JTextField txtTelefono;
+    private javax.swing.JTextField txtTelefonoGarante;
     // End of variables declaration//GEN-END:variables
 }
