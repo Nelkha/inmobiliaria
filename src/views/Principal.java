@@ -4,8 +4,12 @@
  */
 package views;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
+import javax.swing.Timer;
 import models.Contrato;
 import servicios.ContratoServicio;
 import servicios.Globales;
@@ -35,11 +39,33 @@ public class Principal extends javax.swing.JFrame {
         NTPTimeService timeService = new NTPTimeService(ntpServer);
 
         LocalDate fechaSincronizada = timeService.obtenerFechaSincronizada();
-        List<Contrato> contratosVigentes = contServ.buscarVigentes(fechaSincronizada);
-        for(Contrato contrato : contratosVigentes){
-            System.out.println(contrato.getFechaFin()+" "+contrato.getInquilino().getNombre());
-        }
-        lblFecha.setText("Fecha: " + fechaSincronizada);
+         lblFecha.setText("Fecha: " + fechaSincronizada);
+        Timer timer = new Timer(30000, new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                LocalDate fechaSincronizada = timeService.obtenerFechaSincronizada();
+                List<Contrato> contratosVigentes = contServ.buscarVigentes(fechaSincronizada);
+                List<Contrato> contratosPorVencer = new ArrayList();
+
+                for (Contrato contrato : contratosVigentes) {
+                    long diferenciaEnDias = contrato.getFechaFin().toEpochDay() - fechaSincronizada.toEpochDay();
+                    if (diferenciaEnDias <= 30) {
+                        contratosPorVencer.add(contrato);
+                    }
+                }
+
+                lblFecha.setText("Fecha: " + fechaSincronizada);
+
+                if (contratosPorVencer.isEmpty()) {
+                    lblNoti.setVisible(false);
+                    lblNoNoti.setVisible(true);
+                } else {
+                    lblNoti.setVisible(true);
+                    lblNoNoti.setVisible(false);
+                }
+            }
+        });
+        timer.start();
 
     }
 

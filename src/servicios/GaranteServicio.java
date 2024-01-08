@@ -16,12 +16,12 @@ public class GaranteServicio {
      GaranteJpaController garanteJpa = new GaranteJpaController();
      
     public Garante buscarGarantePorCuit(String cuit) {
-        List<Garante> inquilinos = garanteJpa.findGaranteByCuit(cuit);
+        List<Garante> garantes = garanteJpa.findGaranteByCuit(cuit);
 
-        if (inquilinos.isEmpty()) {
+        if (garantes.isEmpty()) {
             return null;
         } else {
-            return inquilinos.get(0);
+            return garantes.get(0);
         }
     }
      public Garante guardar(Garante garante) throws Exception {

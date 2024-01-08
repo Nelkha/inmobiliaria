@@ -232,7 +232,8 @@ public class ContrList extends javax.swing.JPanel {
                     + "Monto Actual: " + contrato.getMontoAlquiler() + "\n"
                     + "Index Meses: " + contrato.getIndexacionMeses() + "\n"
                     + "Importes historicos: "+"\n" + importesText + "\n"
-                    + baja
+                    + baja+"\n"
+                    +"Garante: "+contrato.getGarante().getNombre()+" "+contrato.getGarante().getApellido()
             );
 
         }

@@ -141,7 +141,7 @@ public class GaranteJpaController implements Serializable {
      public List<Garante> findGaranteByCuit(String cuit) {
         EntityManager em = getEntityManager();
         try {
-            String jpql = "SELECT i FROM Inquilino i WHERE i.cuit =:cuit";
+            String jpql = "SELECT g FROM Garante g WHERE g.cuit =:cuit";
             Query query = em.createQuery(jpql, Garante.class);
             query.setParameter("cuit", cuit);
             return query.getResultList();

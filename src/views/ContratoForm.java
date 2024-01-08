@@ -42,6 +42,11 @@ public class ContratoForm extends javax.swing.JPanel {
         comportamientoTextField(txtCuit, "CUIT");
         comportamientoTextField(txtNombre, "NOMBRE");
         comportamientoTextField(txtApellido, "APELLIDO");
+        comportamientoTextField(txtCuitGarante, "CUIT");
+        comportamientoTextField(txtNombreGarante, "NOMBRE");
+        comportamientoTextField(txtApellidoGarante, "APELLIDO");
+        comportamientoTextField(txtDireccionGarante, "DIRECCION");
+        comportamientoTextField(txtTelefonoGarante, "APELLIDO");
         comportamientoTextField(txtCantMese, "MESES INDEXACION");
         comportamientoTextField(txtFFin, "AAAA-MM-DD");
         comportamientoTextField(txtFInicio, "AAAA-MM-DD");
@@ -51,9 +56,13 @@ public class ContratoForm extends javax.swing.JPanel {
         vaciarFocus(txtCuit,"CUIT");
         vaciarFocus(txtNombre,"NOMBRE");
         vaciarFocus(txtApellido,"APELLIDO");
-        vaciarFocus(txtCantMese,"MESES INDEXACION");
-        
         vaciarFocus(txtTelefono,"TELEFONO");
+        vaciarFocus(txtCantMese,"MESES INDEXACION");
+         vaciarFocus(txtCuitGarante,"CUIT");
+        vaciarFocus(txtNombreGarante,"NOMBRE");
+        vaciarFocus(txtApellidoGarante,"APELLIDO");
+        vaciarFocus(txtTelefonoGarante,"TELEFONO");
+        vaciarFocus(txtDireccionGarante,"TELEFONO");
         vaciarFocus(txtMontoInicial,"VALOR INICIAL");
         MaskFormatter mask = new MaskFormatter("##/##/####");
         mask.setPlaceholderCharacter('0'); // Carácter que se mostrará en lugar de los guiones
@@ -82,6 +91,7 @@ public class ContratoForm extends javax.swing.JPanel {
 
         jSeparator4 = new javax.swing.JSeparator();
         buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         contentPI = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -337,12 +347,12 @@ public class ContratoForm extends javax.swing.JPanel {
         contentPI.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 50, 20));
 
         jCheckBox3.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(jCheckBox3);
+        buttonGroup2.add(jCheckBox3);
         jCheckBox3.setText("SRA.");
         contentPI.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 60, 20));
 
         jCheckBox4.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(jCheckBox4);
+        buttonGroup2.add(jCheckBox4);
         jCheckBox4.setText("SR.");
         contentPI.add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 50, 20));
 
@@ -475,10 +485,10 @@ public class ContratoForm extends javax.swing.JPanel {
             nombre = txtNombre.getText().trim().toUpperCase();
             apellido = txtApellido.getText().trim().toUpperCase();
             telefono = txtTelefono.getText().trim();
-            cuitGarante = txtCuit.getText().trim();
-            nombreGarante = txtNombre.getText().trim().toUpperCase();
-            apellidoGarante = txtApellido.getText().trim().toUpperCase();
-            telefonoGarante = txtTelefono.getText().trim();
+            cuitGarante = txtCuitGarante.getText().trim();
+            nombreGarante = txtNombreGarante.getText().trim().toUpperCase();
+            apellidoGarante = txtApellidoGarante.getText().trim().toUpperCase();
+            telefonoGarante = txtTelefonoGarante.getText().trim();
             direccionGarante=txtDireccionGarante.getText().trim();
             fechaInicio = LocalDate.parse(txtFInicio.getText().trim(), formato);
             fechaFin = LocalDate.parse(txtFFin.getText().trim(), formato);
@@ -579,6 +589,7 @@ public class ContratoForm extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JComboBox<String> cmbInmuebles;
     private javax.swing.JPanel contentPI;
     private javax.swing.JCheckBox jCheckBox1;
