@@ -20,7 +20,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
 import models.Contrato;
-import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
+
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import servicios.BajaServicio;
@@ -432,50 +437,66 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_lblNotiMouseClicked
 
     private void leerModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leerModActionPerformed
-        try {
-            String documentosDir = System.getProperty("user.home") + "\\Documentos";
-            FileInputStream fis = new FileInputStream(RUTA_CONTRATO_BASE);
-            XWPFDocument document = new XWPFDocument(fis);
-             Path carpetaContratos = Paths.get(documentosDir, "Contratos");
-                    if (Files.notExists(carpetaContratos)) {
-                        Files.createDirectories(carpetaContratos);
-                    }
+       try {
+    String documentosDir = System.getProperty("user.home") + "\\Documentos\\";
+    FileInputStream fis = new FileInputStream(RUTA_CONTRATO_BASE);
+    XWPFDocument document = new XWPFDocument(fis);
+    Path carpetaContratos = Paths.get(documentosDir, "Contratos");
+    if (Files.notExists(carpetaContratos)) {
+        Files.createDirectories(carpetaContratos);
+    }
 
-            // Datos del inquilino
-            String nombreInquilino = "Susana Pérez";
+    // Datos del inquilino
+    String nombreInquilino = "Susana Pérez";
 
-            // Reemplazar marcadores
-            for (XWPFParagraph paragraph : document.getParagraphs()) {
-                for (XWPFRun run : paragraph.getRuns()) {
-                    String text = run.getText(0);
-                    if (text != null && text.contains("{{NOMBREINQUILINO}}")) {
-                        text = text.replace("{{NOMBREINQUILINO}}", nombreInquilino);
-                        run.setText(text, 0);
-                    }
-                }
+    // Reemplazar marcadores
+    for (XWPFParagraph paragraph : document.getParagraphs()) {
+        for (XWPFRun run : paragraph.getRuns()) {
+            String text = run.getText(0);
+            if (text != null && text.contains("[INQUILINO]")) {
+                text = text.replace("[INQUILINO]", nombreInquilino);
+                run.setText(text, 0);
             }
-             
- String filePathModificado = documentosDir + "archivo_modificado.docx";
-                        try (FileOutputStream fos = new FileOutputStream(filePathModificado)) {
-                            document.write(fos);
-                            System.out.println("Documento modificado guardado correctamente en: " + filePathModificado);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            System.err.println("Error al escribir en el archivo: " + filePathModificado);
-                        }
-
-            XWPFWordExtractor extractor = new XWPFWordExtractor(document);
-
-            String content = extractor.getText();
-            System.out.println(content);
-            
-           
-           
-            extractor.close();
-            fis.close();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+    }
+
+    // Crear el documento PDF
+    PDDocument pdfDocument = new PDDocument();
+    PDPage pdfPage = new PDPage();
+    pdfDocument.addPage(pdfPage);
+
+    // Convertir contenido de Word a PDF
+    try (PDPageContentStream contentStream = new PDPageContentStream(pdfDocument, pdfPage)) {
+    contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 14);
+
+    float margin = 50;
+    float yStart = pdfPage.getMediaBox().getHeight() - margin;
+    float yPosition = yStart;
+    float bottomMargin = 70;
+
+    for (XWPFParagraph paragraph : document.getParagraphs()) {
+        contentStream.beginText();
+        contentStream.newLineAtOffset(margin, yPosition);
+        String text = paragraph.getText();
+        contentStream.showText(text);
+        yPosition -= 15; // Espaciado entre líneas
+        contentStream.endText();
+    }
+
+    // Agregar más contenido si es necesario
+
+    contentStream.close();
+}
+
+    String filePathModificado = documentosDir + "archivo_modificado.pdf";
+    pdfDocument.save(filePathModificado);
+    System.out.println("Documento modificado guardado correctamente en formato PDF en: " + filePathModificado);
+    pdfDocument.close();
+
+    fis.close();
+} catch (IOException e) {
+    e.printStackTrace();
+}
     }//GEN-LAST:event_leerModActionPerformed
 
     /**
