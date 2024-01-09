@@ -29,7 +29,8 @@ import static servicios.Globales.vaciarFocus;
  * @author Nelkha
  */
 public class ContratoForm extends javax.swing.JPanel {
-
+ private static final String RUTA_CONTRATO_BASE = "src/docs/modelo.docx";
+    private static final String RUTA_DESTINO_CONTRATOS = System.getProperty("user.home") + "/Documentos/Contratos/";
     InmuebleServicio inmServ = new InmuebleServicio();
     InquilinoServicio inqServ = new InquilinoServicio();
     GaranteServicio garanteServ = new GaranteServicio();
