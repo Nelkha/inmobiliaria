@@ -23,6 +23,8 @@ import models.Contrato;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.common.PDRectangle;
+import org.apache.pdfbox.pdmodel.font.PDFont;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 
@@ -437,11 +439,13 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_lblNotiMouseClicked
 
     private void leerModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leerModActionPerformed
-       try {
+      try {
     String documentosDir = System.getProperty("user.home") + "\\Documentos\\";
     FileInputStream fis = new FileInputStream(RUTA_CONTRATO_BASE);
+
     XWPFDocument document = new XWPFDocument(fis);
     Path carpetaContratos = Paths.get(documentosDir, "Contratos");
+
     if (Files.notExists(carpetaContratos)) {
         Files.createDirectories(carpetaContratos);
     }
@@ -460,40 +464,14 @@ public class Principal extends javax.swing.JFrame {
         }
     }
 
-    // Crear el documento PDF
-    PDDocument pdfDocument = new PDDocument();
-    PDPage pdfPage = new PDPage();
-    pdfDocument.addPage(pdfPage);
-
-    // Convertir contenido de Word a PDF
-    try (PDPageContentStream contentStream = new PDPageContentStream(pdfDocument, pdfPage)) {
-    contentStream.setFont(new PDType1Font(Standard14Fonts.FontName.HELVETICA), 14);
-
-    float margin = 50;
-    float yStart = pdfPage.getMediaBox().getHeight() - margin;
-    float yPosition = yStart;
-    float bottomMargin = 70;
-
-    for (XWPFParagraph paragraph : document.getParagraphs()) {
-        contentStream.beginText();
-        contentStream.newLineAtOffset(margin, yPosition);
-        String text = paragraph.getText();
-        contentStream.showText(text);
-        yPosition -= 15; // Espaciado entre líneas
-        contentStream.endText();
-    }
-
-    // Agregar más contenido si es necesario
-
-    contentStream.close();
-}
-
-    String filePathModificado = documentosDir + "archivo_modificado.pdf";
-    pdfDocument.save(filePathModificado);
-    System.out.println("Documento modificado guardado correctamente en formato PDF en: " + filePathModificado);
-    pdfDocument.close();
-
+    // Guardar el documento modificado en formato Word
+    String filePathModificado = documentosDir + "archivo_modificado.docx";
+    FileOutputStream fos = new FileOutputStream(filePathModificado);
+    document.write(fos);
+    fos.close();
     fis.close();
+
+    System.out.println("Documento modificado guardado correctamente en formato Word en: " + filePathModificado);
 } catch (IOException e) {
     e.printStackTrace();
 }

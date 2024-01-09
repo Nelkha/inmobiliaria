@@ -92,6 +92,7 @@ public class ContratoForm extends javax.swing.JPanel {
         jSeparator4 = new javax.swing.JSeparator();
         buttonGroup1 = new javax.swing.ButtonGroup();
         buttonGroup2 = new javax.swing.ButtonGroup();
+        buttonGroup3 = new javax.swing.ButtonGroup();
         contentPI = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
@@ -119,10 +120,10 @@ public class ContratoForm extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         txtFInicio = new javax.swing.JFormattedTextField();
         txtFFin = new javax.swing.JFormattedTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jCheckBox4 = new javax.swing.JCheckBox();
+        sraInq = new javax.swing.JCheckBox();
+        srInq = new javax.swing.JCheckBox();
+        sraGar = new javax.swing.JCheckBox();
+        srGar = new javax.swing.JCheckBox();
         jLabel10 = new javax.swing.JLabel();
         txtCuitGarante = new javax.swing.JTextField();
         jSeparator10 = new javax.swing.JSeparator();
@@ -134,6 +135,9 @@ public class ContratoForm extends javax.swing.JPanel {
         jSeparator13 = new javax.swing.JSeparator();
         txtDireccionGarante = new javax.swing.JTextField();
         jSeparator14 = new javax.swing.JSeparator();
+        jLabel11 = new javax.swing.JLabel();
+        cCasa = new javax.swing.JCheckBox();
+        cLocal = new javax.swing.JCheckBox();
 
         jSeparator4.setBackground(new java.awt.Color(0, 0, 0));
         jSeparator4.setForeground(new java.awt.Color(0, 0, 0));
@@ -248,8 +252,8 @@ public class ContratoForm extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel6.setText("Caracteriticas del contrato");
-        contentPI.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
+        jLabel6.setText("Destino");
+        contentPI.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 190, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(0, 0, 0));
@@ -336,25 +340,25 @@ public class ContratoForm extends javax.swing.JPanel {
         txtFFin.setText("AAAA-MM-DD");
         contentPI.add(txtFFin, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 300, -1, -1));
 
-        jCheckBox1.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(jCheckBox1);
-        jCheckBox1.setText("SRA.");
-        contentPI.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 60, 20));
+        sraInq.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(sraInq);
+        sraInq.setText("SRA.");
+        contentPI.add(sraInq, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, 60, 20));
 
-        jCheckBox2.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup1.add(jCheckBox2);
-        jCheckBox2.setText("SR.");
-        contentPI.add(jCheckBox2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 50, 20));
+        srInq.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup1.add(srInq);
+        srInq.setText("SR.");
+        contentPI.add(srInq, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 50, 20));
 
-        jCheckBox3.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup2.add(jCheckBox3);
-        jCheckBox3.setText("SRA.");
-        contentPI.add(jCheckBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 60, 20));
+        sraGar.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup2.add(sraGar);
+        sraGar.setText("SRA.");
+        contentPI.add(sraGar, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 50, 60, 20));
 
-        jCheckBox4.setBackground(new java.awt.Color(255, 255, 255));
-        buttonGroup2.add(jCheckBox4);
-        jCheckBox4.setText("SR.");
-        contentPI.add(jCheckBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 50, 20));
+        srGar.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup2.add(srGar);
+        srGar.setText("SR.");
+        contentPI.add(srGar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 50, 20));
 
         jLabel10.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(0, 0, 0));
@@ -445,6 +449,21 @@ public class ContratoForm extends javax.swing.JPanel {
         jSeparator14.setBackground(new java.awt.Color(255, 255, 255));
         jSeparator14.setForeground(new java.awt.Color(0, 0, 0));
         contentPI.add(jSeparator14, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 180, 110, 10));
+
+        jLabel11.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel11.setText("Caracteriticas del contrato");
+        contentPI.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, -1, -1));
+
+        cCasa.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup3.add(cCasa);
+        cCasa.setText("CASA");
+        contentPI.add(cCasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 210, -1, -1));
+
+        cLocal.setBackground(new java.awt.Color(255, 255, 255));
+        buttonGroup3.add(cLocal);
+        cLocal.setText("Local");
+        contentPI.add(cLocal, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 210, -1, -1));
 
         add(contentPI, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 460));
     }// </editor-fold>//GEN-END:initComponents
@@ -590,13 +609,13 @@ public class ContratoForm extends javax.swing.JPanel {
     private javax.swing.JButton btnGuardar;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup buttonGroup3;
+    private javax.swing.JCheckBox cCasa;
+    private javax.swing.JCheckBox cLocal;
     private javax.swing.JComboBox<String> cmbInmuebles;
     private javax.swing.JPanel contentPI;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
-    private javax.swing.JCheckBox jCheckBox4;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
@@ -619,6 +638,10 @@ public class ContratoForm extends javax.swing.JPanel {
     private javax.swing.JSeparator jSeparator9;
     private javax.swing.JLabel lblMensaje;
     private javax.swing.JButton limpiarBtn1;
+    private javax.swing.JCheckBox srGar;
+    private javax.swing.JCheckBox srInq;
+    private javax.swing.JCheckBox sraGar;
+    private javax.swing.JCheckBox sraInq;
     private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtApellidoGarante;
     private javax.swing.JTextField txtCantMese;
