@@ -109,9 +109,7 @@ public class Principal extends javax.swing.JFrame {
 
     }
 
-    public void bajaAutomatica(List<Contrato> contratos) {
-
-    }
+   
 
     /**
      * This method is called from within the constructor to initialize the form.

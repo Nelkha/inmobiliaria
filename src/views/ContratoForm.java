@@ -29,7 +29,8 @@ import static servicios.Globales.vaciarFocus;
  * @author Nelkha
  */
 public class ContratoForm extends javax.swing.JPanel {
- private static final String RUTA_CONTRATO_BASE = "src/docs/modelo.docx";
+
+    private static final String RUTA_CONTRATO_BASE = "src/docs/modelo.docx";
     private static final String RUTA_DESTINO_CONTRATOS = System.getProperty("user.home") + "/Documentos/Contratos/";
     InmuebleServicio inmServ = new InmuebleServicio();
     InquilinoServicio inqServ = new InquilinoServicio();
@@ -52,18 +53,18 @@ public class ContratoForm extends javax.swing.JPanel {
         comportamientoTextField(txtFInicio, "AAAA-MM-DD");
         comportamientoTextField(txtTelefono, "TELEFONO");
         comportamientoTextField(txtMontoInicial, "VALOR INICIAL");
-        activarBuscarConEnterBtn(txtCantMese,btnGuardar);
-        vaciarFocus(txtCuit,"CUIT");
-        vaciarFocus(txtNombre,"NOMBRE");
-        vaciarFocus(txtApellido,"APELLIDO");
-        vaciarFocus(txtTelefono,"TELEFONO");
-        vaciarFocus(txtCantMese,"MESES INDEXACION");
-         vaciarFocus(txtCuitGarante,"CUIT");
-        vaciarFocus(txtNombreGarante,"NOMBRE");
-        vaciarFocus(txtApellidoGarante,"APELLIDO");
-        vaciarFocus(txtTelefonoGarante,"TELEFONO");
-        vaciarFocus(txtDireccionGarante,"DIRECCION");
-        vaciarFocus(txtMontoInicial,"VALOR INICIAL");
+        activarBuscarConEnterBtn(txtCantMese, btnGuardar);
+        vaciarFocus(txtCuit, "CUIT");
+        vaciarFocus(txtNombre, "NOMBRE");
+        vaciarFocus(txtApellido, "APELLIDO");
+        vaciarFocus(txtTelefono, "TELEFONO");
+        vaciarFocus(txtCantMese, "MESES INDEXACION");
+        vaciarFocus(txtCuitGarante, "CUIT");
+        vaciarFocus(txtNombreGarante, "NOMBRE");
+        vaciarFocus(txtApellidoGarante, "APELLIDO");
+        vaciarFocus(txtTelefonoGarante, "TELEFONO");
+        vaciarFocus(txtDireccionGarante, "DIRECCION");
+        vaciarFocus(txtMontoInicial, "VALOR INICIAL");
         MaskFormatter mask = new MaskFormatter("##/##/####");
         mask.setPlaceholderCharacter('0'); // Carácter que se mostrará en lugar de los guiones
         DefaultFormatterFactory formatterFactory = new DefaultFormatterFactory(mask);
@@ -78,10 +79,10 @@ public class ContratoForm extends javax.swing.JPanel {
 
         cmbInmuebles.removeAllItems();
         for (Inmueble inmueble : inmuebles) {
-            if(inmueble.isAlta()){
-            cmbInmuebles.addItem(inmueble.getDireccion());
+            if (inmueble.isAlta()) {
+                cmbInmuebles.addItem(inmueble.getDireccion());
             }
-            
+
         }
     }
 
@@ -495,11 +496,10 @@ public class ContratoForm extends javax.swing.JPanel {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
         try {
-            String cuit, nombre, apellido, telefono, direccion,cuitGarante, nombreGarante, apellidoGarante, telefonoGarante, direccionGarante;
+            String cuit, nombre, apellido, telefono, direccion, cuitGarante, nombreGarante, apellidoGarante, telefonoGarante, direccionGarante,destino, hInq, hGar;
             LocalDate fechaInicio, fechaFin;
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            // Validar campos obligatorios no estén vacíos
-            
+
             cuit = txtCuit.getText().trim();
             nombre = txtNombre.getText().trim().toUpperCase();
             apellido = txtApellido.getText().trim().toUpperCase();
@@ -508,21 +508,19 @@ public class ContratoForm extends javax.swing.JPanel {
             nombreGarante = txtNombreGarante.getText().trim().toUpperCase();
             apellidoGarante = txtApellidoGarante.getText().trim().toUpperCase();
             telefonoGarante = txtTelefonoGarante.getText().trim();
-            direccionGarante=txtDireccionGarante.getText().trim();
+            direccionGarante = txtDireccionGarante.getText().trim();
             fechaInicio = LocalDate.parse(txtFInicio.getText().trim(), formato);
             fechaFin = LocalDate.parse(txtFFin.getText().trim(), formato);
             direccion = (String) cmbInmuebles.getSelectedItem();
-            
+
             int cantidadMeses = Integer.parseInt(txtCantMese.getText().trim());
             double valorInicial = Double.parseDouble(txtMontoInicial.getText().trim());
 
-            // Validar longitud del CUIT
             if (cuit.length() != 11 || cuitGarante.length() != 11) {
                 lblMensaje.setText("El CUIT debe tener 11 caracteres.");
                 return;
             }
 
-            // Validar fechas
             LocalDate fechaActual = LocalDate.now();
             if (fechaInicio.isAfter(fechaActual)) {
                 lblMensaje.setText("La fecha de inicio no puede ser posterior a la fecha actual.");
@@ -541,14 +539,52 @@ public class ContratoForm extends javax.swing.JPanel {
                 }
             }
 
-            
+            if (cmbInmuebles.getSelectedIndex() == -1) {
+                lblMensaje.setText("Debe seleccionar un inmueble.");
+                return;
+            }
+
+            if (!cCasa.isSelected() && !cLocal.isSelected()) {
+                lblMensaje.setText("Debe seleccionar un tipo de contrato (CASA o LOCAL).");
+                return;
+            }
+
+            if (!srInq.isSelected() && !sraInq.isSelected()) {
+                lblMensaje.setText("Debe seleccionar un tipo de inquilino (SR. o SRA.).");
+                return;
+            }
+
+            if (!srGar.isSelected() && !sraGar.isSelected()) {
+                lblMensaje.setText("Debe seleccionar un tipo de garante (SR. o SRA.).");
+                return;
+            }
+            if (txtCuit.getText().trim().isEmpty() || txtCuit.getText().trim().equals("CUIT")
+                    || txtNombre.getText().trim().isEmpty() || txtNombre.getText().trim().equals("NOMBRE")
+                    || txtApellido.getText().trim().isEmpty() || txtApellido.getText().trim().equals("APELLIDO")
+                    || txtTelefono.getText().trim().isEmpty() || txtTelefono.getText().trim().equals("TELEFONO")
+                    || txtCantMese.getText().trim().isEmpty() || txtCantMese.getText().trim().equals("MESES INDEXACION")
+                    || txtFInicio.getText().trim().isEmpty() || txtFInicio.getText().trim().equals("AAAA-MM-DD")
+                    || txtFFin.getText().trim().isEmpty() || txtFFin.getText().trim().equals("AAAA-MM-DD")
+                    || txtMontoInicial.getText().trim().isEmpty() || txtMontoInicial.getText().trim().equals("VALOR INICIAL")
+                    || txtCuitGarante.getText().trim().isEmpty() || txtCuitGarante.getText().trim().equals("CUIT")
+                    || txtNombreGarante.getText().trim().isEmpty() || txtNombreGarante.getText().trim().equals("NOMBRE")
+                    || txtApellidoGarante.getText().trim().isEmpty() || txtApellidoGarante.getText().trim().equals("APELLIDO")
+                    || txtTelefonoGarante.getText().trim().isEmpty() || txtTelefonoGarante.getText().trim().equals("TELEFONO")
+                    || txtDireccionGarante.getText().trim().isEmpty() || txtDireccionGarante.getText().trim().equals("DIRECCION")) {
+
+                lblMensaje.setText("Todos los campos son requeridos.");
+                return;
+            }
+            hInq = srInq.isSelected() ? "SR." : (sraInq.isSelected() ? "SRA." : "");
+            hGar = srGar.isSelected() ? "SR." : (sraGar.isSelected() ? "SRA." : "");
+            destino=cCasa.isSelected()? "CASA HABITACIÓN":(cLocal.isSelected()?"LOCAL COMERCIAL":"");
             Inquilino inquilinoTemp = new Inquilino(cuit, nombre, apellido, telefono);
             Inquilino inquilino = inqServ.guardar(inquilinoTemp);
-            Garante garanteTemp=new Garante(cuitGarante, nombreGarante, apellidoGarante, telefonoGarante, direccionGarante);
-            Garante garante=garanteServ.guardar(garanteTemp);
+            Garante garanteTemp = new Garante(cuitGarante, nombreGarante, apellidoGarante, telefonoGarante, direccionGarante);
+            Garante garante = garanteServ.guardar(garanteTemp);
             List<Double> importesContrato = new ArrayList<>();
             importesContrato.add(valorInicial);
-            Contrato contrato = new Contrato(inquilino, inmueble,garante, fechaInicio, fechaFin, valorInicial, cantidadMeses, true, importesContrato);
+            Contrato contrato = new Contrato(inquilino, inmueble, garante, fechaInicio, fechaFin, valorInicial, cantidadMeses, true, importesContrato);
 
             ContratoServicio contratoServ = new ContratoServicio();
             boolean contratoGuardado = contratoServ.guardar(contrato);

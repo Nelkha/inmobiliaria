@@ -104,6 +104,13 @@ public class ContratoServicio {
             String mesFin = String.valueOf(contrato.getFechaFin().getMonthValue());
             String anioFin = String.valueOf(contrato.getFechaFin().getYear());
             String diaFin = String.valueOf(contrato.getFechaFin().getDayOfMonth());
+            String art,gart, gen,ggen,ggen2,dest;
+            art = hInqr.equalsIgnoreCase("SR.") ? "EL" : (hInqr.equalsIgnoreCase("SRA.") ? "LA" : "");
+            gen=hInqr.equalsIgnoreCase("SR.") ? "O" : (hInqr.equalsIgnoreCase("SRA.") ? "A" : "");
+            ggen=hGarr.equalsIgnoreCase("SR.") ? "O" : (hInqr.equalsIgnoreCase("SRA.") ? "A" : "");
+            gart=hGarr.equalsIgnoreCase("SR.") ? "el" : (hInqr.equalsIgnoreCase("SRA.") ? "la" : "");
+            ggen2=hGarr.equalsIgnoreCase("SR.") ? "" : (hInqr.equalsIgnoreCase("SRA.") ? "a" : "");
+            dest=destino;
             for (XWPFParagraph paragraph : document.getParagraphs()) {
                 for (XWPFRun run : paragraph.getRuns()) {
                     String text = run.getText(0);
@@ -115,12 +122,11 @@ public class ContratoServicio {
                         text = text.replace("[CUIT]", cuitInquilino);
                         run.setText(text, 0);
                     }
-                     if (text != null && text.contains("[TELEFONO INQUILINO]")) {
+                    if (text != null && text.contains("[TELEFONO INQUILINO]")) {
                         text = text.replace("[TELEFONO INQUILINO]", telefonoInquilino);
                         run.setText(text, 0);
                     }
-                   
-                   
+
                     if (text != null && text.contains("[DESTINO]")) {
                         text = text.replace("[DESTINO]", destinoInm);
                         run.setText(text, 0);
@@ -129,63 +135,96 @@ public class ContratoServicio {
                         text = text.replace("[DIRECCIONI]", direccionInmueble);
                         run.setText(text, 0);
                     }
-                    if (text != null && text.contains("([MESES NRO]")) {
+                    if (text != null && text.contains("[MESES NRO]")) {
                         text = text.replace("([MESES NRO]", diferenciaEnMeses);
                         run.setText(text, 0);
                     }
-                    if (text != null && text.contains("([DIA INICIO]")) {
-                        text = text.replace("([DIA INICIO]", diaInicio);
+                    if (text != null && text.contains("[DIA INICIO]")) {
+                        text = text.replace("[DIA INICIO]", diaInicio);
                         run.setText(text, 0);
                     }
-                    if (text != null && text.contains("([MES INICIO]")) {
-                        text = text.replace("([MES INICIO]", mesInicio);
+                    if (text != null && text.contains("[MES INICIO]")) {
+                        text = text.replace("[MES INICIO]", mesInicio);
                         run.setText(text, 0);
                     }
-                    if (text != null && text.contains("([ANIO INICIO]")) {
-                        text = text.replace("([ANIO INICIO]", anioInicio);
+                    if (text != null && text.contains("[ANIO INICIO]")) {
+                        text = text.replace("[ANIO INICIO]", anioInicio);
                         run.setText(text, 0);
                     }
-                    if (text != null && text.contains("([DIA FIN]")) {
-                        text = text.replace("([DIA FIN]", diaFin);
+                    if (text != null && text.contains("[DIA FIN]")) {
+                        text = text.replace("[DIA FIN]", diaFin);
                         run.setText(text, 0);
                     }
-                    if (text != null && text.contains("([MES FIN]")) {
-                        text = text.replace("([MES FIN]", mesFin);
+                    if (text != null && text.contains("[MES FIN]")) {
+                        text = text.replace("[MES FIN]", mesFin);
                         run.setText(text, 0);
                     }
                     if (text != null && text.contains("([ANIO FIN]")) {
-                        text = text.replace("([ANIO FIN]", anioFin);
+                        text = text.replace("[ANIO FIN]", anioFin);
                         run.setText(text, 0);
                     }
-                    if (text != null && text.contains("([MONTO INICIAL]")) {
-                        text = text.replace("([MONTO INICIAL]", String.valueOf(contrato.getMontoAlquiler()));
+                    if (text != null && text.contains("[MONTO INICIAL]")) {
+                        text = text.replace("[MONTO INICIAL]", String.valueOf(contrato.getMontoAlquiler()));
                         run.setText(text, 0);
                     }
                     if (text != null && text.contains("([CANT MESES]")) {
-                        text = text.replace("([CANT MESES]", String.valueOf(contrato));
+                        text = text.replace("[CANT MESES]", String.valueOf(contrato));
                         run.setText(text, 0);
                     }
-                    if (text != null && text.contains("([GARANTE]")) {
-                        text = text.replace("([GARANTE]", contrato.getGarante().getApellido() + ", " + contrato.getGarante().getNombre());
+                    if (text != null && text.contains("[GARANTE]")) {
+                        text = text.replace("[GARANTE]", contrato.getGarante().getApellido() + ", " + contrato.getGarante().getNombre());
                         run.setText(text, 0);
                     }
-                    if (text != null && text.contains("([CUIT GARANTE]")) {
-                        text = text.replace("([CUIT GARANTE]", cuitGarante);
+                    if (text != null && text.contains("[CUIT GARANTE]")) {
+                        text = text.replace("[CUIT GARANTE]", cuitGarante);
                         run.setText(text, 0);
                     }
-                    if (text != null && text.contains("([DIRECCION GARANTE]")) {
-                        text = text.replace("([DIRECCION GARANTE]", direccionGarante);
+                    if (text != null && text.contains("[DIRECCION GARANTE]")) {
+                        text = text.replace("[DIRECCION GARANTE]", direccionGarante);
                         run.setText(text, 0);
                     }
-                       if (text != null && text.contains("([TELEFONO GARANTE]")) {
-                        text = text.replace("([TELEFONO GARANTE]", telefonoGarante);
+                    if (text != null && text.contains("[TELEFONO GARANTE]")) {
+                        text = text.replace("[TELEFONO GARANTE]", telefonoGarante);
                         run.setText(text, 0);
                     }
+                    if (text != null && text.contains("[HINQ]")) {
+                        text = text.replace("[HINQ]", hInqr);
+                        run.setText(text, 0);
+                    }
+                    if (text != null && text.contains("[HGAR]")) {
+                        text = text.replace("[HGAR]", hGarr);
+                        run.setText(text, 0);
+                    }
+                    if (text != null && text.contains("[GEN]")) {
+                        text = text.replace("[GEN]", gen);
+                        run.setText(text, 0);
+                    }
+                    if (text != null && text.contains("([GGEN]")) {
+                        text = text.replace("[GGEN]", ggen);
+                        run.setText(text, 0);
+                    }
+                    if (text != null && text.contains("[GGEN2]")) {
+                        text = text.replace("[GGEN2]", ggen2);
+                        run.setText(text, 0);
+                    }
+                    if (text != null && text.contains("([ART]")) {
+                        text = text.replace("[ART]", art);
+                        run.setText(text, 0);
+                    }
+                    if (text != null && text.contains("[GART]")) {
+                        text = text.replace("[GART]", gart);
+                        run.setText(text, 0);
+                    }
+                     if (text != null && text.contains("[DESTINO]")) {
+                        text = text.replace("[DESTINO]", dest);
+                        run.setText(text, 0);
+                    }
+                    
                 }
             }
 
             // Guardar el documento modificado en formato Word
-            String filePathModificado = documentosDir+"\\Contratos\\"+"Contrato "+nombreInquilino+" "+diaInicio+"-"+mesInicio+"-"+anioInicio+".docx";
+            String filePathModificado = documentosDir + "\\Contratos\\" + "Contrato " + nombreInquilino + " " + diaInicio + "-" + mesInicio + "-" + anioInicio + ".docx";
             FileOutputStream fos = new FileOutputStream(filePathModificado);
             document.write(fos);
             fos.close();

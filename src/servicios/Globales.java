@@ -60,13 +60,13 @@ public class Globales {
             textField.setText(placeholder);
         }
     }
-    
-      public static void activarBuscarConEnter(JTextField textField, JLabel label) {
+
+    public static void activarBuscarConEnter(JTextField textField, JLabel label) {
         textField.addKeyListener(new KeyListener() {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    
+
                     MouseEvent event = new MouseEvent(label, MouseEvent.MOUSE_CLICKED, System.currentTimeMillis(), 0, 0, 0, 1, false);
                     label.dispatchEvent(event);
                 }
@@ -74,74 +74,96 @@ public class Globales {
 
             @Override
             public void keyTyped(KeyEvent e) {
-           
+
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                
+
             }
         });
     }
-      public static void activarBuscarConEnterBtn(JTextField textField, JButton button) {
+
+    public static void activarBuscarConEnterBtn(JTextField textField, JButton button) {
         textField.addKeyListener(new KeyListener() {
-        @Override
-        public void keyPressed(KeyEvent e) {
-            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                button.doClick(); // Simular un clic en el botón
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    button.doClick(); // Simular un clic en el botón
+                }
             }
-        }
 
-        @Override
-        public void keyTyped(KeyEvent e) {
-            // No es necesario implementar esta función
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-            // No es necesario implementar esta función
-        }
-    });
-        
-    }
-      public static void limpiar(JTextField textField){
-      textField.setText("");
-      
-      }
-      public static void vaciarFocus(final JTextField textField, final String valorPorDefecto){
-      
-           textField.addFocusListener(new FocusAdapter() {
-        @Override
-        public void focusGained(FocusEvent e) {
-            if (textField.getText().equals(valorPorDefecto)) {
-                textField.setText(""); // Borra el contenido solo si es igual al valor por defecto
+            @Override
+            public void keyTyped(KeyEvent e) {
+                // No es necesario implementar esta función
             }
-        }
-    });
-      }
-      
-      public static String mostrarImportesAnteriores(Contrato contrato) {
-    StringBuilder incrementosText = new StringBuilder();
-    List<Double> importesAnteriores = contrato.getImportesAlquiler();
-    
-    for (int i = 0; i < importesAnteriores.size() - 1; i++) {
-        String valorAnterior = importesAnteriores.get(i).toString();
-        String valorNuevo = importesAnteriores.get(i + 1).toString();
 
-        // Agregar el par de valores a incrementosText
-        incrementosText.append(valorAnterior)
-                       .append(" >>> ")
-                       .append(valorNuevo)
-                       .append("\n");
+            @Override
+            public void keyReleased(KeyEvent e) {
+                // No es necesario implementar esta función
+            }
+        });
+
     }
 
-    // Añadir el último valor sin " >>> " al final
-    incrementosText.append(importesAnteriores.get(importesAnteriores.size() - 1));
+    public static void limpiar(JTextField textField) {
+        textField.setText("");
 
-    String resultado = incrementosText.toString();
-    return resultado;
+    }
+
+    public static void vaciarFocus(final JTextField textField, final String valorPorDefecto) {
+
+        textField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (textField.getText().equals(valorPorDefecto)) {
+                    textField.setText(""); // Borra el contenido solo si es igual al valor por defecto
+                }
+            }
+        });
+    }
+
+    public static String mostrarImportesAnteriores(Contrato contrato) {
+        StringBuilder incrementosText = new StringBuilder();
+        List<Double> importesAnteriores = contrato.getImportesAlquiler();
+
+        for (int i = 0; i < importesAnteriores.size() - 1; i++) {
+            String valorAnterior = importesAnteriores.get(i).toString();
+            String valorNuevo = importesAnteriores.get(i + 1).toString();
+
+            // Agregar el par de valores a incrementosText
+            incrementosText.append(valorAnterior)
+                    .append(" >>> ")
+                    .append(valorNuevo)
+                    .append("\n");
+        }
+
+        // Añadir el último valor sin " >>> " al final
+        incrementosText.append(importesAnteriores.get(importesAnteriores.size() - 1));
+
+        String resultado = incrementosText.toString();
+        return resultado;
+    }
+
+    public static String convertirNumeroALetras(int numero) {
+        String[] UNIDADES = {"", "UN", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE"};
+        String[] DECENAS = {"", "", "VEINTE", "TREINTA", "CUARENTA", "CINCUENTA", "SESENTA", "SETENTA", "OCHENTA", "NOVENTA"};
+        String[] DIEZ_DIECINUEVE = {"DIEZ", "ONCE", "DOCE", "TRECE", "CATORCE", "QUINCE", "DIECISEIS", "DIECISIETE", "DIECIOCHO", "DIECINUEVE"};
+        String[] VEINTI_ = {"", "", "VEINTI", "VEINTIDOS", "VEINTITRES", "VEINTICUATRO", "VEINTICINCO", "VEINTISEIS", "VEINTISIETE", "VEINTIOCHO", "VEINTINUEVE"};
+        if (numero < 0 || numero > 9999) {
+            return "Número fuera de rango";
+        }
+
+        if (numero < 10) {
+            return UNIDADES[numero];
+        } else if (numero < 20) {
+            return DIEZ_DIECINUEVE[numero - 10];
+        } else if (numero < 100) {
+            return DECENAS[numero / 10] + ((numero % 10 != 0) ? " Y " + UNIDADES[numero % 10] : "");
+        } else if (numero < 1000) {
+            return UNIDADES[numero / 100] + " CIENTO " + convertirNumeroALetras(numero % 100);
+        } else {
+            return UNIDADES[numero / 1000] + " MIL " + convertirNumeroALetras(numero % 1000);
+        }
+    }
 }
-}
-
-
-
