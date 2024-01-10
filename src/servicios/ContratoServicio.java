@@ -12,9 +12,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import models.Contrato;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -74,7 +77,7 @@ public class ContratoServicio {
         return contratosVencidos;
     }
 
-    public void generarContrato(String rutaBase, Contrato contrato, String destino, String hInq, String hGar, String rutaDestino, LocalDate fechaFirma) {
+    public void generarContrato(String rutaBase, Contrato contrato, String destino, String hInq, String hGar, LocalDate fechaFirma) {
         try {
             String documentosDir = System.getProperty("user.home") + "\\Documents";
             FileInputStream fis = new FileInputStream(rutaBase);
@@ -86,140 +89,94 @@ public class ContratoServicio {
                 Files.createDirectories(carpetaContratos);
             }
 
-            // Datos del inquilino
             String nombreInquilino = contrato.getInquilino().getApellido() + ", " + contrato.getInquilino().getNombre();
+            System.out.println(nombreInquilino);
+
             String direccionInmueble = contrato.getInmueble().getDireccion();
+            System.out.println(direccionInmueble);
+
             String telefonoInquilino = contrato.getInquilino().getTelefono();
+            System.out.println(telefonoInquilino);
+
             String cuitInquilino = contrato.getInquilino().getCuit();
+            System.out.println(cuitInquilino);
+
             String cuitGarante = contrato.getGarante().getCuit();
+            System.out.println(cuitGarante);
+
             String telefonoGarante = contrato.getGarante().getTelefono();
+            System.out.println(telefonoGarante);
+
             String direccionGarante = contrato.getGarante().getDireccion();
+            System.out.println(direccionGarante);
+
             String mesInicio = String.valueOf(contrato.getFechaInicio().getMonthValue());
+            System.out.println(mesInicio);
+
             String anioInicio = String.valueOf(contrato.getFechaInicio().getYear());
+            System.out.println(anioInicio);
+
             String diaInicio = String.valueOf(contrato.getFechaInicio().getDayOfMonth());
+            System.out.println(diaInicio);
+
+            String cantMeses = String.valueOf(contrato.getIndexacionMeses());
+            System.out.println(cantMeses);
+
             String hInqr = hInq;
+            System.out.println(hInqr);
+
             String hGarr = hGar;
+            System.out.println(hGarr);
+
             String destinoInm = destino;
-            String diferenciaEnMeses = String.valueOf(ChronoUnit.MONTHS.between(contrato.getFechaFin(), contrato.getFechaInicio()));
+            System.out.println(destinoInm);
+
+            String diferenciaEnMeses = String.valueOf(ChronoUnit.MONTHS.between(contrato.getFechaInicio(), contrato.getFechaFin()) + 1);
+            System.out.println(diferenciaEnMeses);
+
             String mesFin = String.valueOf(contrato.getFechaFin().getMonthValue());
+            System.out.println(mesFin);
+
             String anioFin = String.valueOf(contrato.getFechaFin().getYear());
+            System.out.println(anioFin);
+
             String diaFin = String.valueOf(contrato.getFechaFin().getDayOfMonth());
-            String art,gart, gen,ggen,ggen2,dest;
+            System.out.println(diaFin);
+            String art, gart, gen, ggen, ggen2, dest;
+
             art = hInqr.equalsIgnoreCase("SR.") ? "EL" : (hInqr.equalsIgnoreCase("SRA.") ? "LA" : "");
-            gen=hInqr.equalsIgnoreCase("SR.") ? "O" : (hInqr.equalsIgnoreCase("SRA.") ? "A" : "");
-            ggen=hGarr.equalsIgnoreCase("SR.") ? "O" : (hInqr.equalsIgnoreCase("SRA.") ? "A" : "");
-            gart=hGarr.equalsIgnoreCase("SR.") ? "el" : (hInqr.equalsIgnoreCase("SRA.") ? "la" : "");
-            ggen2=hGarr.equalsIgnoreCase("SR.") ? "" : (hInqr.equalsIgnoreCase("SRA.") ? "a" : "");
-            dest=destino;
-            for (XWPFParagraph paragraph : document.getParagraphs()) {
+            System.out.println(art);
+
+            gen = hInqr.equalsIgnoreCase("SR.") ? "O" : (hInqr.equalsIgnoreCase("SRA.") ? "A" : "");
+            System.out.println(gen);
+
+            ggen = hGarr.equalsIgnoreCase("SR.") ? "O" : (hInqr.equalsIgnoreCase("SRA.") ? "A" : "");
+            System.out.println(ggen);
+
+            gart = hGarr.equalsIgnoreCase("SR.") ? "el" : (hInqr.equalsIgnoreCase("SRA.") ? "la" : "");
+            System.out.println(gart);
+
+            ggen2 = hGarr.equalsIgnoreCase("SR.") ? "" : (hInqr.equalsIgnoreCase("SRA.") ? "a" : "");
+            System.out.println(ggen2);
+            dest = destino;
+            System.out.println(dest);
+            String mesesLetras = Globales.convertirNumeroALetras(contrato.getIndexacionMeses());
+            System.out.println(mesesLetras);
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+             for (XWPFParagraph paragraph : document.getParagraphs()) {
                 for (XWPFRun run : paragraph.getRuns()) {
                     String text = run.getText(0);
-                    if (text != null && text.contains("[INQUILINO]")) {
-                        text = text.replace("[INQUILINO]", nombreInquilino);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[CUIT]")) {
-                        text = text.replace("[CUIT]", cuitInquilino);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[TELEFONO INQUILINO]")) {
-                        text = text.replace("[TELEFONO INQUILINO]", telefonoInquilino);
-                        run.setText(text, 0);
-                    }
+                    if (text != null) {
+                        text = reemplazarEtiquetas(text, nombreInquilino, cuitInquilino, telefonoInquilino, destinoInm, direccionInmueble,
+                                diferenciaEnMeses, diaInicio, mesInicio, anioInicio, diaFin, mesFin, anioFin,
+                                String.valueOf(contrato.getMontoAlquiler()), cantMeses,
+                                contrato.getGarante().getApellido() + ", " + contrato.getGarante().getNombre(),
+                                cuitGarante, direccionGarante, telefonoGarante, hInqr, hGarr, gen, ggen, ggen2,
+                                art, gart, dest, mesesLetras);
 
-                    if (text != null && text.contains("[DESTINO]")) {
-                        text = text.replace("[DESTINO]", destinoInm);
                         run.setText(text, 0);
                     }
-                    if (text != null && text.contains("[DIRECCIONI]")) {
-                        text = text.replace("[DIRECCIONI]", direccionInmueble);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[MESES NRO]")) {
-                        text = text.replace("([MESES NRO]", diferenciaEnMeses);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[DIA INICIO]")) {
-                        text = text.replace("[DIA INICIO]", diaInicio);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[MES INICIO]")) {
-                        text = text.replace("[MES INICIO]", mesInicio);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[ANIO INICIO]")) {
-                        text = text.replace("[ANIO INICIO]", anioInicio);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[DIA FIN]")) {
-                        text = text.replace("[DIA FIN]", diaFin);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[MES FIN]")) {
-                        text = text.replace("[MES FIN]", mesFin);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("([ANIO FIN]")) {
-                        text = text.replace("[ANIO FIN]", anioFin);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[MONTO INICIAL]")) {
-                        text = text.replace("[MONTO INICIAL]", String.valueOf(contrato.getMontoAlquiler()));
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("([CANT MESES]")) {
-                        text = text.replace("[CANT MESES]", String.valueOf(contrato));
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[GARANTE]")) {
-                        text = text.replace("[GARANTE]", contrato.getGarante().getApellido() + ", " + contrato.getGarante().getNombre());
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[CUIT GARANTE]")) {
-                        text = text.replace("[CUIT GARANTE]", cuitGarante);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[DIRECCION GARANTE]")) {
-                        text = text.replace("[DIRECCION GARANTE]", direccionGarante);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[TELEFONO GARANTE]")) {
-                        text = text.replace("[TELEFONO GARANTE]", telefonoGarante);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[HINQ]")) {
-                        text = text.replace("[HINQ]", hInqr);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[HGAR]")) {
-                        text = text.replace("[HGAR]", hGarr);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[GEN]")) {
-                        text = text.replace("[GEN]", gen);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("([GGEN]")) {
-                        text = text.replace("[GGEN]", ggen);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[GGEN2]")) {
-                        text = text.replace("[GGEN2]", ggen2);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("([ART]")) {
-                        text = text.replace("[ART]", art);
-                        run.setText(text, 0);
-                    }
-                    if (text != null && text.contains("[GART]")) {
-                        text = text.replace("[GART]", gart);
-                        run.setText(text, 0);
-                    }
-                     if (text != null && text.contains("[DESTINO]")) {
-                        text = text.replace("[DESTINO]", dest);
-                        run.setText(text, 0);
-                    }
-                    
                 }
             }
 
@@ -235,5 +192,24 @@ public class ContratoServicio {
             e.printStackTrace();
         }
 
+    }
+        private String reemplazarEtiquetas(String text, String... etiquetas) {
+        Pattern pattern = Pattern.compile("\\[([^\\]]+)]");
+        Matcher matcher = pattern.matcher(text);
+
+        while (matcher.find()) {
+            String etiquetaCompleta = matcher.group(0);
+            String nombreEtiqueta = matcher.group(1);
+
+            // Obtener el índice de la etiqueta
+            int indice = Integer.parseInt(nombreEtiqueta) - 1;
+
+            if (indice >= 0 && indice < etiquetas.length) {
+                String valorReemplazo = etiquetas[indice];
+                text = text.replace(etiquetaCompleta, valorReemplazo);
+            }
+        }
+
+        return text;
     }
 }

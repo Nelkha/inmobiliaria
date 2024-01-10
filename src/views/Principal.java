@@ -20,13 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.Timer;
 import models.Contrato;
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.pdmodel.PDPageContentStream;
-import org.apache.pdfbox.pdmodel.common.PDRectangle;
-import org.apache.pdfbox.pdmodel.font.PDFont;
-import org.apache.pdfbox.pdmodel.font.PDType1Font;
-import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
+
 
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
@@ -43,8 +37,8 @@ public class Principal extends javax.swing.JFrame {
     List<Contrato> contratosParaBaja = new ArrayList<>();
     BajaServicio bajaServ = new BajaServicio();
     String ntpServer = "time.google.com";
-    private static final String RUTA_CONTRATO_BASE = "src/docs/modelo.docx";
-    private static final String RUTA_DESTINO_CONTRATOS = System.getProperty("user.home") + "/Documentos/Contratos/";
+   
+   
     NTPTimeService timeService = new NTPTimeService(ntpServer);
 
     LocalDate fechaSincronizada = timeService.obtenerFechaSincronizada();
@@ -55,7 +49,7 @@ public class Principal extends javax.swing.JFrame {
         Globales.comportamientoTextField(txtDireccionInmueble, "DIRECCION INMUEBLE");
         Globales.activarBuscarConEnterBtn(txtBusquedaCuit, btnBusquedaCuit);
         Globales.activarBuscarConEnterBtn(txtDireccionInmueble, btnBusquedaDireccion);
-        CrudForm crud = new CrudForm();
+        CrudForm crud = new CrudForm(fechaSincronizada);
         crud.setSize(490, 480);
         crud.setLocation(0, 0);
 
@@ -139,7 +133,6 @@ public class Principal extends javax.swing.JFrame {
         lblFecha = new javax.swing.JLabel();
         lblNoti = new javax.swing.JLabel();
         lblNoNoti = new javax.swing.JLabel();
-        leerMod = new javax.swing.JButton();
         contentP = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -313,14 +306,6 @@ public class Principal extends javax.swing.JFrame {
         lblNoNoti.setIcon(new javax.swing.ImageIcon(getClass().getResource("/views/bell.png"))); // NOI18N
         jPanel2.add(lblNoNoti, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, -1, -1));
 
-        leerMod.setText("Leer");
-        leerMod.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                leerModActionPerformed(evt);
-            }
-        });
-        jPanel2.add(leerMod, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, -1, -1));
-
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 480));
 
         contentP.setBackground(new java.awt.Color(255, 255, 255));
@@ -378,7 +363,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_txtBusquedaCuitActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        CrudForm crud = new CrudForm();
+        CrudForm crud = new CrudForm(fechaSincronizada);
         crud.setSize(490, 480);
         crud.setLocation(0, 0);
 
@@ -436,45 +421,6 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_lblNotiMouseClicked
 
-    private void leerModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leerModActionPerformed
-      try {
-    String documentosDir = System.getProperty("user.home") + "\\Documents";
-    FileInputStream fis = new FileInputStream(RUTA_CONTRATO_BASE);
-
-    XWPFDocument document = new XWPFDocument(fis);
-    Path carpetaContratos = Paths.get(documentosDir, "Contratos");
-
-    if (Files.notExists(carpetaContratos)) {
-        Files.createDirectories(carpetaContratos);
-    }
-
-    // Datos del inquilino
-    String nombreInquilino = "Susana Pérez";
-
-    // Reemplazar marcadores
-    for (XWPFParagraph paragraph : document.getParagraphs()) {
-        for (XWPFRun run : paragraph.getRuns()) {
-            String text = run.getText(0);
-            if (text != null && text.contains("[INQUILINO]")) {
-                text = text.replace("[INQUILINO]", nombreInquilino);
-                run.setText(text, 0);
-            }
-        }
-    }
-
-    // Guardar el documento modificado en formato Word
-    String filePathModificado = documentosDir+"\\Contratos\\" + "archivo_modificado.docx";
-    FileOutputStream fos = new FileOutputStream(filePathModificado);
-    document.write(fos);
-    fos.close();
-    fis.close();
-
-    System.out.println("Documento modificado guardado correctamente en formato Word en: " + filePathModificado);
-} catch (IOException e) {
-    e.printStackTrace();
-}
-    }//GEN-LAST:event_leerModActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -498,7 +444,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel lblFecha;
     private javax.swing.JLabel lblNoNoti;
     private javax.swing.JLabel lblNoti;
-    private javax.swing.JButton leerMod;
     private javax.swing.JTextField txtBusquedaCuit;
     private javax.swing.JTextField txtDireccionInmueble;
     // End of variables declaration//GEN-END:variables

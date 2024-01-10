@@ -31,15 +31,16 @@ import static servicios.Globales.vaciarFocus;
 public class ContratoForm extends javax.swing.JPanel {
 
     private static final String RUTA_CONTRATO_BASE = "src/docs/modelo.docx";
-    private static final String RUTA_DESTINO_CONTRATOS = System.getProperty("user.home") + "/Documentos/Contratos/";
+   LocalDate fechaSincro;
     InmuebleServicio inmServ = new InmuebleServicio();
     InquilinoServicio inqServ = new InquilinoServicio();
     GaranteServicio garanteServ = new GaranteServicio();
     List<Inmueble> inmuebles = inmServ.consultaTodos();
 
-    public ContratoForm() throws ParseException {
+    public ContratoForm(LocalDate fechaSincronizada) throws ParseException {
         initComponents();
         llenarComboBox();
+        fechaSincro=fechaSincronizada;
         comportamientoTextField(txtCuit, "CUIT");
         comportamientoTextField(txtNombre, "NOMBRE");
         comportamientoTextField(txtApellido, "APELLIDO");
@@ -588,7 +589,8 @@ public class ContratoForm extends javax.swing.JPanel {
 
             ContratoServicio contratoServ = new ContratoServicio();
             boolean contratoGuardado = contratoServ.guardar(contrato);
-
+System.out.println("Cantidad de meses: " + txtCantMese.getText().trim());
+System.out.println("Monto inicial: " + txtMontoInicial.getText().trim());
             if (contratoGuardado) {
                 inqServ.agregarContrato(inquilino, contrato);
                 inmServ.agregarContrato(inmueble, contrato);
@@ -600,7 +602,7 @@ public class ContratoForm extends javax.swing.JPanel {
                 txtCuit.setText("CUIT");
                 txtTelefono.setText("TELEFONO");
                 txtMontoInicial.setText("VALOR INICIAL");
-
+                contratoServ.generarContrato(RUTA_CONTRATO_BASE,contrato,destino,hInq,hGar,fechaSincro);
             } else {
                 lblMensaje.setText("El Contrato no se ha guardado, intentelo nuevamente");
             }

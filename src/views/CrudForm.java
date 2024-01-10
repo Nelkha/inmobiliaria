@@ -5,6 +5,7 @@
 package views;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,12 +14,14 @@ import java.util.logging.Logger;
  * @author Nelkha
  */
 public class CrudForm extends javax.swing.JPanel {
-
+LocalDate fechaSincro;
     /**
      * Creates new form CrudForm2
      */
-    public CrudForm() {
+    public CrudForm(LocalDate fechaSincronizada) {
         initComponents();
+        fechaSincro=fechaSincronizada;
+        
     }
 
     /**
@@ -272,7 +275,7 @@ public class CrudForm extends javax.swing.JPanel {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         ContratoForm contratoF = null;
         try {
-            contratoF = new ContratoForm();
+            contratoF = new ContratoForm(fechaSincro);
         } catch (ParseException ex) {
             Logger.getLogger(CrudForm.class.getName()).log(Level.SEVERE, null, ex);
         }
