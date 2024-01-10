@@ -440,7 +440,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void leerModActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_leerModActionPerformed
       try {
-    String documentosDir = System.getProperty("user.home") + "\\Documentos\\";
+    String documentosDir = System.getProperty("user.home") + "\\Documents";
     FileInputStream fis = new FileInputStream(RUTA_CONTRATO_BASE);
 
     XWPFDocument document = new XWPFDocument(fis);
@@ -465,7 +465,7 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Guardar el documento modificado en formato Word
-    String filePathModificado = documentosDir + "archivo_modificado.docx";
+    String filePathModificado = documentosDir+"\\Contratos\\" + "archivo_modificado.docx";
     FileOutputStream fos = new FileOutputStream(filePathModificado);
     document.write(fos);
     fos.close();

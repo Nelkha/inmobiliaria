@@ -76,7 +76,7 @@ public class ContratoServicio {
 
     public void generarContrato(String rutaBase, Contrato contrato, String destino, String hInq, String hGar, String rutaDestino, LocalDate fechaFirma) {
         try {
-            String documentosDir = System.getProperty("user.home") + "\\Documentos\\Contratos";
+            String documentosDir = System.getProperty("user.home") + "\\Documents";
             FileInputStream fis = new FileInputStream(rutaBase);
 
             XWPFDocument document = new XWPFDocument(fis);
@@ -115,16 +115,18 @@ public class ContratoServicio {
                         text = text.replace("[CUIT]", cuitInquilino);
                         run.setText(text, 0);
                     }
-                    if (text != null && text.contains("[CUIT]")) {
-                        text = text.replace("[CUIT]", cuitInquilino);
+                     if (text != null && text.contains("[TELEFONO INQUILINO]")) {
+                        text = text.replace("[TELEFONO INQUILINO]", telefonoInquilino);
                         run.setText(text, 0);
                     }
+                   
+                   
                     if (text != null && text.contains("[DESTINO]")) {
                         text = text.replace("[DESTINO]", destinoInm);
                         run.setText(text, 0);
                     }
                     if (text != null && text.contains("[DIRECCIONI]")) {
-                        text = text.replace("[DIRECCIONI]", (String) destinoInm);
+                        text = text.replace("[DIRECCIONI]", direccionInmueble);
                         run.setText(text, 0);
                     }
                     if (text != null && text.contains("([MESES NRO]")) {
@@ -140,7 +142,7 @@ public class ContratoServicio {
                         run.setText(text, 0);
                     }
                     if (text != null && text.contains("([ANIO INICIO]")) {
-                        text = text.replace("([ANIO INICIO]", mesFin);
+                        text = text.replace("([ANIO INICIO]", anioInicio);
                         run.setText(text, 0);
                     }
                     if (text != null && text.contains("([DIA FIN]")) {
@@ -151,11 +153,11 @@ public class ContratoServicio {
                         text = text.replace("([MES FIN]", mesFin);
                         run.setText(text, 0);
                     }
-                    if (text != null && text.contains("([ANIO INICIO]")) {
-                        text = text.replace("([ANIO FIN]", mesFin);
+                    if (text != null && text.contains("([ANIO FIN]")) {
+                        text = text.replace("([ANIO FIN]", anioFin);
                         run.setText(text, 0);
                     }
-                     if (text != null && text.contains("([MONTO INICIAL]")) {
+                    if (text != null && text.contains("([MONTO INICIAL]")) {
                         text = text.replace("([MONTO INICIAL]", String.valueOf(contrato.getMontoAlquiler()));
                         run.setText(text, 0);
                     }
@@ -163,11 +165,27 @@ public class ContratoServicio {
                         text = text.replace("([CANT MESES]", String.valueOf(contrato));
                         run.setText(text, 0);
                     }
+                    if (text != null && text.contains("([GARANTE]")) {
+                        text = text.replace("([GARANTE]", contrato.getGarante().getApellido() + ", " + contrato.getGarante().getNombre());
+                        run.setText(text, 0);
+                    }
+                    if (text != null && text.contains("([CUIT GARANTE]")) {
+                        text = text.replace("([CUIT GARANTE]", cuitGarante);
+                        run.setText(text, 0);
+                    }
+                    if (text != null && text.contains("([DIRECCION GARANTE]")) {
+                        text = text.replace("([DIRECCION GARANTE]", direccionGarante);
+                        run.setText(text, 0);
+                    }
+                       if (text != null && text.contains("([TELEFONO GARANTE]")) {
+                        text = text.replace("([TELEFONO GARANTE]", telefonoGarante);
+                        run.setText(text, 0);
+                    }
                 }
             }
 
             // Guardar el documento modificado en formato Word
-            String filePathModificado = documentosDir + "archivo_modificado.docx";
+            String filePathModificado = documentosDir+"\\Contratos\\"+"Contrato "+nombreInquilino+" "+diaInicio+"-"+mesInicio+"-"+anioInicio+".docx";
             FileOutputStream fos = new FileOutputStream(filePathModificado);
             document.write(fos);
             fos.close();
