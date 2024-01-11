@@ -15,7 +15,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import models.Contrato;
@@ -136,7 +138,8 @@ public class ContratoServicio {
 
             String mesFin = String.valueOf(contrato.getFechaFin().getMonthValue());
             System.out.println(mesFin);
-
+            String montoAlquiler = String.valueOf(contrato.getMontoAlquiler());
+            String nombreGarante = contrato.getGarante().getApellido() + ", " + contrato.getGarante().getNombre();
             String anioFin = String.valueOf(contrato.getFechaFin().getYear());
             System.out.println(anioFin);
 
@@ -150,30 +153,29 @@ public class ContratoServicio {
             gen = hInqr.equalsIgnoreCase("SR.") ? "O" : (hInqr.equalsIgnoreCase("SRA.") ? "A" : "");
             System.out.println(gen);
 
-            ggen = hGarr.equalsIgnoreCase("SR.") ? "O" : (hInqr.equalsIgnoreCase("SRA.") ? "A" : "");
+            ggen = hGarr.equalsIgnoreCase("SR.") ? "o" : (hInqr.equalsIgnoreCase("SRA.") ? "a" : "");
             System.out.println(ggen);
 
             gart = hGarr.equalsIgnoreCase("SR.") ? "el" : (hInqr.equalsIgnoreCase("SRA.") ? "la" : "");
             System.out.println(gart);
 
-            ggen2 = hGarr.equalsIgnoreCase("SR.") ? "" : (hInqr.equalsIgnoreCase("SRA.") ? "a" : "");
+            ggen2 = hGarr.equalsIgnoreCase("SR.") ? " " : (hInqr.equalsIgnoreCase("SRA.") ? "a" : "");
             System.out.println(ggen2);
             dest = destino;
             System.out.println(dest);
-            String mesesLetras = Globales.convertirNumeroALetras(contrato.getIndexacionMeses());
+            String mesesLetras = Globales.convertirNumeroALetras(Integer.parseInt(diferenciaEnMeses));
             System.out.println(mesesLetras);
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-             for (XWPFParagraph paragraph : document.getParagraphs()) {
+            for (XWPFParagraph paragraph : document.getParagraphs()) {
                 for (XWPFRun run : paragraph.getRuns()) {
                     String text = run.getText(0);
                     if (text != null) {
-                        text = reemplazarEtiquetas(text, nombreInquilino, cuitInquilino, telefonoInquilino, destinoInm, direccionInmueble,
-                                diferenciaEnMeses, diaInicio, mesInicio, anioInicio, diaFin, mesFin, anioFin,
-                                String.valueOf(contrato.getMontoAlquiler()), cantMeses,
-                                contrato.getGarante().getApellido() + ", " + contrato.getGarante().getNombre(),
-                                cuitGarante, direccionGarante, telefonoGarante, hInqr, hGarr, gen, ggen, ggen2,
-                                art, gart, dest, mesesLetras);
+                        text = reemplazarEtiquetas(text, nombreInquilino, cuitInquilino, telefonoInquilino,
+                                dest, direccionInmueble, diferenciaEnMeses, diaInicio, mesInicio,
+                                anioInicio, diaFin, mesFin, anioFin, montoAlquiler, cantMeses, nombreGarante,
+                                cuitGarante, direccionGarante, telefonoGarante, hInqr,
+                                hGarr, gen, ggen, ggen2, art, gart, dest, mesesLetras
+                        );
 
                         run.setText(text, 0);
                     }
@@ -193,23 +195,53 @@ public class ContratoServicio {
         }
 
     }
-        private String reemplazarEtiquetas(String text, String... etiquetas) {
-        Pattern pattern = Pattern.compile("\\[([^\\]]+)]");
-        Matcher matcher = pattern.matcher(text);
 
-        while (matcher.find()) {
-            String etiquetaCompleta = matcher.group(0);
-            String nombreEtiqueta = matcher.group(1);
+    private String reemplazarEtiquetas(String text, String nombreInquilino, String cuitInquilino, String telefonoInquilino,
+            String destinoInm, String direccionInmueble, String diferenciaEnMeses, String diaInicio, String mesInicio,
+            String anioInicio, String diaFin, String mesFin, String anioFin, String montoAlquiler, String cantMeses,
+            String nombreGarante, String cuitGarante, String direccionGarante, String telefonoGarante, String hInqr,
+            String hGarr, String gen, String ggen, String ggen2, String art, String gart, String dest, String mesesLetras) {
 
-            // Obtener el índice de la etiqueta
-            int indice = Integer.parseInt(nombreEtiqueta) - 1;
+        Map<String, String> etiquetas = new HashMap<>();
 
-            if (indice >= 0 && indice < etiquetas.length) {
-                String valorReemplazo = etiquetas[indice];
-                text = text.replace(etiquetaCompleta, valorReemplazo);
+        // Puedes agregar más etiquetas y valores de reemplazo según tus necesidades
+        etiquetas.put("[1]", nombreInquilino);
+        etiquetas.put("[2]", cuitInquilino);
+        etiquetas.put("[3]", telefonoInquilino);
+        etiquetas.put("[4]", destinoInm);
+        etiquetas.put("[5]", direccionInmueble);
+        etiquetas.put("[6]", diferenciaEnMeses);
+        etiquetas.put("[7]", diaInicio);
+        etiquetas.put("[8]", mesInicio);
+        etiquetas.put("[9]", anioInicio);
+        etiquetas.put("[10]", diaFin);
+        etiquetas.put("[11]", mesFin);
+        etiquetas.put("[12]", anioFin);
+        etiquetas.put("[13]", montoAlquiler);
+        etiquetas.put("[14]", cantMeses);
+        etiquetas.put("[15]", nombreGarante);
+        etiquetas.put("[16]", cuitGarante);
+        etiquetas.put("[17]", direccionGarante);
+        etiquetas.put("[18]", telefonoGarante);
+        etiquetas.put("[19]", hInqr);
+        etiquetas.put("[20]", hGarr);
+        etiquetas.put("[21]", gen);
+        etiquetas.put("[22]", ggen);
+        etiquetas.put("[23]", ggen2);
+        etiquetas.put("[24]", art);
+        etiquetas.put("[25]", gart);
+        etiquetas.put("[26]", dest);
+        etiquetas.put("[27]", mesesLetras);
+
+        for (String etiqueta : etiquetas.keySet()) {
+            if (text.contains(etiqueta)) {
+                text = text.replace(etiqueta, etiquetas.get(etiqueta));
+                System.out.println(text);
             }
         }
+        System.out.println("FINAL STRING..." + text);
 
         return text;
     }
+
 }

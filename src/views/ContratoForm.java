@@ -589,8 +589,7 @@ public class ContratoForm extends javax.swing.JPanel {
 
             ContratoServicio contratoServ = new ContratoServicio();
             boolean contratoGuardado = contratoServ.guardar(contrato);
-System.out.println("Cantidad de meses: " + txtCantMese.getText().trim());
-System.out.println("Monto inicial: " + txtMontoInicial.getText().trim());
+
             if (contratoGuardado) {
                 inqServ.agregarContrato(inquilino, contrato);
                 inmServ.agregarContrato(inmueble, contrato);
