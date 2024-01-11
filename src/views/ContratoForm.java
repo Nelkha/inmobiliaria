@@ -581,7 +581,7 @@ public class ContratoForm extends javax.swing.JPanel {
             destino=cCasa.isSelected()? "CASA HABITACIÓN":(cLocal.isSelected()?"LOCAL COMERCIAL":"");
             Inquilino inquilinoTemp = new Inquilino(cuit, nombre, apellido, telefono);
             Inquilino inquilino = inqServ.guardar(inquilinoTemp);
-            Garante garanteTemp = new Garante(cuitGarante, nombreGarante, apellidoGarante, telefonoGarante, direccionGarante);
+            Garante garanteTemp = new Garante(cuitGarante, nombreGarante, apellidoGarante,direccionGarante,telefonoGarante);
             Garante garante = garanteServ.guardar(garanteTemp);
             List<Double> importesContrato = new ArrayList<>();
             importesContrato.add(valorInicial);

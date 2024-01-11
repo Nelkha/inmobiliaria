@@ -144,6 +144,7 @@ public class Globales {
         String resultado = incrementosText.toString();
         return resultado;
     }
+   
 
     public static String convertirNumeroALetras(int numero) {
         String[] UNIDADES = {"", "UN", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE"};
@@ -166,4 +167,6 @@ public class Globales {
             return UNIDADES[numero / 1000] + " MIL " + convertirNumeroALetras(numero % 1000);
         }
     }
+
+    
 }

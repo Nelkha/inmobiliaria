@@ -92,79 +92,61 @@ public class ContratoServicio {
             }
 
             String nombreInquilino = contrato.getInquilino().getApellido() + ", " + contrato.getInquilino().getNombre();
-            System.out.println(nombreInquilino);
 
             String direccionInmueble = contrato.getInmueble().getDireccion();
-            System.out.println(direccionInmueble);
 
             String telefonoInquilino = contrato.getInquilino().getTelefono();
-            System.out.println(telefonoInquilino);
 
             String cuitInquilino = contrato.getInquilino().getCuit();
-            System.out.println(cuitInquilino);
 
             String cuitGarante = contrato.getGarante().getCuit();
-            System.out.println(cuitGarante);
 
             String telefonoGarante = contrato.getGarante().getTelefono();
-            System.out.println(telefonoGarante);
 
             String direccionGarante = contrato.getGarante().getDireccion();
-            System.out.println(direccionGarante);
-
-            String mesInicio = String.valueOf(contrato.getFechaInicio().getMonthValue());
-            System.out.println(mesInicio);
+            String diaFin = (contrato.getFechaFin().getDayOfMonth() < 10)
+                    ? "0" + contrato.getFechaFin().getDayOfMonth()
+                    : String.valueOf(contrato.getFechaFin().getDayOfMonth());
+            String mesInicio = obtenerNombreMes(contrato.getFechaInicio().getMonthValue());
+            String mesFin = obtenerNombreMes(contrato.getFechaFin().getMonthValue());
 
             String anioInicio = String.valueOf(contrato.getFechaInicio().getYear());
-            System.out.println(anioInicio);
+            String anioFin = String.valueOf(contrato.getFechaFin().getYear());
 
-            String diaInicio = String.valueOf(contrato.getFechaInicio().getDayOfMonth());
-            System.out.println(diaInicio);
+            String diaInicio = (contrato.getFechaInicio().getDayOfMonth() < 10)
+                    ? "0" + contrato.getFechaInicio().getDayOfMonth()
+                    : String.valueOf(contrato.getFechaInicio().getDayOfMonth());
 
             String cantMeses = String.valueOf(contrato.getIndexacionMeses());
-            System.out.println(cantMeses);
-
+            String diaFirma = (fechaFirma.getDayOfMonth() < 10)
+                    ? "0" + fechaFirma.getDayOfMonth()
+                    : String.valueOf(fechaFirma.getDayOfMonth());
+            String mesFirma = obtenerNombreMes(fechaFirma.getMonthValue());
+            String anioFirma = String.valueOf(fechaFirma.getYear());
             String hInqr = hInq;
-            System.out.println(hInqr);
 
             String hGarr = hGar;
-            System.out.println(hGarr);
-
-            String destinoInm = destino;
-            System.out.println(destinoInm);
 
             String diferenciaEnMeses = String.valueOf(ChronoUnit.MONTHS.between(contrato.getFechaInicio(), contrato.getFechaFin()) + 1);
-            System.out.println(diferenciaEnMeses);
 
-            String mesFin = String.valueOf(contrato.getFechaFin().getMonthValue());
-            System.out.println(mesFin);
             String montoAlquiler = String.valueOf(contrato.getMontoAlquiler());
             String nombreGarante = contrato.getGarante().getApellido() + ", " + contrato.getGarante().getNombre();
-            String anioFin = String.valueOf(contrato.getFechaFin().getYear());
-            System.out.println(anioFin);
 
-            String diaFin = String.valueOf(contrato.getFechaFin().getDayOfMonth());
-            System.out.println(diaFin);
             String art, gart, gen, ggen, ggen2, dest;
 
             art = hInqr.equalsIgnoreCase("SR.") ? "EL" : (hInqr.equalsIgnoreCase("SRA.") ? "LA" : "");
-            System.out.println(art);
 
             gen = hInqr.equalsIgnoreCase("SR.") ? "O" : (hInqr.equalsIgnoreCase("SRA.") ? "A" : "");
-            System.out.println(gen);
 
             ggen = hGarr.equalsIgnoreCase("SR.") ? "o" : (hInqr.equalsIgnoreCase("SRA.") ? "a" : "");
-            System.out.println(ggen);
 
             gart = hGarr.equalsIgnoreCase("SR.") ? "el" : (hInqr.equalsIgnoreCase("SRA.") ? "la" : "");
-            System.out.println(gart);
 
             ggen2 = hGarr.equalsIgnoreCase("SR.") ? " " : (hInqr.equalsIgnoreCase("SRA.") ? "a" : "");
-            System.out.println(ggen2);
+
             dest = destino;
-            System.out.println(dest);
+
             String mesesLetras = Globales.convertirNumeroALetras(Integer.parseInt(diferenciaEnMeses));
-            System.out.println(mesesLetras);
 
             for (XWPFParagraph paragraph : document.getParagraphs()) {
                 for (XWPFRun run : paragraph.getRuns()) {
@@ -174,7 +156,7 @@ public class ContratoServicio {
                                 dest, direccionInmueble, diferenciaEnMeses, diaInicio, mesInicio,
                                 anioInicio, diaFin, mesFin, anioFin, montoAlquiler, cantMeses, nombreGarante,
                                 cuitGarante, direccionGarante, telefonoGarante, hInqr,
-                                hGarr, gen, ggen, ggen2, art, gart, dest, mesesLetras
+                                hGarr, gen, ggen, ggen2, art, gart, dest, mesesLetras,diaFirma,mesFirma,anioFirma
                         );
 
                         run.setText(text, 0);
@@ -189,7 +171,6 @@ public class ContratoServicio {
             fos.close();
             fis.close();
 
-            System.out.println("Documento modificado guardado correctamente en formato Word en: " + filePathModificado);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -200,7 +181,7 @@ public class ContratoServicio {
             String destinoInm, String direccionInmueble, String diferenciaEnMeses, String diaInicio, String mesInicio,
             String anioInicio, String diaFin, String mesFin, String anioFin, String montoAlquiler, String cantMeses,
             String nombreGarante, String cuitGarante, String direccionGarante, String telefonoGarante, String hInqr,
-            String hGarr, String gen, String ggen, String ggen2, String art, String gart, String dest, String mesesLetras) {
+            String hGarr, String gen, String ggen, String ggen2, String art, String gart, String dest, String mesesLetras,String diaFirma,String mesFirma, String anioFirma) {
 
         Map<String, String> etiquetas = new HashMap<>();
 
@@ -232,6 +213,9 @@ public class ContratoServicio {
         etiquetas.put("[25]", gart);
         etiquetas.put("[26]", dest);
         etiquetas.put("[27]", mesesLetras);
+        etiquetas.put("[28]", diaFirma);
+        etiquetas.put("[29]", mesFirma);
+        etiquetas.put("[30]", anioFirma);
 
         for (String etiqueta : etiquetas.keySet()) {
             if (text.contains(etiqueta)) {
@@ -242,6 +226,13 @@ public class ContratoServicio {
         System.out.println("FINAL STRING..." + text);
 
         return text;
+    }
+
+    private static String obtenerNombreMes(int numeroMes) {
+
+        String[] nombresMeses = {"ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"};
+
+        return nombresMeses[numeroMes - 1];
     }
 
 }
