@@ -138,30 +138,53 @@ public class ContratoServicio {
 
             gen = hInqr.equalsIgnoreCase("SR.") ? "O" : (hInqr.equalsIgnoreCase("SRA.") ? "A" : "");
 
-            ggen = hGarr.equalsIgnoreCase("SR.") ? "o" : (hInqr.equalsIgnoreCase("SRA.") ? "a" : "");
+            ggen = hGarr.equalsIgnoreCase("SR.") ? "o" : (hGarr.equalsIgnoreCase("SRA.") ? "a" : "");
 
-            gart = hGarr.equalsIgnoreCase("SR.") ? "el" : (hInqr.equalsIgnoreCase("SRA.") ? "la" : "");
+            gart = hGarr.equalsIgnoreCase("SR.") ? "el" : (hGarr.equalsIgnoreCase("SRA.") ? "la" : "");
 
-            ggen2 = hGarr.equalsIgnoreCase("SR.") ? " " : (hInqr.equalsIgnoreCase("SRA.") ? "a" : "");
+            ggen2 = hGarr.equalsIgnoreCase("SR.") ? " " : (hGarr.equalsIgnoreCase("SRA.") ? "a" : "");
 
             dest = destino;
 
             String mesesLetras = Globales.convertirNumeroALetras(Integer.parseInt(diferenciaEnMeses));
 
             for (XWPFParagraph paragraph : document.getParagraphs()) {
+                // Clona el párrafo original
+                XWPFParagraph newParagraph = document.createParagraph();
+                newParagraph.getCTP().setPPr(paragraph.getCTP().getPPr());
+
+                StringBuilder paragraphText = new StringBuilder();
+
                 for (XWPFRun run : paragraph.getRuns()) {
                     String text = run.getText(0);
                     if (text != null) {
-                        text = reemplazarEtiquetas(text, nombreInquilino, cuitInquilino, telefonoInquilino,
-                                dest, direccionInmueble, diferenciaEnMeses, diaInicio, mesInicio,
-                                anioInicio, diaFin, mesFin, anioFin, montoAlquiler, cantMeses, nombreGarante,
-                                cuitGarante, direccionGarante, telefonoGarante, hInqr,
-                                hGarr, gen, ggen, ggen2, art, gart, dest, mesesLetras,diaFirma,mesFirma,anioFirma
-                        );
-
-                        run.setText(text, 0);
+                        paragraphText.append(text);
                     }
                 }
+
+                String text = paragraphText.toString().trim();
+                System.out.println(text);
+
+                // Reemplaza "null" por guiones solo en líneas vacías
+                if (text.isEmpty()) {
+                    text = "-";
+                } else {
+                    text = reemplazarEtiquetas(text, nombreInquilino, cuitInquilino, telefonoInquilino,
+                            dest, direccionInmueble, diferenciaEnMeses, diaInicio, mesInicio,
+                            anioInicio, diaFin, mesFin, anioFin, montoAlquiler, cantMeses, nombreGarante,
+                            cuitGarante, direccionGarante, telefonoGarante, hInqr,
+                            hGarr, gen, ggen, ggen2, art, gart, dest, mesesLetras, diaFirma, mesFirma, anioFirma
+                    );
+                }
+
+                // Elimina todo el contenido del párrafo original
+                for (int i = paragraph.getRuns().size() - 1; i >= 0; i--) {
+                    paragraph.removeRun(i);
+                }
+
+                // Agrega el nuevo contenido al párrafo original
+                XWPFRun newRun = newParagraph.createRun();
+                newRun.setText(text, 0);
             }
 
             // Guardar el documento modificado en formato Word
@@ -181,7 +204,7 @@ public class ContratoServicio {
             String destinoInm, String direccionInmueble, String diferenciaEnMeses, String diaInicio, String mesInicio,
             String anioInicio, String diaFin, String mesFin, String anioFin, String montoAlquiler, String cantMeses,
             String nombreGarante, String cuitGarante, String direccionGarante, String telefonoGarante, String hInqr,
-            String hGarr, String gen, String ggen, String ggen2, String art, String gart, String dest, String mesesLetras,String diaFirma,String mesFirma, String anioFirma) {
+            String hGarr, String gen, String ggen, String ggen2, String art, String gart, String dest, String mesesLetras, String diaFirma, String mesFirma, String anioFirma) {
 
         Map<String, String> etiquetas = new HashMap<>();
 
@@ -217,13 +240,11 @@ public class ContratoServicio {
         etiquetas.put("[29]", mesFirma);
         etiquetas.put("[30]", anioFirma);
 
-        for (String etiqueta : etiquetas.keySet()) {
-            if (text.contains(etiqueta)) {
-                text = text.replace(etiqueta, etiquetas.get(etiqueta));
-                System.out.println(text);
-            }
+        for (Map.Entry<String, String> entry : etiquetas.entrySet()) {
+            String etiqueta = entry.getKey();
+            String valorReemplazo = entry.getValue();
+            text = text.replaceAll(Pattern.quote(etiqueta), Matcher.quoteReplacement(valorReemplazo));
         }
-        System.out.println("FINAL STRING..." + text);
 
         return text;
     }
