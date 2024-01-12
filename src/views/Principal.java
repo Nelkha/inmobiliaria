@@ -15,7 +15,6 @@ import java.util.logging.Logger;
 import javax.swing.Timer;
 import models.Contrato;
 
-
 import servicios.BajaServicio;
 import servicios.ContratoServicio;
 import servicios.Globales;
@@ -29,8 +28,7 @@ public class Principal extends javax.swing.JFrame {
     List<Contrato> contratosParaAct = new ArrayList<>();
     BajaServicio bajaServ = new BajaServicio();
     String ntpServer = "time.google.com";
-   
-   
+
     NTPTimeService timeService = new NTPTimeService(ntpServer);
 
     LocalDate fechaSincronizada = timeService.obtenerFechaSincronizada();
@@ -54,7 +52,7 @@ public class Principal extends javax.swing.JFrame {
 
         Timer timer;
         timer = new Timer(30000, new ActionListener() {
-            
+
             public void actionPerformed(ActionEvent e) {
                 LocalDate fechaSincronizada = timeService.obtenerFechaSincronizada();
                 List<Contrato> contratosVigentes = contServ.buscarVigentes(fechaSincronizada);
@@ -63,8 +61,7 @@ public class Principal extends javax.swing.JFrame {
                 lblFecha.setText("Fecha: " + fechaSincronizada);
                 for (Contrato cont : contratosParaBaja) {
                     cont.setAlta(false);
-                    
-                    
+
                     try {
                         contServ.editarContrato(cont);
                         bajaServ.guardar(cont, fechaSincronizada);
@@ -77,27 +74,31 @@ public class Principal extends javax.swing.JFrame {
                 }
                 for (Contrato contrato : contratosVigentes) {
                     long diferenciaEnDias = contrato.getFechaFin().toEpochDay() - fechaSincronizada.toEpochDay();
-                    long mesesContrato = contrato.getFechaFin().toEpochDay()-contrato.getFechaInicio().toEpochDay();
-                    long actDisponiblesTotales=(mesesContrato/contrato.getIndexacionMeses())-1;
-                    LocalDate[] fechasActualizaciones = new LocalDate[(int)actDisponiblesTotales];
-                    LocalDate fecha=contrato.getFechaInicio();
-                    for(int i=0;i<fechasActualizaciones.length;i++){
-                    
-                    fecha=fecha.plusMonths(contrato.getIndexacionMeses());
-                    fechasActualizaciones[i]=fecha;
-                    
+                    long mesesContrato = contrato.getFechaFin().toEpochDay() - contrato.getFechaInicio().toEpochDay();
+                    long actDisponiblesTotales = (mesesContrato / contrato.getIndexacionMeses()) - 1;
+                    LocalDate[] fechasActualizaciones = new LocalDate[(int) actDisponiblesTotales];
+                    LocalDate fecha = contrato.getFechaInicio();
+                    for (int i = 0; i < fechasActualizaciones.length; i++) {
+                        fecha = fecha.plusMonths(contrato.getIndexacionMeses());
+                        fechasActualizaciones[i] = fecha;
+                       
+                    }
+                    boolean notificarContrato = false;
+                    for (LocalDate fechaActualizacion : fechasActualizaciones) {
+                        if (fechaActualizacion.isAfter(fechaSincronizada) && fechaActualizacion.isBefore(fechaSincronizada.plusDays(30))) {
+                            System.out.println(fechaActualizacion);
+                            notificarContrato = true;
+                            break;
+                        }
+
                     }
                     if (diferenciaEnDias <= 30) {
                         contratosPorVencer.add(contrato);
+                    } else if (notificarContrato) {
+                        contratosPorVencer.add(contrato);
                     }
                 }
-                
 
-                
-                
-                
-                
-                
                 if (contratosPorVencer.isEmpty()) {
                     lblNoti.setVisible(false);
                     lblNoNoti.setVisible(true);
@@ -105,21 +106,13 @@ public class Principal extends javax.swing.JFrame {
                     lblNoti.setVisible(true);
                     lblNoNoti.setVisible(false);
                 }
-                if (contratosParaAct.isEmpty()) {
-                    lblNoti.setVisible(false);
-                    lblNoNoti.setVisible(true);
-                } else {
-                    lblNoti.setVisible(true);
-                    lblNoNoti.setVisible(false);
-                }
+                
             }
         });
         timer.getActionListeners()[0].actionPerformed(null);
         timer.start();
 
     }
-
-   
 
     /**
      * This method is called from within the constructor to initialize the form.
