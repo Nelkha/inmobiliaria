@@ -147,26 +147,31 @@ public class Globales {
    
 
     public static String convertirNumeroALetras(int numero) {
-        String[] UNIDADES = {"", "UN", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE"};
-        String[] DECENAS = {"", "", "VEINTE", "TREINTA", "CUARENTA", "CINCUENTA", "SESENTA", "SETENTA", "OCHENTA", "NOVENTA"};
-        String[] DIEZ_DIECINUEVE = {"DIEZ", "ONCE", "DOCE", "TRECE", "CATORCE", "QUINCE", "DIECISEIS", "DIECISIETE", "DIECIOCHO", "DIECINUEVE"};
-        String[] VEINTI_ = {"", "", "VEINTI", "VEINTIDOS", "VEINTITRES", "VEINTICUATRO", "VEINTICINCO", "VEINTISEIS", "VEINTISIETE", "VEINTIOCHO", "VEINTINUEVE"};
-        if (numero < 0 || numero > 9999) {
-            return "Número fuera de rango";
-        }
-
-        if (numero < 10) {
-            return UNIDADES[numero];
-        } else if (numero < 20) {
-            return DIEZ_DIECINUEVE[numero - 10];
-        } else if (numero < 100) {
-            return DECENAS[numero / 10] + ((numero % 10 != 0) ? " Y " + UNIDADES[numero % 10] : "");
-        } else if (numero < 1000) {
-            return UNIDADES[numero / 100] + " CIENTO " + convertirNumeroALetras(numero % 100);
-        } else {
-            return UNIDADES[numero / 1000] + " MIL " + convertirNumeroALetras(numero % 1000);
-        }
+    String[] UNIDADES = {"", "UN", "DOS", "TRES", "CUATRO", "CINCO", "SEIS", "SIETE", "OCHO", "NUEVE"};
+    String[] DECENAS = {"", "", "VEINTE", "TREINTA", "CUARENTA", "CINCUENTA", "SESENTA", "SETENTA", "OCHENTA", "NOVENTA"};
+    String[] DIEZ_DIECINUEVE = {"DIEZ", "ONCE", "DOCE", "TRECE", "CATORCE", "QUINCE", "DIECISEIS", "DIECISIETE", "DIECIOCHO", "DIECINUEVE"};
+    String[] VEINTI_ = {"", "", "VEINTI", "VEINTIDOS", "VEINTITRES", "VEINTICUATRO", "VEINTICINCO", "VEINTISEIS", "VEINTISIETE", "VEINTIOCHO", "VEINTINUEVE"};
+    
+    if (numero < 0 || numero > 999999) {
+        return "Número fuera de rango";
     }
+
+    if (numero < 10) {
+        return UNIDADES[numero];
+    } else if (numero < 20) {
+        return DIEZ_DIECINUEVE[numero - 10];
+    } else if (numero < 30) {
+        return VEINTI_[numero - 20];
+    } else if (numero < 100) {
+        return DECENAS[numero / 10] + ((numero % 10 != 0) ? " Y " + UNIDADES[numero % 10] : "");
+    } else if (numero < 1000) {
+        return UNIDADES[numero / 100] + " CIENTO " + convertirNumeroALetras(numero % 100);
+    } else if (numero < 1000000) {
+        return convertirNumeroALetras(numero / 1000) + " MIL " + convertirNumeroALetras(numero % 1000);
+    } else {
+        return "Número fuera de rango";
+    }
+}
 
     
 }

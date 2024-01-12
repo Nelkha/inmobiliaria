@@ -48,7 +48,7 @@ public class ContratoForm extends javax.swing.JPanel {
         comportamientoTextField(txtNombreGarante, "NOMBRE");
         comportamientoTextField(txtApellidoGarante, "APELLIDO");
         comportamientoTextField(txtDireccionGarante, "DIRECCION");
-        comportamientoTextField(txtTelefonoGarante, "APELLIDO");
+        comportamientoTextField(txtTelefonoGarante, "TELEFONO");
         comportamientoTextField(txtCantMese, "MESES INDEXACION");
         comportamientoTextField(txtFFin, "AAAA-MM-DD");
         comportamientoTextField(txtFInicio, "AAAA-MM-DD");
@@ -508,8 +508,8 @@ public class ContratoForm extends javax.swing.JPanel {
             cuitGarante = txtCuitGarante.getText().trim();
             nombreGarante = txtNombreGarante.getText().trim().toUpperCase();
             apellidoGarante = txtApellidoGarante.getText().trim().toUpperCase();
-            telefonoGarante = txtTelefonoGarante.getText().trim();
-            direccionGarante = txtDireccionGarante.getText().trim();
+            telefonoGarante = txtTelefonoGarante.getText().trim().toUpperCase();
+            direccionGarante = txtDireccionGarante.getText().trim().toUpperCase();
             fechaInicio = LocalDate.parse(txtFInicio.getText().trim(), formato);
             fechaFin = LocalDate.parse(txtFFin.getText().trim(), formato);
             direccion = (String) cmbInmuebles.getSelectedItem();

@@ -12,7 +12,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -147,12 +146,7 @@ public class ContratoServicio {
             dest = destino;
 
             String mesesLetras = Globales.convertirNumeroALetras(Integer.parseInt(diferenciaEnMeses));
-
             for (XWPFParagraph paragraph : document.getParagraphs()) {
-                // Clona el párrafo original
-                XWPFParagraph newParagraph = document.createParagraph();
-                newParagraph.getCTP().setPPr(paragraph.getCTP().getPPr());
-
                 StringBuilder paragraphText = new StringBuilder();
 
                 for (XWPFRun run : paragraph.getRuns()) {
@@ -165,9 +159,8 @@ public class ContratoServicio {
                 String text = paragraphText.toString().trim();
                 System.out.println(text);
 
-                // Reemplaza "null" por guiones solo en líneas vacías
-                if (text.isEmpty()) {
-                    text = "-";
+                if (text.isEmpty() && paragraph.getRuns().isEmpty()) {
+
                 } else {
                     text = reemplazarEtiquetas(text, nombreInquilino, cuitInquilino, telefonoInquilino,
                             dest, direccionInmueble, diferenciaEnMeses, diaInicio, mesInicio,
@@ -175,18 +168,22 @@ public class ContratoServicio {
                             cuitGarante, direccionGarante, telefonoGarante, hInqr,
                             hGarr, gen, ggen, ggen2, art, gart, dest, mesesLetras, diaFirma, mesFirma, anioFirma
                     );
+
                 }
 
-                // Elimina todo el contenido del párrafo original
                 for (int i = paragraph.getRuns().size() - 1; i >= 0; i--) {
                     paragraph.removeRun(i);
                 }
 
-                // Agrega el nuevo contenido al párrafo original
-                XWPFRun newRun = newParagraph.createRun();
+                XWPFRun newRun = paragraph.createRun();
                 newRun.setText(text, 0);
-            }
 
+                // Copia el estilo del run original al nuevo run
+                if (!paragraph.getRuns().isEmpty()) {
+                    newRun.getCTR().set(paragraph.getRuns().get(0).getCTR().copy());
+
+                }
+            }
             // Guardar el documento modificado en formato Word
             String filePathModificado = documentosDir + "\\Contratos\\" + "Contrato " + nombreInquilino + " " + diaInicio + "-" + mesInicio + "-" + anioInicio + ".docx";
             FileOutputStream fos = new FileOutputStream(filePathModificado);
