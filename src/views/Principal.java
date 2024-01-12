@@ -6,14 +6,8 @@ package views;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -22,19 +16,17 @@ import javax.swing.Timer;
 import models.Contrato;
 
 
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import servicios.BajaServicio;
 import servicios.ContratoServicio;
 import servicios.Globales;
 import servicios.NTPTimeService;
-import org.apache.poi.xwpf.usermodel.XWPFRun;
 
 public class Principal extends javax.swing.JFrame {
 
     ContratoServicio contServ = new ContratoServicio();
     List<Contrato> contratosPorVencer = new ArrayList<>();
     List<Contrato> contratosParaBaja = new ArrayList<>();
+    List<Contrato> contratosParaAct = new ArrayList<>();
     BajaServicio bajaServ = new BajaServicio();
     String ntpServer = "time.google.com";
    
@@ -60,16 +52,19 @@ public class Principal extends javax.swing.JFrame {
 
         lblFecha.setText("Fecha: " + fechaSincronizada);
 
-        Timer timer = new Timer(30000, new ActionListener() {
-
+        Timer timer;
+        timer = new Timer(30000, new ActionListener() {
+            
             public void actionPerformed(ActionEvent e) {
                 LocalDate fechaSincronizada = timeService.obtenerFechaSincronizada();
                 List<Contrato> contratosVigentes = contServ.buscarVigentes(fechaSincronizada);
                 contratosPorVencer.clear();
                 contratosParaBaja = contServ.buscarVencidos(fechaSincronizada);
+                lblFecha.setText("Fecha: " + fechaSincronizada);
                 for (Contrato cont : contratosParaBaja) {
                     cont.setAlta(false);
-
+                    
+                    
                     try {
                         contServ.editarContrato(cont);
                         bajaServ.guardar(cont, fechaSincronizada);
@@ -82,14 +77,35 @@ public class Principal extends javax.swing.JFrame {
                 }
                 for (Contrato contrato : contratosVigentes) {
                     long diferenciaEnDias = contrato.getFechaFin().toEpochDay() - fechaSincronizada.toEpochDay();
+                    long mesesContrato = contrato.getFechaFin().toEpochDay()-contrato.getFechaInicio().toEpochDay();
+                    long actDisponiblesTotales=(mesesContrato/contrato.getIndexacionMeses())-1;
+                    LocalDate[] fechasActualizaciones = new LocalDate[(int)actDisponiblesTotales];
+                    LocalDate fecha=contrato.getFechaInicio();
+                    for(int i=0;i<fechasActualizaciones.length;i++){
+                    
+                    fecha=fecha.plusMonths(contrato.getIndexacionMeses());
+                    fechasActualizaciones[i]=fecha;
+                    
+                    }
                     if (diferenciaEnDias <= 30) {
                         contratosPorVencer.add(contrato);
                     }
                 }
+                
 
-                lblFecha.setText("Fecha: " + fechaSincronizada);
-
+                
+                
+                
+                
+                
                 if (contratosPorVencer.isEmpty()) {
+                    lblNoti.setVisible(false);
+                    lblNoNoti.setVisible(true);
+                } else {
+                    lblNoti.setVisible(true);
+                    lblNoNoti.setVisible(false);
+                }
+                if (contratosParaAct.isEmpty()) {
                     lblNoti.setVisible(false);
                     lblNoNoti.setVisible(true);
                 } else {
