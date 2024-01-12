@@ -25,9 +25,9 @@ public class NotiPage extends javax.swing.JPanel {
     ContratoServicio contServ = new ContratoServicio();
     DefaultTableModel dtm = new DefaultTableModel();
 
-    public NotiPage(List<Contrato> contratosPorVencer,LocalDate fechaSincronizada) {
+    public NotiPage(List<Contrato> contratosPorVencer,List<Contrato> contratosPorActualizar,LocalDate fechaSincronizada,LocalDate fechaActualizacionSuperada) {
         initComponents();
-        String[] titulos = new String[]{"ID", "INM", "I.ACTUAL", "F. FIN", "VENCE"};
+        String[] titulos = new String[]{"ID", "INM", "I.ACTUAL", "ACTUALIZAR", "VENCE"};
         dtm.setColumnIdentifiers(titulos);
 
         tblContInq.setModel(dtm);
@@ -44,7 +44,13 @@ public class NotiPage extends javax.swing.JPanel {
             long diferenciaEnDias = cont.getFechaFin().toEpochDay() - fechaSincronizada.toEpochDay();
             
             dtm.addRow(new Object[]{cont.getId(), cont.getInmueble().getDireccion(),
-                "$ " + formato.format(BigDecimal.valueOf(cont.getMontoAlquiler())), cont.getFechaFin(), "En "+diferenciaEnDias+" dias"});
+                "$ " + formato.format(BigDecimal.valueOf(cont.getMontoAlquiler())), "-", "En "+diferenciaEnDias+" dias"});
+        }
+         for (Contrato cont : contratosPorActualizar) {
+            long diferenciaEnDiasA = fechaActualizacionSuperada.toEpochDay() - fechaSincronizada.toEpochDay();
+            
+            dtm.addRow(new Object[]{cont.getId(), cont.getInmueble().getDireccion(),
+                "$ " + formato.format(BigDecimal.valueOf(cont.getMontoAlquiler())),"En "+diferenciaEnDiasA+" dias" , "-"});
         }
 
     }
@@ -80,7 +86,7 @@ public class NotiPage extends javax.swing.JPanel {
         lblInqTitle.setFont(new java.awt.Font("Roboto", 0, 24)); // NOI18N
         lblInqTitle.setForeground(new java.awt.Color(204, 0, 0));
         lblInqTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblInqTitle.setText("PROXIMOS VENCIMIENTOS");
+        lblInqTitle.setText("VENCIMIENTO Y ACTUALIZACIONES");
         contentPI.add(lblInqTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 460, 30));
 
         tblContInq.setModel(new javax.swing.table.DefaultTableModel(

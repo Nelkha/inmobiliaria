@@ -7,7 +7,6 @@ package views;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -26,6 +25,7 @@ public class Principal extends javax.swing.JFrame {
     List<Contrato> contratosPorVencer = new ArrayList<>();
     List<Contrato> contratosParaBaja = new ArrayList<>();
     List<Contrato> contratosParaAct = new ArrayList<>();
+    LocalDate fechaActualizacionSuperada = null;
     BajaServicio bajaServ = new BajaServicio();
     String ntpServer = "time.google.com";
 
@@ -59,6 +59,7 @@ public class Principal extends javax.swing.JFrame {
                 contratosPorVencer.clear();
                 contratosParaBaja = contServ.buscarVencidos(fechaSincronizada);
                 lblFecha.setText("Fecha: " + fechaSincronizada);
+                
                 for (Contrato cont : contratosParaBaja) {
                     cont.setAlta(false);
 
@@ -76,37 +77,40 @@ public class Principal extends javax.swing.JFrame {
                     long diferenciaEnDias = contrato.getFechaFin().toEpochDay() - fechaSincronizada.toEpochDay();
                     long mesesContrato = contrato.getFechaFin().toEpochDay() - contrato.getFechaInicio().toEpochDay();
                     long actDisponiblesTotales = (mesesContrato / contrato.getIndexacionMeses()) - 1;
+                    int indiceFechaActualizacion = contrato.getImportesAlquiler().size() - 1;
+                    boolean notificarContrato = false;
                     LocalDate[] fechasActualizaciones = new LocalDate[(int) actDisponiblesTotales];
                     LocalDate fecha = contrato.getFechaInicio();
                     for (int i = 0; i < fechasActualizaciones.length; i++) {
                         fecha = fecha.plusMonths(contrato.getIndexacionMeses());
                         fechasActualizaciones[i] = fecha;
-                       
                     }
-                    boolean notificarContrato = false;
-                    for (LocalDate fechaActualizacion : fechasActualizaciones) {
-                        if (fechaActualizacion.isAfter(fechaSincronizada) && fechaActualizacion.isBefore(fechaSincronizada.plusDays(30))) {
-                            System.out.println(fechaActualizacion);
-                            notificarContrato = true;
-                            break;
-                        }
 
+                    if (fechasActualizaciones[indiceFechaActualizacion].isBefore(fechaSincronizada)) {
+                        notificarContrato = true;
+                        fechaActualizacionSuperada = fechasActualizaciones[indiceFechaActualizacion];
+                       
+                    } else if (fechasActualizaciones[indiceFechaActualizacion].isAfter(fechaSincronizada)
+                            && fechasActualizaciones[indiceFechaActualizacion].toEpochDay() - fechaSincronizada.toEpochDay() <= 30) {
+                        notificarContrato = true;
+                       fechaActualizacionSuperada = fechasActualizaciones[indiceFechaActualizacion];
                     }
+
                     if (diferenciaEnDias <= 30) {
                         contratosPorVencer.add(contrato);
                     } else if (notificarContrato) {
-                        contratosPorVencer.add(contrato);
+                        contratosParaAct.add(contrato);
                     }
                 }
 
-                if (contratosPorVencer.isEmpty()) {
+                if (contratosPorVencer.isEmpty() && contratosParaAct.isEmpty()) {
                     lblNoti.setVisible(false);
                     lblNoNoti.setVisible(true);
                 } else {
                     lblNoti.setVisible(true);
                     lblNoNoti.setVisible(false);
                 }
-                
+
             }
         });
         timer.getActionListeners()[0].actionPerformed(null);
@@ -419,7 +423,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void lblNotiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblNotiMouseClicked
         if (contratosPorVencer != null) {
-            NotiPage notiPage = new NotiPage(contratosPorVencer, fechaSincronizada);
+            NotiPage notiPage = new NotiPage(contratosPorVencer,contratosParaAct, fechaSincronizada,fechaActualizacionSuperada);
             notiPage.setSize(490, 480);
             notiPage.setLocation(0, 0);
 

@@ -31,7 +31,7 @@ import static servicios.Globales.vaciarFocus;
 public class ContratoForm extends javax.swing.JPanel {
 
     private static final String RUTA_CONTRATO_BASE = "src/docs/modelo.docx";
-   LocalDate fechaSincro;
+    LocalDate fechaSincro;
     InmuebleServicio inmServ = new InmuebleServicio();
     InquilinoServicio inqServ = new InquilinoServicio();
     GaranteServicio garanteServ = new GaranteServicio();
@@ -40,7 +40,7 @@ public class ContratoForm extends javax.swing.JPanel {
     public ContratoForm(LocalDate fechaSincronizada) throws ParseException {
         initComponents();
         llenarComboBox();
-        fechaSincro=fechaSincronizada;
+        fechaSincro = fechaSincronizada;
         comportamientoTextField(txtCuit, "CUIT");
         comportamientoTextField(txtNombre, "NOMBRE");
         comportamientoTextField(txtApellido, "APELLIDO");
@@ -497,7 +497,7 @@ public class ContratoForm extends javax.swing.JPanel {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
 
         try {
-            String cuit, nombre, apellido, telefono, direccion, cuitGarante, nombreGarante, apellidoGarante, telefonoGarante, direccionGarante,destino, hInq, hGar;
+            String cuit, nombre, apellido, telefono, direccion, cuitGarante, nombreGarante, apellidoGarante, telefonoGarante, direccionGarante, destino, hInq, hGar;
             LocalDate fechaInicio, fechaFin;
             DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
@@ -578,10 +578,10 @@ public class ContratoForm extends javax.swing.JPanel {
             }
             hInq = srInq.isSelected() ? "SR." : (sraInq.isSelected() ? "SRA." : "");
             hGar = srGar.isSelected() ? "SR." : (sraGar.isSelected() ? "SRA." : "");
-            destino=cCasa.isSelected()? "CASA HABITACIÓN":(cLocal.isSelected()?"LOCAL COMERCIAL":"");
+            destino = cCasa.isSelected() ? "CASA HABITACIÓN" : (cLocal.isSelected() ? "LOCAL COMERCIAL" : "");
             Inquilino inquilinoTemp = new Inquilino(cuit, nombre, apellido, telefono);
             Inquilino inquilino = inqServ.guardar(inquilinoTemp);
-            Garante garanteTemp = new Garante(cuitGarante, nombreGarante, apellidoGarante,direccionGarante,telefonoGarante);
+            Garante garanteTemp = new Garante(cuitGarante, nombreGarante, apellidoGarante, direccionGarante, telefonoGarante);
             Garante garante = garanteServ.guardar(garanteTemp);
             List<Double> importesContrato = new ArrayList<>();
             importesContrato.add(valorInicial);
@@ -601,7 +601,14 @@ public class ContratoForm extends javax.swing.JPanel {
                 txtCuit.setText("CUIT");
                 txtTelefono.setText("TELEFONO");
                 txtMontoInicial.setText("VALOR INICIAL");
-                contratoServ.generarContrato(RUTA_CONTRATO_BASE,contrato,destino,hInq,hGar,fechaSincro);
+                txtNombreGarante.setText("NOMBRE");
+                txtApellidoGarante.setText("APELLIDO");
+                txtDireccionGarante.setText("DIRECCION");
+                txtTelefonoGarante.setText("TELEFONO");
+                txtCuitGarante.setText("CUIT");
+                txtFInicio.setText("00-00-0000");
+                txtFFin.setText("00-00-0000");
+                contratoServ.generarContrato(RUTA_CONTRATO_BASE, contrato, destino, hInq, hGar, fechaSincro);
             } else {
                 lblMensaje.setText("El Contrato no se ha guardado, intentelo nuevamente");
             }
