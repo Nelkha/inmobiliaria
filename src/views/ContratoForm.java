@@ -30,7 +30,7 @@ import static servicios.Globales.vaciarFocus;
  */
 public class ContratoForm extends javax.swing.JPanel {
 
-    private static final String RUTA_CONTRATO_BASE = "src/docs/modelo.docx";
+    private static final String RUTA_CONTRATO_BASE = "C:\\SGI\\template\\modelo.docx";
     LocalDate fechaSincro;
     InmuebleServicio inmServ = new InmuebleServicio();
     InquilinoServicio inqServ = new InquilinoServicio();
